@@ -1,0 +1,292 @@
+#include<iostream>
+#include<regex>
+
+void stringSplit(const std::string& str, const std::string& split, std::vector<std::string>& res){
+	char* strc = new char[str.size() + 1];
+	strcpy(strc, str.c_str());
+	char* temp = std::strtok(strc, split.c_str());
+	while (temp != NULL){
+		res.push_back(std::string(temp));		
+		temp = std::strtok(NULL, split.c_str());
+	}
+	delete[] strc;
+}
+std::string numToHai(int t){
+	int num,isR=0;
+	std::string color;
+	std::string ret;
+	if(t<0||t>=136)throw std::runtime_error("Cannot find corresponding hai from tehai");
+	if(t==16||t==52||t==88) isR=1;
+	t/=4;
+	
+	if(t<9) color='m';
+	else if(t<18) color='p';
+	else if(t<27) color='s';
+	else color='z';
+	
+	num=t%9; num++;
+	
+	if(isR) ret+="0";
+	else ret+=(char(num+'0'));
+	ret+=color;
+	
+	return ret;
+}
+std::vector<std::string> matchAll (const std::string&str){
+	
+	std::regex pattern ("<(.*?)/>");
+	std::smatch matchret;
+	std::vector<std::string> ret;
+	
+	std::string::const_iterator itS = str.begin();
+	std::string::const_iterator itE = str.end(); 
+	
+	while(regex_search(itS, itE, matchret, pattern)){
+		ret.push_back(matchret[1]);
+		itS=matchret[0].second;
+	}
+	
+    return ret;
+}
+std::string act_RYUUKYOKU(const std::string&str){
+	std::regex pattern ("RYUUKYOKU (.*?)");
+	std::smatch matchret;
+	if(!regex_search(str, matchret, pattern)) throw std::runtime_error("Error in RYUUKYOKU");
+	return "{\"type\":\"ryuukyoku\"}";
+}
+std::string act_DORA(const std::string&str){
+	std::regex pattern ("DORA hai=\"(.*?)\"");
+	std::smatch matchret;
+	if(!regex_search(str, matchret, pattern)) throw std::runtime_error("Error in DORA");
+	std::string ret = matchret[1];
+	std::string hai = numToHai(std::atoi(ret.c_str()));
+	return "{\"dora_marker\":\"" + hai + "\",\"type\":\"dora\"}";
+}
+std::string act_DAHAI(const std::string&str){
+	char tag=str[0];
+	std::string num=str.substr(1, str.length());
+		
+	std::string hai,actor;
+	switch(tag){
+		case 'D':
+			actor="0"; break;
+		case 'E':
+			actor="1"; break;
+		case 'F':
+			actor="2"; break;
+		case 'G':
+			actor="3"; break;
+		default:
+			throw std::runtime_error("Wrong tag for DAHAI");
+	}
+	hai = numToHai(std::atoi(num.c_str()));
+	return "{\"actor\":" + actor + ",\"pai\":\"" + hai + "\",\"type\":\"dahai\"}";
+}
+std::string act_TSUMO(const std::string&str){
+	char tag=str[0];
+	std::string num=str.substr(1, str.length());
+		
+	std::string hai,actor;
+	switch(tag){
+		case 'T':
+			actor="0"; break;
+		case 'U':
+			actor="1"; break;
+		case 'V':
+			actor="2"; break;
+		case 'W':
+			actor="3"; break;
+		default:
+			throw std::runtime_error("Wrong tag for TSUMO");
+	}
+	hai = numToHai(std::atoi(num.c_str()));
+	return "{\"actor\":" + actor + ",\"pai\":\"" + hai + "\",\"type\":\"tsumo\"}";
+}
+std::string act_INIT(const std::string&str){
+	
+	std::string bakaze, doraMarker, scores, tehais, honba, kyoku, kyotaku, oya;
+
+	std::regex seedPattern ("seed=\"(.*?)\"");
+	std::smatch seedMatch;
+	if(!regex_search(str, seedMatch, seedPattern)) throw std::runtime_error("Error in INITseed");
+	std::vector<std::string> seed;
+	stringSplit(seedMatch[1], ",", seed);
+	if(seed.size()!=6) throw std::runtime_error("Error in INITseed length");
+	
+	int nowKyu = atoi(seed[0].c_str());
+	if(nowKyu<4) bakaze = "E";
+	else if(nowKyu<8) bakaze = "S";
+	else bakaze = "W";
+	
+	kyoku = ((char)(nowKyu%4) + 1 + '0');
+	honba = seed[1];
+	kyotaku = seed[2];
+	doraMarker = numToHai(atoi(seed[5].c_str()));
+	
+	std::regex tenPattern ("ten=\"(.*?)\"");
+	std::smatch tenMatch;
+	if(!regex_search(str, tenMatch, tenPattern)) throw std::runtime_error("Error in INITten");
+	std::vector<std::string> ten;
+	stringSplit(tenMatch[1], ",", ten);
+	if(ten.size()!=4) throw std::runtime_error("Error in INITten length");
+	scores = "[" + ten[0] + "00," + ten[1] + "00," + ten[2] + "00," + ten[3] + "00]";
+	
+	std::regex oyaPattern ("oya=\"(.*?)\"");
+	std::smatch oyaMatch;
+	if(!regex_search(str, oyaMatch, oyaPattern)) throw std::runtime_error("Error in INIToya");
+	oya = oyaMatch[1];
+	
+	tehais = "[";
+	for(int i=0;i<4;i++){
+		tehais += "[";
+		std::regex tehaisPattern ("hai" + std::to_string(i) + "=\"(.*?)\"");
+		std::smatch tehaisMatch;
+		if(!regex_search(str, tehaisMatch, tehaisPattern)) throw std::runtime_error("Error in INITtehais");
+		std::vector<std::string> Tehais;
+		stringSplit(tehaisMatch[1], ",", Tehais);
+		if(Tehais.size()!=13) throw std::runtime_error("Error in INITtehais length");
+		for(int j=0;j<12;j++) tehais += "\"" + numToHai(atoi(Tehais[j].c_str())) + "\"," ;
+		tehais += numToHai(atoi(Tehais[12].c_str()));
+		tehais += "]";
+		if(i!=3) tehais += ",";
+	}
+	tehais += "]" ;
+	return "{\"bakaze\":\"" + bakaze + "\",\"dora_marker\":\"" + doraMarker + "\",\"honba\":" + honba + ",\"kyoku\":" + kyoku + ",\"kyotaku\":" + kyotaku + ",\"oya\":" + oya + ",\"scores\":" + scores + ",\"tehais\":" + tehais + ",\"type\":\"start_kyoku\"}";
+}
+std::string act_NAKI(const std::string&str){
+	int actor, nakiRaw; 
+	std::regex whoPattern ("who=\"(.*?)\"");
+	std::smatch whoMatch;
+	if(!regex_search(str, whoMatch, whoPattern)) throw std::runtime_error("Error in NAKIwho");
+	actor = atoi(((std::string)whoMatch[1]).c_str());
+	
+	std::regex nakiPattern ("m=\"(.*?)\"");
+	std::smatch nakiMatch;
+	if(!regex_search(str, nakiMatch, nakiPattern)) throw std::runtime_error("Error in NAKIm");
+	nakiRaw = atoi(((std::string)nakiMatch[1]).c_str());
+	std::string ret;
+	if(nakiRaw&(1<<2)){				//chii
+		int block1=nakiRaw>>10;
+		int called=block1%3,base=block1/3;
+		base+=2*(base/7);
+		base*=4;
+		int target=(actor+3)%4;
+		int tileDetail[3]={(nakiRaw>>3)&3,(nakiRaw>>5)&3,(nakiRaw>>7)&3};
+		int cnt=0,consumed[2];
+		for(int i=0;i<3;i++){
+			if(called==i){
+				continue;
+			}
+			consumed[cnt++]=tileDetail[i]+4*i+base;
+		}
+		ret+="{\"actor\":" + std::to_string(actor) + ",\"consumed\":[\"" + numToHai(consumed[0]) + "\",\"" + numToHai(consumed[1]) + "\"],";
+		ret+="\"pai\":\"" + numToHai(tileDetail[called]+called*4+base) + "\",";
+		ret+="\"target\":" + std::to_string(target) + ",\"type\":\"chi\"}";
+	}else if(nakiRaw&(3<<3)){		//pon or shouminkan
+		int block1=nakiRaw>>9;
+		int called=block1%3,base=block1/3;
+		base*=4;
+		int tile4th=(nakiRaw>>5)&3;
+		int targetRelative=nakiRaw&3;
+		int target=(actor+targetRelative)%4;
+		int cntp=0,ponTile[3],cntc=0,consumed[2];
+		for(int i=0;i<4;i++){
+			if(tile4th==i){
+				continue;
+			}
+			ponTile[cntp++]=i+base;
+		}
+		for(int i=0;i<3;i++){
+			if(called==i){
+				continue;
+			}
+			consumed[cntc++]=ponTile[i];
+		}
+		if((nakiRaw>>3)&1){		//pon
+			ret+="{\"actor\":" + std::to_string(actor) + ",\"consumed\":[\"" + numToHai(consumed[0]) + "\",\"" + numToHai(consumed[1]) + "\"],";
+			ret+="\"pai\":\"" + numToHai(ponTile[called]) + "\",";
+			ret+="\"target\":" + std::to_string(target) + ",\"type\":\"pon\"}";
+		}else{					//kakan
+			ret+="{\"actor\":" + std::to_string(actor) + ",\"consumed\":[\"" + numToHai(ponTile[0]) + "\",\"" + numToHai(ponTile[1]) + "\",\"" + numToHai(ponTile[2]) + "\"],";
+			ret+="\"pai\":\"" + numToHai(tile4th+base) + "\",";
+			ret+="\"target\":" + std::to_string(target) + ",\"type\":\"kakan\"}";
+		}
+	}else{							//daiminkan or ankan
+		int block1=nakiRaw>>8;
+		int called=block1%4,base=block1/4;
+		base*=4;
+		int targetRelative=nakiRaw&3;
+		int target=(actor+targetRelative)%4;
+		int cnt=0,consumed[3];
+		for(int i=0;i<4;i++){
+			if(called==i){
+				continue;
+			}
+			consumed[cnt++]=i+base;
+		}
+		if(target==actor){			//ankan
+			ret+="{\"actor\":" + std::to_string(actor) + ",\"consumed\":[\"" + numToHai(base) + "\",\"" + numToHai(base+1) + "\",\"" + numToHai(base+2) + "\",\"" + numToHai(base+3) + "\"],";
+			ret+="\"pai\":\"" + numToHai(called+base) + "\",";
+			ret+="\"target\":" + std::to_string(target) + ",\"type\":\"ankan\"}";
+		}else{						//daiminkan
+			ret+="{\"actor\":" + std::to_string(actor) + ",\"consumed\":[\"" + numToHai(consumed[0]) + "\",\"" + numToHai(consumed[1]) + "\",\"" + numToHai(consumed[2]) + "\"],";
+			ret+="\"pai\":\"" + numToHai(called+base) + "\",";
+			ret+="\"target\":" + std::to_string(target) + ",\"type\":\"daiminkan\"}";
+		}
+	}
+	return ret;
+}
+std::string act_REACH(const std::string&str){
+	std::string who, type ,ret;
+	std::regex whoPattern ("who=\"(.*?)\"");
+	std::smatch whoMatch;
+	if(!regex_search(str, whoMatch, whoPattern)) throw std::runtime_error("Error in REACHwho");
+	who = whoMatch[1];
+
+	std::regex typePattern ("step=\"(.*?)\"");
+	std::smatch typeMatch;
+	if(!regex_search(str, typeMatch, typePattern)) throw std::runtime_error("Error in REACHtype");
+	type = typeMatch[1];
+	
+	ret = "{\"actor\":" + who + ",\"type\":\"";
+	if(type=="1") ret += "reach";
+	else if(type=="2")ret += "reach_accepted";
+	else throw std::runtime_error("Error in REACHtype");
+	ret += "\"}";
+	return ret;
+}
+std::string act_AGARI(const std::string&str){
+	return "";
+}
+std::string act_ALL(const std::string&str){
+	std::regex Pattern ("[A-Z]*");
+	std::smatch Match;
+	if(!regex_search(str, Match, Pattern)) throw std::runtime_error("Error in getTAG");
+	std::string tag=Match[0];
+	if(tag=="D" || tag=="E" || tag=="F" || tag=="G") return act_DAHAI(str);
+	if(tag=="T" || tag=="U" || tag=="V" || tag=="W") return act_TSUMO(str);
+	if(tag=="INIT")	return act_INIT(str);
+	if(tag=="N") return act_NAKI(str);
+	if(tag=="DORA") return act_DORA(str);
+	if(tag=="RYUUKYOKU") return act_RYUUKYOKU(str);	
+	if(tag=="REACH") return act_REACH(str);
+	if(tag=="AGARI") return act_AGARI(str);
+	else return "";
+}
+int main(){
+	std::ios::sync_with_stdio(false);
+    std::cin.tie(0);
+	for(int i=1000;i<=5000;i++){
+		if(i%10==0) std::cerr<<i<<std::endl;
+		std::string filename = "0" + std::to_string(i);
+		freopen(filename.c_str(),"r",stdin);
+		freopen((filename+".out").c_str(),"w",stdout);
+		std::string t;
+		getline(std::cin,t);
+		std::vector<std::string> V = matchAll(t);
+		for(auto i:V) std::cout<<act_ALL(i)<<std::endl;
+		fclose(stdin); fclose(stdout);
+		std::cin.clear(); std::cout.clear();
+	}
+	
+}
