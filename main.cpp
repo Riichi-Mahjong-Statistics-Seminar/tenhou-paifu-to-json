@@ -34,7 +34,7 @@ std::string numToHai(int t){
 }
 
 std::vector<std::pair<int, std::string> > Out;
-		
+        
 std::vector<std::string> matchAll (const std::string&str){
     
     std::regex pattern ("<(.*?)/>");
@@ -269,9 +269,9 @@ std::string act_REACH(const std::string&str){
     return ret;
 }
 std::string act_AGARI(const std::string&str){
-	std::string actor, fromwho, ret;
-	
-	std::regex whoPattern ("who=\"(.*?)\"");
+    std::string actor, fromwho, ret;
+    
+    std::regex whoPattern ("who=\"(.*?)\"");
     std::smatch whoMatch;
     if(!regex_search(str, whoMatch, whoPattern)) throw std::runtime_error("Error in AGARIwho");
     actor = whoMatch[1];
@@ -313,25 +313,15 @@ NULL -114514
 int main(){
     std::ios::sync_with_stdio(false);
     std::cin.tie(0);
-    for(int i=1010;i<=1010;i++){
-        if(i%10==0) std::cerr<<i<<std::endl;
-        std::string filename = "0" + std::to_string(i);
-        freopen(filename.c_str(),"r",stdin);
-        freopen((filename+".out").c_str(),"w",stdout);
-        std::string t;
-        getline(std::cin,t);
-        std::vector<std::string> V = matchAll(t);
-        for(auto i:V) {
-			std::pair<int, std::string> temp = act_ALL(i);
-			if(temp.first!=-114514) Out.push_back(temp);
-		}
-		for(int i=0;i<Out.size();i++){
-			std::cout<<Out[i].second;
-			if(i!=Out.size()-1) std::cout<<",";
-			std::cout<<std::endl;
-		}
-        fclose(stdin); fclose(stdout);
-        std::cin.clear(); std::cout.clear();
+    std::string t; getline(std::cin,t);
+    std::vector<std::string> V = matchAll(t);
+    for(auto i:V) {
+        std::pair<int, std::string> temp = act_ALL(i);
+        if(temp.first!=-114514) Out.push_back(temp);
     }
-    
+    for(int i=0;i<Out.size();i++){
+        std::cout<<Out[i].second;
+        if(i!=Out.size()-1) std::cout<<",";
+        std::cout<<std::endl;
+    }  
 }
