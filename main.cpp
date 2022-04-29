@@ -159,7 +159,7 @@ std::string act_INIT(const std::string&str){
         stringSplit(tehaisMatch[1], ",", Tehais);
         if(Tehais.size()!=13) throw std::runtime_error("Error in INITtehais length");
         for(int j=0;j<12;j++) tehais += "\"" + numToHai(atoi(Tehais[j].c_str())) + "\"," ;
-        tehais += numToHai(atoi(Tehais[12].c_str()));
+        tehais += "\"" + numToHai(atoi(Tehais[12].c_str())) + "\""; 
         tehais += "]";
         if(i!=3) tehais += ",";
     }
