@@ -32,6 +32,9 @@ std::string numToHai(int t){
     
     return ret;
 }
+
+std::vector<std::pair<int, std::string> > Out;
+		
 std::vector<std::string> matchAll (const std::string&str){
     
     std::regex pattern ("<(.*?)/>");
@@ -62,11 +65,17 @@ std::string act_DORA(const std::string&str){
     std::string hai = numToHai(std::atoi(ret.c_str()));
     return "{\"dora_marker\":\"" + hai + "\",\"type\":\"dora\"}";
 }
-std::string act_DAHAI(const std::string&str){
+std::pair<int, std::string> act_DAHAI(const std::string&str){
     char tag=str[0];
     std::string num=str.substr(1, str.length());
+    
+    int Lst = 0;
+    std::pair<int, std::string> askWho = Out.back();
+    if(askWho.first == 1004 || askWho.first == 1002) askWho = Out[Out.size()-2]; //Reach or Dora
+    if(askWho.first>0) Lst = -1;
+    else Lst = - askWho.first;
         
-    std::string hai,actor;
+    std::string hai,actor,tsumogiri;
     switch(tag){
         case 'D':
             actor="0"; break;
@@ -79,13 +88,16 @@ std::string act_DAHAI(const std::string&str){
         default:
             throw std::runtime_error("Wrong tag for DAHAI");
     }
-    hai = numToHai(std::atoi(num.c_str()));
-    return "{\"actor\":" + actor + ",\"pai\":\"" + hai + "\",\"type\":\"dahai\"}";
+    int numhai = std::atoi(num.c_str());
+    hai = numToHai(numhai);
+    if(numhai == Lst) tsumogiri = "true";
+    else tsumogiri = "false";
+    return std::make_pair(numhai, "{\"actor\":" + actor + ",\"pai\":\"" + hai + "\",\"type\":\"dahai\",\"tsumogiri\"=\"" + tsumogiri + "\"}");
 }
-std::string act_TSUMO(const std::string&str){
-    char tag=str[0];
-    std::string num=str.substr(1, str.length());
-        
+std::pair<int, std::string> act_TSUMO(const std::string&str){
+    char tag = str[0];
+    std::string num = str.substr(1, str.length());
+    
     std::string hai,actor;
     switch(tag){
         case 'T':
@@ -99,8 +111,9 @@ std::string act_TSUMO(const std::string&str){
         default:
             throw std::runtime_error("Wrong tag for TSUMO");
     }
-    hai = numToHai(std::atoi(num.c_str()));
-    return "{\"actor\":" + actor + ",\"pai\":\"" + hai + "\",\"type\":\"tsumo\"}";
+    int numhai = std::atoi(num.c_str());
+    hai = numToHai(numhai);
+    return make_pair(- numhai, "{\"actor\":" + actor + ",\"pai\":\"" + hai + "\",\"type\":\"tsumo\"}");
 }
 std::string act_INIT(const std::string&str){
     
@@ -256,27 +269,51 @@ std::string act_REACH(const std::string&str){
     return ret;
 }
 std::string act_AGARI(const std::string&str){
-    return "";
+	std::string actor, fromwho, ret;
+	
+	std::regex whoPattern ("who=\"(.*?)\"");
+    std::smatch whoMatch;
+    if(!regex_search(str, whoMatch, whoPattern)) throw std::runtime_error("Error in AGARIwho");
+    actor = whoMatch[1];
+    
+    std::regex fromwhoPattern ("fromWho=\"(.*?)\"");
+    std::smatch fromwhoMatch;
+    if(!regex_search(str, fromwhoMatch, fromwhoPattern)) throw std::runtime_error("Error in AGARIfromwho");
+    fromwho = fromwhoMatch[1];
+    
+    ret = "{\"actor\":" + actor + ",\"fromwho\":" + fromwho + ",\"type\":\"agari\"}";
+    return ret;
 }
-std::string act_ALL(const std::string&str){
+std::pair<int, std::string> act_ALL(const std::string&str){
     std::regex Pattern ("[A-Z]*");
     std::smatch Match;
     if(!regex_search(str, Match, Pattern)) throw std::runtime_error("Error in getTAG");
     std::string tag=Match[0];
     if(tag=="D" || tag=="E" || tag=="F" || tag=="G") return act_DAHAI(str);
     if(tag=="T" || tag=="U" || tag=="V" || tag=="W") return act_TSUMO(str);
-    if(tag=="INIT")    return act_INIT(str);
-    if(tag=="N") return act_NAKI(str);
-    if(tag=="DORA") return act_DORA(str);
-    if(tag=="RYUUKYOKU") return act_RYUUKYOKU(str);    
-    if(tag=="REACH") return act_REACH(str);
-    if(tag=="AGARI") return act_AGARI(str);
-    else return "";
+    if(tag=="INIT")    return std::make_pair(0, act_INIT(str));
+    if(tag=="N") return std::make_pair(1001, act_NAKI(str));
+    if(tag=="DORA") return std::make_pair(1002, act_DORA(str));
+    if(tag=="RYUUKYOKU") return std::make_pair(1003, act_RYUUKYOKU(str));    
+    if(tag=="REACH") return std::make_pair(1004, act_REACH(str));
+    if(tag=="AGARI") return std::make_pair(1005, act_AGARI(str));
+    else return std::make_pair(-114514,"");
 }
+/*
+INIT 0
+TSUMO [1,136]
+DAHAI [-136,-1]
+CONSUME 1001
+DORA 1002
+RYUUKYOKU 1003
+REACH 1004
+AGARI 1005
+NULL -114514
+*/
 int main(){
     std::ios::sync_with_stdio(false);
     std::cin.tie(0);
-    for(int i=1000;i<=5000;i++){
+    for(int i=1010;i<=1010;i++){
         if(i%10==0) std::cerr<<i<<std::endl;
         std::string filename = "0" + std::to_string(i);
         freopen(filename.c_str(),"r",stdin);
@@ -284,7 +321,15 @@ int main(){
         std::string t;
         getline(std::cin,t);
         std::vector<std::string> V = matchAll(t);
-        for(auto i:V) std::cout<<act_ALL(i)<<std::endl;
+        for(auto i:V) {
+			std::pair<int, std::string> temp = act_ALL(i);
+			if(temp.first!=-114514) Out.push_back(temp);
+		}
+		for(int i=0;i<Out.size();i++){
+			std::cout<<Out[i].second;
+			if(i!=Out.size()-1) std::cout<<",";
+			std::cout<<std::endl;
+		}
         fclose(stdin); fclose(stdout);
         std::cin.clear(); std::cout.clear();
     }
