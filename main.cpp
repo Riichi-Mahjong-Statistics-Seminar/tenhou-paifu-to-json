@@ -91,7 +91,7 @@ std::pair<int, std::string> act_DAHAI(const std::string&str){
     hai = numToHai(numhai);
     if(numhai == Lst) tsumogiri = "true";
     else tsumogiri = "false";
-    return std::make_pair(numhai, "{\"actor\":" + actor + ",\"pai\":\"" + hai + "\",\"type\":\"dahai\",\"tsumogiri\"=\"" + tsumogiri + "\"}");
+    return std::make_pair(numhai, "{\"actor\":" + actor + ",\"pai\":\"" + hai + "\",\"type\":\"dahai\",\"tsumogiri\":\"" + tsumogiri + "\"}");
 }
 std::pair<int, std::string> act_TSUMO(const std::string&str){
     char tag = str[0];
