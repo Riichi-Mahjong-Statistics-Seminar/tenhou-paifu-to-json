@@ -59,8 +59,8 @@ std::vector<std::string> matchAll (const std::string&str){
 std::string act_RYUUKYOKU(const std::string&str){
     return "{\"type\":\"ryuukyoku\"}";
 }
-std::string act_DORA(const std::string&str){	
-	std::string ret = matchXML(str, "hai", "Error in DORA");
+std::string act_DORA(const std::string&str){    
+    std::string ret = matchXML(str, "hai", "Error in DORA");
     std::string hai = numToHai(std::atoi(ret.c_str()));
     return "{\"dora_marker\":\"" + hai + "\",\"type\":\"dora\"}";
 }
@@ -118,7 +118,7 @@ std::string act_INIT(const std::string&str){
     
     std::string bakaze, doraMarker, scores, tehais, honba, kyoku, kyotaku, oya;
 
-	std::vector<std::string> seed;
+    std::vector<std::string> seed;
     std::string seedMatch = matchXML(str, "seed", "Error in INITseed");
     stringSplit(seedMatch, ",", seed);
     if(seed.size()!=6) throw std::runtime_error("Error in INITseed length");
@@ -242,7 +242,7 @@ std::string act_REACH(const std::string&str){
     std::string who, type ,ret;
     
     who = matchXML(str, "who", "Error in REACHwho");
-	type = matchXML(str, "step", "Error in REACHtype");
+    type = matchXML(str, "step", "Error in REACHtype");
     
     ret = "{\"actor\":" + who + ",\"type\":\"";
     if(type=="1") ret += "reach";
@@ -267,18 +267,18 @@ std::pair<int, std::string> act_ALL(const std::string&str){
     std::string tag=Match[0];
     if(tag=="D" || tag=="E" || tag=="F" || tag=="G") return act_DAHAI(str);
     if(tag=="T" || tag=="U" || tag=="V" || tag=="W") return act_TSUMO(str);
-    if(tag=="INIT")    return std::make_pair(0, act_INIT(str));
+    if(tag=="INIT") return std::make_pair(0, act_INIT(str));
     if(tag=="N") return std::make_pair(1001, act_NAKI(str));
     if(tag=="DORA") return std::make_pair(1002, act_DORA(str));
-    if(tag=="RYUUKYOKU") return std::make_pair(1003, act_RYUUKYOKU(str));    
+    if(tag=="RYUUKYOKU") return std::make_pair(1003, act_RYUUKYOKU(str));
     if(tag=="REACH") return std::make_pair(1004, act_REACH(str));
     if(tag=="AGARI") return std::make_pair(1005, act_AGARI(str));
     else return std::make_pair(-114514,"");
 }
 std::vector<std::string>  act_PRE(const std::string&str){
     std::string type, lobby, dan, rating, sex;
-	/* TODO (#1#): */
-	
+    /* TODO (#1#): */
+    
 }
 /*
 INIT 0
