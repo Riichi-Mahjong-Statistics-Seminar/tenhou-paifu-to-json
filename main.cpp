@@ -276,9 +276,36 @@ std::pair<int, std::string> act_ALL(const std::string&str){
     else return std::make_pair(-114514,"");
 }
 std::vector<std::string>  act_PRE(const std::string&str){
-    std::string type, lobby, dan, rating, sex;
-    /* TODO (#1#): */
+
+    std::string type, lobby, dan, rate;
+    std::vector<std::string> ret;
+
+    type = matchXML(str, "type", "Error in PREtype");
+    lobby = matchXML(str, "lobby", "Error in PRElobby");
+    dan = "[" + matchXML(str, "dan", "Error in PREdan") + "]";
+    rate = "[" + matchXML(str, "rate", "Error in PRErate") + "]";
+
+    ret.push_back("\"type\":" + type + ",");
+    ret.push_back("\"lobby\":" + lobby + ",");
+    ret.push_back("\"dan\":" + dan + ",");
+    ret.push_back("\"rate\":" + rate + ",");
     
+    return ret;
+}
+void output(std::vector<std::string> pre, std::vector<std::pair<int, std::string> > data){
+    if(pre.size()!=4) throw std::runtime_error("Error in pre length");
+
+    std::cout<<"{"<<std::endl;
+    for(auto i : pre) std::cout<<"    "<<i<<std::endl;
+    std::cout<<"    \"game\":["<<std::endl;
+    for(int i=0;i<data.size();i++){
+        std::cout<<"        ";
+        std::cout<<data[i].second;
+        if(i!=Out.size()-1) std::cout<<",";
+        std::cout<<std::endl;
+    }
+    std::cout<<"    ]"<<std::endl;
+    std::cout<<"}"<<std::endl;
 }
 /*
 INIT 0
@@ -300,9 +327,5 @@ int main(){
         std::pair<int, std::string> temp = act_ALL(i);
         if(temp.first!=-114514) Out.push_back(temp);
     }
-    for(int i=0;i<Out.size();i++){
-        std::cout<<Out[i].second;
-        if(i!=Out.size()-1) std::cout<<",";
-        std::cout<<std::endl;
-    }  
+    output(act_PRE(t), Out);
 }
