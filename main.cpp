@@ -34,7 +34,12 @@ std::string numToHai(int t){
 }
 
 std::vector<std::pair<int, std::string> > Out;
-        
+std::string matchXML(const std::string& str, const std::string& pattern, const std::string& errlog){
+    std::regex _pattern (pattern + "=\"(.*?)\"");
+    std::smatch _typeMatch;
+    if(!regex_search(str, _typeMatch, _pattern)) throw std::runtime_error(errlog);
+    return _typeMatch[1];
+}
 std::vector<std::string> matchAll (const std::string&str){
     
     std::regex pattern ("<(.*?)/>");
@@ -52,16 +57,10 @@ std::vector<std::string> matchAll (const std::string&str){
     return ret;
 }
 std::string act_RYUUKYOKU(const std::string&str){
-    std::regex pattern ("RYUUKYOKU (.*?)");
-    std::smatch matchret;
-    if(!regex_search(str, matchret, pattern)) throw std::runtime_error("Error in RYUUKYOKU");
     return "{\"type\":\"ryuukyoku\"}";
 }
-std::string act_DORA(const std::string&str){
-    std::regex pattern ("DORA hai=\"(.*?)\"");
-    std::smatch matchret;
-    if(!regex_search(str, matchret, pattern)) throw std::runtime_error("Error in DORA");
-    std::string ret = matchret[1];
+std::string act_DORA(const std::string&str){	
+	std::string ret = matchXML(str, "hai", "Error in DORA");
     std::string hai = numToHai(std::atoi(ret.c_str()));
     return "{\"dora_marker\":\"" + hai + "\",\"type\":\"dora\"}";
 }
@@ -119,11 +118,9 @@ std::string act_INIT(const std::string&str){
     
     std::string bakaze, doraMarker, scores, tehais, honba, kyoku, kyotaku, oya;
 
-    std::regex seedPattern ("seed=\"(.*?)\"");
-    std::smatch seedMatch;
-    if(!regex_search(str, seedMatch, seedPattern)) throw std::runtime_error("Error in INITseed");
-    std::vector<std::string> seed;
-    stringSplit(seedMatch[1], ",", seed);
+	std::vector<std::string> seed;
+    std::string seedMatch = matchXML(str, "seed", "Error in INITseed");
+    stringSplit(seedMatch, ",", seed);
     if(seed.size()!=6) throw std::runtime_error("Error in INITseed length");
     
     int nowKyu = atoi(seed[0].c_str());
@@ -136,30 +133,25 @@ std::string act_INIT(const std::string&str){
     kyotaku = seed[2];
     doraMarker = numToHai(atoi(seed[5].c_str()));
     
-    std::regex tenPattern ("ten=\"(.*?)\"");
-    std::smatch tenMatch;
-    if(!regex_search(str, tenMatch, tenPattern)) throw std::runtime_error("Error in INITten");
+    std::string tenMatch = matchXML(str, "ten", "Error in INITten");
     std::vector<std::string> ten;
-    stringSplit(tenMatch[1], ",", ten);
+    stringSplit(tenMatch, ",", ten);
     if(ten.size()!=4) throw std::runtime_error("Error in INITten length");
     scores = "[" + ten[0] + "00," + ten[1] + "00," + ten[2] + "00," + ten[3] + "00]";
     
-    std::regex oyaPattern ("oya=\"(.*?)\"");
-    std::smatch oyaMatch;
-    if(!regex_search(str, oyaMatch, oyaPattern)) throw std::runtime_error("Error in INIToya");
-    oya = oyaMatch[1];
+    oya = matchXML(str, "oya", "Error in INIToya");
     
     tehais = "[";
     for(int i=0;i<4;i++){
         tehais += "[";
-        std::regex tehaisPattern ("hai" + std::to_string(i) + "=\"(.*?)\"");
-        std::smatch tehaisMatch;
-        if(!regex_search(str, tehaisMatch, tehaisPattern)) throw std::runtime_error("Error in INITtehais");
-        std::vector<std::string> Tehais;
-        stringSplit(tehaisMatch[1], ",", Tehais);
-        if(Tehais.size()!=13) throw std::runtime_error("Error in INITtehais length");
-        for(int j=0;j<12;j++) tehais += "\"" + numToHai(atoi(Tehais[j].c_str())) + "\"," ;
-        tehais += "\"" + numToHai(atoi(Tehais[12].c_str())) + "\""; 
+        
+        std::vector<std::string> _tehais;
+        std::string tehaisMatch = matchXML(str, "hai" + std::to_string(i), "Error in INITtehais");
+        stringSplit(tehaisMatch, ",", _tehais);
+        
+        if(_tehais.size()!=13) throw std::runtime_error("Error in INITtehais length");
+        for(int j=0;j<12;j++) tehais += "\"" + numToHai(atoi(_tehais[j].c_str())) + "\"," ;
+        tehais += "\"" + numToHai(atoi(_tehais[12].c_str())) + "\""; 
         tehais += "]";
         if(i!=3) tehais += ",";
     }
@@ -168,15 +160,12 @@ std::string act_INIT(const std::string&str){
 }
 std::string act_NAKI(const std::string&str){
     int actor, nakiRaw; 
-    std::regex whoPattern ("who=\"(.*?)\"");
-    std::smatch whoMatch;
-    if(!regex_search(str, whoMatch, whoPattern)) throw std::runtime_error("Error in NAKIwho");
-    actor = atoi(((std::string)whoMatch[1]).c_str());
     
-    std::regex nakiPattern ("m=\"(.*?)\"");
-    std::smatch nakiMatch;
-    if(!regex_search(str, nakiMatch, nakiPattern)) throw std::runtime_error("Error in NAKIm");
-    nakiRaw = atoi(((std::string)nakiMatch[1]).c_str());
+    std::string whoMatch = matchXML(str, "who", "Error in NAKIwho");
+    actor = atoi(((std::string)whoMatch).c_str());
+    std::string nakiMatch = matchXML(str, "m", "Error in NAKIm");
+    nakiRaw = atoi(((std::string)nakiMatch).c_str());
+    
     std::string ret;
     if(nakiRaw&(1<<2)){                //chii
         int block1=nakiRaw>>10;
@@ -251,15 +240,9 @@ std::string act_NAKI(const std::string&str){
 }
 std::string act_REACH(const std::string&str){
     std::string who, type ,ret;
-    std::regex whoPattern ("who=\"(.*?)\"");
-    std::smatch whoMatch;
-    if(!regex_search(str, whoMatch, whoPattern)) throw std::runtime_error("Error in REACHwho");
-    who = whoMatch[1];
-
-    std::regex typePattern ("step=\"(.*?)\"");
-    std::smatch typeMatch;
-    if(!regex_search(str, typeMatch, typePattern)) throw std::runtime_error("Error in REACHtype");
-    type = typeMatch[1];
+    
+    who = matchXML(str, "who", "Error in REACHwho");
+	type = matchXML(str, "step", "Error in REACHtype");
     
     ret = "{\"actor\":" + who + ",\"type\":\"";
     if(type=="1") ret += "reach";
@@ -271,15 +254,8 @@ std::string act_REACH(const std::string&str){
 std::string act_AGARI(const std::string&str){
     std::string actor, fromwho, ret;
     
-    std::regex whoPattern ("who=\"(.*?)\"");
-    std::smatch whoMatch;
-    if(!regex_search(str, whoMatch, whoPattern)) throw std::runtime_error("Error in AGARIwho");
-    actor = whoMatch[1];
-    
-    std::regex fromwhoPattern ("fromWho=\"(.*?)\"");
-    std::smatch fromwhoMatch;
-    if(!regex_search(str, fromwhoMatch, fromwhoPattern)) throw std::runtime_error("Error in AGARIfromwho");
-    fromwho = fromwhoMatch[1];
+    actor = matchXML(str, "who", "Error in AGARIwho");
+    fromwho = matchXML(str, "fromWho", "Error in AGARIfromwho");
     
     ret = "{\"actor\":" + actor + ",\"fromwho\":" + fromwho + ",\"type\":\"agari\"}";
     return ret;
@@ -298,6 +274,11 @@ std::pair<int, std::string> act_ALL(const std::string&str){
     if(tag=="REACH") return std::make_pair(1004, act_REACH(str));
     if(tag=="AGARI") return std::make_pair(1005, act_AGARI(str));
     else return std::make_pair(-114514,"");
+}
+std::vector<std::string>  act_PRE(const std::string&str){
+    std::string type, lobby, dan, rating, sex;
+	/* TODO (#1#): */
+	
 }
 /*
 INIT 0
