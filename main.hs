@@ -22,6 +22,15 @@ findXMLtoInt str pattern = read (head (map (!!1) (str =~ (pattern ++ "=\"(.*?)\"
 findXML :: String -> String -> String
 findXML str pattern = head (map (!!1) (str =~ (pattern ++ "=\"(.*?)\"") :: [[String]]))
 
+_putJson :: [(String, String)] -> String
+_putJson [(str1, str2)] = "\"" ++ str1 ++ "\":" ++ str2
+_putJson ((str1, str2) : xs) = "\"" ++ str1 ++ "\":" ++ str2 ++ "," ++ (_putJson xs)
+
+putJson :: [(String, String)] -> String
+putJson x = "{" ++ _putJson x ++ "}"
+
+quote :: String -> String
+quote x = "\"" ++ x ++ "\""
 
 get_all :: String -> [[String]]
 get_all str = (str =~ "<(.*?)/>" :: [[String]])
@@ -33,10 +42,11 @@ get_tag :: String -> String
 get_tag str = head ( map (!!0) (str =~ "[A-Z]*" :: [[String]]))
 
 act_RYUUKYOKU :: String -> (Int, String)
-act_RYUUKYOKU str = (1003, "{\"type\":\"ryuukyoku\"}")
+act_RYUUKYOKU str = (1003, putJson [("type", quote "ryuukyoku")])
 
 act_DORA :: String -> (Int, String)
-act_DORA str = (1002, "{\"dora_marker\":\"" ++ numToHai (findXMLtoInt str "hai") ++ "\",\"type\":\"dora\"}")
+act_DORA str = (1002, putJson [("dora_marker", quote strHai), ("type", quote "dora")]) where
+    strHai = numToHai (findXMLtoInt str "hai")
 
 act_TSUMOGIRI :: Int -> Int -> Int -> Bool
 act_TSUMOGIRI now lst1 lst2 = lstnum == now where
@@ -57,7 +67,7 @@ act_DAHAI :: String -> Int -> Int -> (Int, String)
 act_DAHAI str lst1 lst2= (numHai, outstr) where
     numHai = read (num) :: Int where
         num = tail str
-    outstr = "{\"actor\":" ++ actor ++ ",\"pai\":\"" ++ hai ++ "\",\"type\":\"dahai\",\"tsumogiri\":\"" ++ tsumogiri ++ "\"}" where
+    outstr = putJson[("actor", actor), ("pai", quote hai), ("type", quote "dahai"), ("tsumogiri", quote tsumogiri)] where
         actor = show (get_actor (head str)) :: String
         hai = numToHai (numHai)
         tsumogiri = show (act_TSUMOGIRI numHai lst1 lst2) :: String
@@ -66,19 +76,19 @@ act_TSUMO :: String -> (Int, String)
 act_TSUMO str = (-numHai, outstr) where
     numHai = read (num) :: Int where
         num = tail str
-    outstr = "{\"actor\":" ++ actor ++ ",\"pai\":\"" ++ hai ++ "\",\"type\":\"tsumo\"}" where
+    outstr = putJson[("actor", actor), ("pai", quote hai), ("type", quote "tsumo")] where
         actor = show (get_actor (head str)) :: String
         hai = numToHai (numHai)
 
 act_REACH :: String -> (Int, String)
-act_REACH str = (1004, "{\"actor\":" ++ who ++ ",\"type\":\"" ++ typ ++ "\"}") where
+act_REACH str = (1004, putJson[("actor", who), ("type", quote typ)]) where
     who = findXML str "who"
     typ = (if typnum == 1 then "reach" else "reach_accepted") where
         typnum = findXMLtoInt str "step"
 
 act_AGARI :: String -> (Int, String)
-act_AGARI str = (1005, "{\"actor\":" ++ actor ++ ",\"fromwho\":" ++ fromwho ++ ",\"type\":\"agari\"}") where
-    actor = findXML str "who"
+act_AGARI str = (1005, putJson[("actor", who), ("fromwho", fromwho), ("type", quote "agari")]) where
+    who = findXML str "who"
     fromwho = findXML str "fromWho"
 
 act_ALL :: String -> [(Int, String)] -> [(Int, String)]
