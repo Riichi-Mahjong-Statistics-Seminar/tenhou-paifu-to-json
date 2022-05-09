@@ -3,6 +3,37 @@ import Data.List
 import System.IO 
 import qualified Data.Map as Map
 
+data JValue = JNumber Double
+            | JInteger Integer
+            | JString String 
+            | JBool Bool 
+            | JNull 
+            | JArray [JValue] 
+            | JObject [(String, JValue)] 
+              deriving (Ord, Eq)
+
+instance Show JValue where
+    show = jsonPrettyShow
+
+jsonPrettyShow :: JValue -> String
+jsonPrettyShow = prettyJson 0 where
+    prettyJson level (JString s) = (show s)
+    prettyJson level (JNumber d) = (show d)
+    prettyJson level (JInteger i) = (show i)
+    prettyJson level (JBool b) | b = "true" | not b = "false"
+    prettyJson level JNull = "null"
+    prettyJson level (JArray []) = "[]"
+    prettyJson level (JArray vs) = "[" ++ prettyList level prettyJson vs ++ "]"
+    prettyJson level (JObject []) = "{}"
+    prettyJson level (JObject ps) = "{" ++ prettyList level prettyPair ps ++ "}"
+
+    prettyList level pretty xs = prettyList' xs ++ "\n" ++ replicate level ' '
+        where prettyList' = intercalate "," . map ((indent++) . (pretty level'))
+              indent = "\n" ++ replicate level' ' '
+              level' = level + 4
+
+    prettyPair level (key, val) = show key ++ ": " ++ prettyJson level val
+  
 numToCol :: Int -> String
 numToCol n | (n `div` 4) <  9 = "m"
            | (n `div` 4) < 18 = "p"
@@ -92,13 +123,13 @@ act_AGARI str = (1005, putJson[("actor", who), ("fromwho", fromwho), ("type", qu
     fromwho = findXML str "fromWho"
 
 act_ALL :: String -> [(Int, String)] -> [(Int, String)]
-act_ALL str tmp = tmp ++ [ret] where
-    ret | (tag == "D" || tag == "E" || tag == "F" || tag == "G") = act_DAHAI str lst1 lst2
-        | (tag == "T" || tag == "U" || tag == "V" || tag == "W") = act_TSUMO str
-        | (tag == "DORA") = act_DORA str
-        | (tag == "REACH") = act_REACH str
-        | (tag == "AGARI") = act_AGARI str
-        | otherwise = (-114514, "")
+act_ALL str tmp = tmp ++ ret where
+    ret | (tag == "D" || tag == "E" || tag == "F" || tag == "G") = [act_DAHAI str lst1 lst2]
+        | (tag == "T" || tag == "U" || tag == "V" || tag == "W") = [act_TSUMO str]
+        | (tag == "DORA") = [act_DORA str]
+        | (tag == "REACH") = [act_REACH str]
+        | (tag == "AGARI") = [act_AGARI str]
+        | otherwise = []
         where 
             tag = get_tag str
             lst1 = fst (last tmp)
