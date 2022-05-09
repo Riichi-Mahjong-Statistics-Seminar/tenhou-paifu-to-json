@@ -47,8 +47,11 @@ numToHai n | n == 16 = "0m"
            | n == 88 = "0s" 
            | otherwise = show(numToID(n)) ++ numToCol(n)
 
-findXMLtoList :: String -> [Int]
-findXMLtoList str = map (read :: Int) (map (!!1) (str =~ ("[0-9][0-9]*") :: [[String]]))
+findXMLtoIntList :: String -> [Int]
+findXMLtoIntList str = map (read) (map (!!0) (str =~ ("[0-9]+") :: [[String]]))
+
+findXMLtoDoubleList :: String -> [Double]
+findXMLtoDoubleList str = map (read) (map (!!0) (str =~ ("[0-9.]+") :: [[String]]))
 
 findXMLtoInt :: String -> String -> Int
 findXMLtoInt str pattern = read (head (map (!!1) (str =~ (pattern ++ "=\"(.*?)\"") :: [[String]]))) :: Int
@@ -139,15 +142,17 @@ act_ALL str (JArr tmp) = JArr (ret ++ tmp) where
 
 act_GAME :: String -> JValue
 act_GAME str = JObj obj where
-    obj = [("type",  JInt type),
+    obj = [("type",  JInt typ),
            ("lobby", JInt lobby),
-           ("dan",   JArr dan),
-           ("rate",  JArr rate),
-           ("game",  JArr game)] where
-              type = findXMLtoInt str "type"
+           ("dan",   JArr jdan),
+           ("rate",  JArr jrate),
+           ("game",  game)] where
+              typ = findXMLtoInt str "type"
               lobby = findXMLtoInt str "lobby"
-              dan = findXMLtoList (findXML str "dan")
-              rate = findXMLtoList (findXML str "rate")
+              dan = findXMLtoIntList (findXML str "dan")
+              jdan = map (\i -> JInt i) dan
+              rate = findXMLtoDoubleList (findXML str "rate")
+              jrate = map (\i -> JNum i) rate
               game = do_ALL (make_all(get_all str)) (JArr [])
 
 do_ALL :: [String] -> JValue -> JValue
@@ -156,4 +161,4 @@ do_ALL (x : xs) tmp = act_ALL x (do_ALL xs tmp)
 
 main = do
     str <- getLine
-    putStrLn (show (do_ALL (make_all(get_all str)) (JArr []))) where
+    putStrLn (show (act_GAME str)) where
