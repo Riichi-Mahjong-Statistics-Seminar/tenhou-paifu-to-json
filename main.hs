@@ -4,7 +4,7 @@ import System.IO
 import qualified Data.Map as Map
 
 data JValue = JNum Double
-            | JInt Integer
+            | JInt Int
             | JStr String 
             | JBol Bool 
             | JNul 
@@ -65,11 +65,11 @@ make_all str = map (!!1) (drop 1 str)
 get_tag :: String -> String
 get_tag str = head ( map (!!0) (str =~ "[A-Z]*" :: [[String]]))
 
-act_RYUUKYOKU :: String -> Json
+act_RYUUKYOKU :: String -> JValue
 act_RYUUKYOKU str = JObj obj where
     obj = [("type", JStr "ryuukyoku")]
 
-act_DORA :: String -> Json
+act_DORA :: String -> JValue
 act_DORA str = JObj obj where
     obj = [("dora_marker", JStr hai), 
            ("type", JStr "dora")] where
@@ -90,18 +90,18 @@ get_actor 'U' = 1
 get_actor 'V' = 2
 get_actor 'W' = 3
 
-act_DAHAI :: String -> (Int, Int) -> Jvalue
+act_DAHAI :: String -> (Int, Int) -> JValue
 act_DAHAI str lst = JObj obj where
     obj = [("actor",     JInt actor),
            ("pai",       JStr hai),
            ("type",      JStr "dahai"),
            ("tsumogiri", JBol tsumogiri)] where
-        actor = get_actor (head str))
-        hai = numToHai (read (num) :: Int)
-        num = tail str
-        tsumogiri = isTsumogiri numHai lst
+        actor = get_actor (head str)
+        hai = numToHai num
+        num = read (tail str) :: Int
+        tsumogiri = isTsumogiri num lst
 
-act_TSUMO :: String -> Jvalue
+act_TSUMO :: String -> JValue
 act_TSUMO str = JObj obj where
     obj = [("actor", JInt actor), 
            ("pai",   JStr hai), 
@@ -110,26 +110,25 @@ act_TSUMO str = JObj obj where
         hai = numToHai (read (num) :: Int)
         num = tail str
 
-act_REACH :: String -> Jvalue
+act_REACH :: String -> JValue
 act_REACH str = JObj obj where
     obj = [("actor", JInt actor),
            ("type",  JStr typ)] where
-        who = findXMLtoInt str "who"
+        actor = findXMLtoInt str "who"
         typ = (if typnum == 1 then "reach" else "reach_accepted") where
             typnum = findXMLtoInt str "step"
 
-act_AGARI :: String -> (Int, String)
-act_AGARI :: String -> Jvalue
-act_AGARI str JObj obj where
+act_AGARI :: String -> JValue
+act_AGARI str = JObj obj where
     obj = [("actor",   JInt actor),
            ("fromwho", JInt fromwho),
            ("type", JStr "agari")] where
-        who = findXML str "who"
-        fromwho = findXML str "fromWho"
+        actor = findXMLtoInt str "who"
+        fromwho = findXMLtoInt str "fromWho"
 
-act_ALL :: String -> Jvalue -> Jvalue
-act_ALL str JArr tmp = JArr (tmp ++ ret) where
-    ret | (tag == "D" || tag == "E" || tag == "F" || tag == "G") = [act_DAHAI str 0 0] -- TODO
+act_ALL :: String -> JValue -> JValue
+act_ALL str (JArr tmp) = JArr (ret ++ tmp) where
+    ret | (tag == "D" || tag == "E" || tag == "F" || tag == "G") = [act_DAHAI str (0, 0)] -- TODO
         | (tag == "T" || tag == "U" || tag == "V" || tag == "W") = [act_TSUMO str]
         | (tag == "DORA") = [act_DORA str]
         | (tag == "REACH") = [act_REACH str]
@@ -138,11 +137,10 @@ act_ALL str JArr tmp = JArr (tmp ++ ret) where
         where
             tag = get_tag str
 
-do_ALL :: [String] -> Jvalue -> Jvalue
+do_ALL :: [String] -> JValue -> JValue
 do_ALL [] tmp = tmp
 do_ALL (x : xs) tmp = act_ALL x (do_ALL xs tmp)
 
 main = do
-    print (map numToHai [0..135])
     str <- getLine
-    print (show (do_ALL (make_all(get_all str)) []))
+    putStrLn (show (do_ALL (make_all(get_all str)) (JArr []))) where
