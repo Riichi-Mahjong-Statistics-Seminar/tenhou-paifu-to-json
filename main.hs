@@ -3,13 +3,13 @@ import Data.List
 import System.IO 
 import qualified Data.Map as Map
 
-data JValue = JNumber Double
-            | JInteger Integer
-            | JString String 
-            | JBool Bool 
-            | JNull 
-            | JArray [JValue] 
-            | JObject [(String, JValue)] 
+data JValue = JNum Double
+            | JInt Integer
+            | JStr String 
+            | JBol Bool 
+            | JNul 
+            | JArr [JValue] 
+            | JObj [(String, JValue)] 
               deriving (Ord, Eq)
 
 instance Show JValue where
@@ -17,15 +17,15 @@ instance Show JValue where
 
 jsonPrettyShow :: JValue -> String
 jsonPrettyShow = prettyJson 0 where
-    prettyJson level (JString s) = (show s)
-    prettyJson level (JNumber d) = (show d)
-    prettyJson level (JInteger i) = (show i)
-    prettyJson level (JBool b) | b = "true" | not b = "false"
-    prettyJson level JNull = "null"
-    prettyJson level (JArray []) = "[]"
-    prettyJson level (JArray vs) = "[" ++ prettyList level prettyJson vs ++ "]"
-    prettyJson level (JObject []) = "{}"
-    prettyJson level (JObject ps) = "{" ++ prettyList level prettyPair ps ++ "}"
+    prettyJson level (JStr s) = (show s)
+    prettyJson level (JNum d) = (show d)
+    prettyJson level (JInt i) = (show i)
+    prettyJson level (JBol b) | b = "true" | not b = "false"
+    prettyJson level JNul = "null"
+    prettyJson level (JArr []) = "[]"
+    prettyJson level (JArr vs) = "[" ++ prettyList level prettyJson vs ++ "]"
+    prettyJson level (JObj []) = "{}"
+    prettyJson level (JObj ps) = "{" ++ prettyList level prettyPair ps ++ "}"
 
     prettyList level pretty xs = prettyList' xs ++ "\n" ++ replicate level ' '
         where prettyList' = intercalate "," . map ((indent++) . (pretty level'))
@@ -53,13 +53,6 @@ findXMLtoInt str pattern = read (head (map (!!1) (str =~ (pattern ++ "=\"(.*?)\"
 findXML :: String -> String -> String
 findXML str pattern = head (map (!!1) (str =~ (pattern ++ "=\"(.*?)\"") :: [[String]]))
 
-_putJson :: [(String, String)] -> String
-_putJson [(str1, str2)] = "\"" ++ str1 ++ "\":" ++ str2
-_putJson ((str1, str2) : xs) = "\"" ++ str1 ++ "\":" ++ str2 ++ "," ++ (_putJson xs)
-
-putJson :: [(String, String)] -> String
-putJson x = "{" ++ _putJson x ++ "}"
-
 quote :: String -> String
 quote x = "\"" ++ x ++ "\""
 
@@ -72,15 +65,18 @@ make_all str = map (!!1) (drop 1 str)
 get_tag :: String -> String
 get_tag str = head ( map (!!0) (str =~ "[A-Z]*" :: [[String]]))
 
-act_RYUUKYOKU :: String -> (Int, String)
-act_RYUUKYOKU str = (1003, putJson [("type", quote "ryuukyoku")])
+act_RYUUKYOKU :: String -> Json
+act_RYUUKYOKU str = JObj obj where
+    obj = [("type", JStr "ryuukyoku")]
 
-act_DORA :: String -> (Int, String)
-act_DORA str = (1002, putJson [("dora_marker", quote strHai), ("type", quote "dora")]) where
-    strHai = numToHai (findXMLtoInt str "hai")
+act_DORA :: String -> Json
+act_DORA str = JObj obj where
+    obj = [("dora_marker", JStr hai), 
+           ("type", JStr "dora")] where
+        hai = numToHai (findXMLtoInt str "hai")      
 
-act_TSUMOGIRI :: Int -> Int -> Int -> Bool
-act_TSUMOGIRI now lst1 lst2 = lstnum == now where
+isTsumogiri :: Int -> (Int, Int) -> Bool
+isTsumogiri now (lst1, lst2) = lstnum == now where
     lstnum = (if lst > 0 then -1 else -lst) where
         lst = (if (lst1 == 1004 || lst1 == 1002) then lst2 else lst1)
 
@@ -94,52 +90,59 @@ get_actor 'U' = 1
 get_actor 'V' = 2
 get_actor 'W' = 3
 
-act_DAHAI :: String -> Int -> Int -> (Int, String)
-act_DAHAI str lst1 lst2= (numHai, outstr) where
-    numHai = read (num) :: Int where
+act_DAHAI :: String -> (Int, Int) -> Jvalue
+act_DAHAI str lst = JObj obj where
+    obj = [("actor",     JInt actor),
+           ("pai",       JStr hai),
+           ("type",      JStr "dahai"),
+           ("tsumogiri", JBol tsumogiri)] where
+        actor = get_actor (head str))
+        hai = numToHai (read (num) :: Int)
         num = tail str
-    outstr = putJson[("actor", actor), ("pai", quote hai), ("type", quote "dahai"), ("tsumogiri", quote tsumogiri)] where
-        actor = show (get_actor (head str)) :: String
-        hai = numToHai (numHai)
-        tsumogiri = show (act_TSUMOGIRI numHai lst1 lst2) :: String
+        tsumogiri = isTsumogiri numHai lst
 
-act_TSUMO :: String -> (Int, String)
-act_TSUMO str = (-numHai, outstr) where
-    numHai = read (num) :: Int where
+act_TSUMO :: String -> Jvalue
+act_TSUMO str = JObj obj where
+    obj = [("actor", JInt actor), 
+           ("pai",   JStr hai), 
+           ("type",  JStr "tsumo")] where
+        actor = get_actor (head str)
+        hai = numToHai (read (num) :: Int)
         num = tail str
-    outstr = putJson[("actor", actor), ("pai", quote hai), ("type", quote "tsumo")] where
-        actor = show (get_actor (head str)) :: String
-        hai = numToHai (numHai)
 
-act_REACH :: String -> (Int, String)
-act_REACH str = (1004, putJson[("actor", who), ("type", quote typ)]) where
-    who = findXML str "who"
-    typ = (if typnum == 1 then "reach" else "reach_accepted") where
-        typnum = findXMLtoInt str "step"
+act_REACH :: String -> Jvalue
+act_REACH str = JObj obj where
+    obj = [("actor", JInt actor),
+           ("type",  JStr typ)] where
+        who = findXMLtoInt str "who"
+        typ = (if typnum == 1 then "reach" else "reach_accepted") where
+            typnum = findXMLtoInt str "step"
 
 act_AGARI :: String -> (Int, String)
-act_AGARI str = (1005, putJson[("actor", who), ("fromwho", fromwho), ("type", quote "agari")]) where
-    who = findXML str "who"
-    fromwho = findXML str "fromWho"
+act_AGARI :: String -> Jvalue
+act_AGARI str JObj obj where
+    obj = [("actor",   JInt actor),
+           ("fromwho", JInt fromwho),
+           ("type", JStr "agari")] where
+        who = findXML str "who"
+        fromwho = findXML str "fromWho"
 
-act_ALL :: String -> [(Int, String)] -> [(Int, String)]
-act_ALL str tmp = tmp ++ ret where
-    ret | (tag == "D" || tag == "E" || tag == "F" || tag == "G") = [act_DAHAI str lst1 lst2]
+act_ALL :: String -> Jvalue -> Jvalue
+act_ALL str JArr tmp = JArr (tmp ++ ret) where
+    ret | (tag == "D" || tag == "E" || tag == "F" || tag == "G") = [act_DAHAI str 0 0] -- TODO
         | (tag == "T" || tag == "U" || tag == "V" || tag == "W") = [act_TSUMO str]
         | (tag == "DORA") = [act_DORA str]
         | (tag == "REACH") = [act_REACH str]
         | (tag == "AGARI") = [act_AGARI str]
         | otherwise = []
-        where 
+        where
             tag = get_tag str
-            lst1 = fst (last tmp)
-            lst2 = fst (last (init tmp))
 
-do_ALL :: [String] -> [(Int, String)] -> [(Int, String)]
+do_ALL :: [String] -> Jvalue -> Jvalue
 do_ALL [] tmp = tmp
 do_ALL (x : xs) tmp = act_ALL x (do_ALL xs tmp)
 
 main = do
     print (map numToHai [0..135])
     str <- getLine
-    print (do_ALL (make_all(get_all str)) [])
+    print (show (do_ALL (make_all(get_all str)) []))
