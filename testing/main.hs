@@ -85,93 +85,99 @@ get_actor 'W' = 3
 
 act_RYUUKYOKU :: String -> JValue
 act_RYUUKYOKU str = JObj obj where
-    obj = [
-        ("type", JStr "ryuukyoku")
-    ]
+    obj = [("type", JStr "ryuukyoku")]
 
 act_DORA :: String -> JValue
 act_DORA str = JObj obj where
-    obj = [
-        ("dora_marker", JStr hai), 
-        ("type", JStr "dora")
-    ] where
-        hai = numToHai (findXMLtoInt str "hai")      
+    obj = 
+        [
+            ("dora_marker", JStr hai), 
+            ("type",        JStr "dora")
+        ] where
+            hai = numToHai (findXMLtoInt str "hai")      
 
 act_DAHAI :: String -> (Int, Int) -> JValue
 act_DAHAI str lst = JObj obj where
-    obj = [
-        ("actor",     JInt actor),
-        ("pai",       JStr hai),
-        ("type",      JStr "dahai"),
-        ("tsumogiri", JBol tsumogiri)
-    ] where
-        actor     = get_actor (head str)
-        hai       = numToHai num
-        num       = read (tail str) :: Int
-        tsumogiri = isTsumogiri num lst
+    obj = 
+        [
+            ("actor",     JInt actor),
+            ("pai",       JStr hai),
+            ("type",      JStr "dahai"),
+            ("tsumogiri", JBol tsumogiri)
+        ] where
+            actor     = get_actor (head str)
+            hai       = numToHai num
+            num       = read (tail str) :: Int
+            tsumogiri = isTsumogiri num lst
 
 act_TSUMO :: String -> JValue
 act_TSUMO str = JObj obj where
-    obj = [
-        ("actor", JInt actor), 
-        ("pai",   JStr hai), 
-        ("type",  JStr "tsumo")
-    ] where
-        actor = get_actor (head str)
-        hai   = numToHai (read (num) :: Int)
-        num   = tail str
+    obj =
+        [
+            ("actor", JInt actor), 
+            ("pai",   JStr hai), 
+            ("type",  JStr "tsumo")
+        ] where
+            actor = get_actor (head str)
+            hai   = numToHai (read (num) :: Int)
+            num   = tail str
 
 act_REACH :: String -> JValue
 act_REACH str = JObj obj where
-    obj = [
-        ("actor", JInt actor),
-        ("type",  JStr typ)
-    ] where
-        actor = findXMLtoInt str "who"
-        typ   = (if typnum == 1 then "reach" else "reach_accepted") where
-            typnum = findXMLtoInt str "step"
+    obj =
+        [
+            ("actor", JInt actor),
+            ("type",  JStr typ)
+        ] where
+            actor = findXMLtoInt str "who"
+            typ   = (if typnum == 1 then "reach" else "reach_accepted") where
+                typnum = findXMLtoInt str "step"
 
 act_AGARI :: String -> JValue
 act_AGARI str = JObj obj where
-    obj = [
-        ("actor",   JInt actor),
-        ("fromwho", JInt fromwho),
-        ("type",    JStr "agari")
-    ] where
-        actor   = findXMLtoInt str "who"
-        fromwho = findXMLtoInt str "fromWho"
+    obj =
+        [
+            ("actor",   JInt actor),
+            ("fromwho", JInt fromwho),
+            ("type",    JStr "agari")
+        ] where
+            actor   = findXMLtoInt str "who"
+            fromwho = findXMLtoInt str "fromWho"
 
 act_INIT :: String -> JValue
 act_INIT str = JObj obj where
-    obj = [
-        ("bakaze",      JStr bakaze),
-        ("dora_marker", JStr doraMarker),
-        ("honba",       JInt honba),
-        ("kyoku",       JInt kyoku),
-        ("kyotaku",     JInt kyotaku),
-        ("oya",         JInt oya),
-        ("scores",      JArr scores),
-        ("tehais",      JArr tehais),
-        ("type",        JStr "start_kyoku")
-    ] where
-        bakaze = (if nowKyu < 4 then "E" else if nowKyu < 8 then "S" else "W")
-        doraMarker = numToHai num where
-            num = (!!5) seed
-        honba = (!!1) seed
-        kyoku = (nowKyu `mod` 4) + 1
-        kyotaku = (!!2) seed
-        oya = findXMLtoInt str "oya"
-        scores = findXMLtoIntList newstr where -- add "00" to scores
-            newstr = addZero (findXML str "ten") where
-                addZero (',': xs) = "00" ++ "," ++ addZero xs -- add before ','
-                addZero ( x : xs) = [x] ++ (addZero xs) -- else do nothing
-                addZero   x       = x ++ "00" -- add to end
-        tehais = [ getTehai ("hai" ++ i) | i <- ['0'..'3'] ] where
-            getTehai pat = getHaiList findXMLtoIntList (findXML str pat) where
-                getHaiList hais = map numToHai hais 
-        nowKyu = (!!0) seed
-        seed = findXMLtoIntList seedstr where
-            seedstr = findXML str "seed"
+    obj =
+        [
+            ("bakaze",      JStr bakaze),
+            ("dora_marker", JStr doraMarker),
+            ("honba",       JInt honba),
+            ("kyoku",       JInt kyoku),
+            ("kyotaku",     JInt kyotaku),
+            ("oya",         JInt oya),
+            ("scores",      JArr jscores),
+            ("tehais",      JArr jtehais),
+            ("type",        JStr "start_kyoku")
+        ] where
+            bakaze = (if nowKyu < 4 then "E" else if nowKyu < 8 then "S" else "W")
+            doraMarker = numToHai num where
+                num = (!!5) seed
+            honba = (!!1) seed
+            kyoku = (nowKyu `mod` 4) + 1
+            kyotaku = (!!2) seed
+            oya = findXMLtoInt str "oya"
+            jscores = map (\i -> JInt i) scores where
+                scores = findXMLtoIntList newstr where -- add "00" to scores
+                    newstr = addZero (findXML str "ten") where
+                        addZero (',': xs) = "00" ++ "," ++ addZero xs -- add before ','
+                        addZero ( x : xs) = [x] ++ (addZero xs) -- else do nothing
+                        addZero   x       = x ++ "00" -- add to end
+            jtehais = [ JArr (getjTehai ("hai" ++ [i])) | i <- ['0'..'3'] ] where
+                getjTehai pat = map (\i -> JStr i)  (getTehai pat) where
+                    getTehai pat = getHaiList (findXMLtoIntList (findXML str pat)) where
+                        getHaiList hais = map numToHai hais 
+            nowKyu = (!!0) seed
+            seed = findXMLtoIntList seedstr where
+                seedstr = findXML str "seed"
         
 --INIT seed="2,0,0,0,0,12" 
 -- ten="293,207,261,239"
@@ -187,6 +193,7 @@ act_ALL str (JArr tmp) = JArr (ret ++ tmp) where
         | (tag == "DORA") = [act_DORA str]
         | (tag == "REACH") = [act_REACH str]
         | (tag == "AGARI") = [act_AGARI str]
+        | (tag == "INIT") = [act_INIT str]
         | otherwise = []
         where
             tag = get_tag str
