@@ -184,7 +184,7 @@ act_NAKI :: String -> JValue
 act_NAKI str = obj where
     obj | (nakiRaw .&.  4) /= 0 = act_CHII actor nakiRaw
         | (nakiRaw .&. 24) /= 0 = act_PON  actor nakiRaw -- also shouminkan
-        -- | otherwise        = act_KAN  actor nakiRaw -- daiminkan or ankan
+        | otherwise             = act_KAN  actor nakiRaw -- daiminkan or ankan
         where
             nakiRaw = findXMLtoInt str "m"
             actor   = findXMLtoInt str "who"
@@ -237,10 +237,30 @@ act_NAKI str = obj where
                         consumedNum = [(ponTile !! i) | i <- [0 .. 2], i /= called]
                         consumedHai | typ == "pon" = ponTile !! called
                                     | otherwise    = tile4th + base
-                                    
 
-                        
+            act_KAN :: Int -> Int -> JValue
+            act_KAN actor nakiRaw = JObj _obj where
+                _obj = 
+                    [
+                        ("actor",    JInt actor),
+                        ("consumed", JArr consumed),
+                        ("pai",      JStr hai),
+                        ("target",   JInt target),
+                        ("type",     JStr typ)
+                    ] where
+                        consumed = map (\i -> JStr (numToHai i)) consumedNum
+                        hai      = numToHai consumedHai
+                        target   = (actor + targetR) `mod` 4
+                        typ      | target == actor = "ankan"
+                                 | otherwise       = "daiminkan"
 
+                        block1  = shiftR nakiRaw 8
+                        called  = block1 `mod` 4
+                        base    = 4 * (block1 `div` 4)
+                        targetR = nakiRaw .&. 3
+
+                        consumedNum = [i + base | i <- [0 .. 3], i /= called]
+                        consumedHai = called + base
 
 act_ALL :: String -> JValue -> JValue
 act_ALL str (JArr tmp) = JArr (ret ++ tmp) where
