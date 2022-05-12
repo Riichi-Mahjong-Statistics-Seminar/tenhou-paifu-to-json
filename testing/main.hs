@@ -270,6 +270,7 @@ act_ALL str (JArr tmp) = JArr (ret ++ tmp) where
         | (tag == "REACH") = [act_REACH str]
         | (tag == "AGARI") = [act_AGARI str]
         | (tag == "INIT")  = [act_INIT str]
+        | (tag == "N")     = [act_NAKI str]
         | otherwise = []
         where
             tag = get_tag str
