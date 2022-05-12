@@ -1,6 +1,6 @@
 import Text.Regex.PCRE
 import Data.List
-import Data.Bit
+import Data.Bits
 import System.IO 
 import qualified Data.Map as Map
 
@@ -172,7 +172,7 @@ act_INIT str = JObj obj where
                         addZero (',': xs) = "00" ++ "," ++ addZero xs -- add before ','
                         addZero ( x : xs) = [x] ++ (addZero xs) -- else do nothing
                         addZero   x       = x ++ "00" -- add to end
-            jtehais = [ JArr (getjTehai ("hai" ++ [i])) | i <- ['0'..'3'] ] where
+            jtehais = [ JArr (getjTehai ("hai" ++ [i])) | i <- ['0' .. '3'] ] where
                 getjTehai pat = map (\i -> JStr i)  (getTehai pat) where
                     getTehai pat = getHaiList (findXMLtoIntList (findXML str pat)) where
                         getHaiList hais = map numToHai hais 
@@ -181,10 +181,10 @@ act_INIT str = JObj obj where
                 seedstr = findXML str "seed"
 
 act_NAKI :: String -> JValue
-act_NAKI str = JObj obj where
+act_NAKI str = obj where
     obj | (nakiRaw .&.  4) = act_CHII actor nakiRaw
         | (nakiRaw .&. 24) = act_PON  actor nakiRaw -- also shouminkan
-        | otherwise        = act_KAN  actor nakiRaw -- daiminkan or ankan
+        -- | otherwise        = act_KAN  actor nakiRaw -- daiminkan or ankan
         where
             nakiRaw = findXMLtoInt str "m"
             actor   = findXMLtoInt str "who"
@@ -208,11 +208,11 @@ act_NAKI str = JObj obj where
                         base   = (block1 `div` 21) * 8 + (block1 `div` 3) * 4
 
                         tileDetail  = map (.&. 3) [shift nakiRaw -i | i <- [3, 5, 7]]
-                        consumedNum = [((!!i) tileDetail) + 4 * i + base | i <- [0 .. 2], i /= called]
-                        consumedHai = (!!called) tileDetail + 4 * called + base
+                        consumedNum = [(!! tileDetail i) + 4 * i + base | i <- [0 .. 2], i /= called]
+                        consumedHai = (!! tileDetail called) + 4 * called + base
             
             act_PON :: Int -> Int -> JValue
-            act_CHII actor nakiRaw = JObj _obj where
+            act_PON actor nakiRaw = JObj _obj where
                 _obj = 
                     [
                         ("actor",    JInt actor),
@@ -234,8 +234,8 @@ act_NAKI str = JObj obj where
                         targetR = nakiRaw .&. 3
 
                         ponTile     = [i + base | i <- [0 .. 3], i /= tile4th]
-                        consumedNum = [(!!i) ponTile | i <- [0 .. 2], i /= called]
-                        consumedHai | typ == "pon" = (!!called) ponTile
+                        consumedNum = [(!! ponTile i) | i <- [0 .. 2], i /= called]
+                        consumedHai | typ == "pon" = !! ponTile called
                                     | otherwise    = tile4th + base
                                     
 
