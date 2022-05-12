@@ -224,7 +224,7 @@ act_NAKI str = obj where
                         consumed = map (\i -> JStr (numToHai i)) consumedNum
                         hai      = numToHai consumedHai
                         target   = (actor + targetR) `mod` 4
-                        typ      | ((shiftR nakiRaw -) .&. 1) /= 0 = "pon"
+                        typ      | ((shiftR nakiRaw 3) .&. 1) /= 0 = "pon"
                                  | otherwise                       = "kakan"
 
                         block1  = shiftR nakiRaw 9
