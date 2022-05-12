@@ -1,5 +1,6 @@
 import Text.Regex.PCRE
 import Data.List
+import Data.Bit
 import System.IO 
 import qualified Data.Map as Map
 
@@ -9,7 +10,7 @@ data JValue = JNum Double
             | JBol Bool 
             | JNul 
             | JArr [JValue] 
-            | JObj [(String, JValue)] 
+            | JObj [(String, JValue)]
               deriving (Ord, Eq)
 
 instance Show JValue where
@@ -33,7 +34,7 @@ jsonPrettyShow = prettyJson 0 where
               level' = level + 4
 
     prettyPair level (key, val) = show key ++ ": " ++ prettyJson level val
-  
+
 numToCol :: Int -> String
 numToCol n | (n `div` 4) <  9 = "m"
            | (n `div` 4) < 18 = "p"
@@ -94,7 +95,7 @@ act_DORA str = JObj obj where
             ("dora_marker", JStr hai), 
             ("type",        JStr "dora")
         ] where
-            hai = numToHai (findXMLtoInt str "hai")      
+            hai = numToHai (findXMLtoInt str "hai")
 
 act_DAHAI :: String -> (Int, Int) -> JValue
 act_DAHAI str lst = JObj obj where
@@ -178,40 +179,98 @@ act_INIT str = JObj obj where
             nowKyu = (!!0) seed
             seed = findXMLtoIntList seedstr where
                 seedstr = findXML str "seed"
-        
---INIT seed="2,0,0,0,0,12" 
--- ten="293,207,261,239"
--- oya="2" 
--- hai0="99,118,13,23,6,33,15,0,120,28,65,27,96" 
--- hai1="19,92,21,52,22,73,78,1,102,112,31,121,79"
--- hai2="105,114,122,80,123,132,83,48,93,85,82,51,103"
--- hai3="29,77,107,4,68,125,55,10,101,74,2,41,130"
+
+act_NAKI :: String -> JValue
+act_NAKI str = JObj obj where
+    obj | (nakiRaw .&.  4) = act_CHII actor nakiRaw
+        | (nakiRaw .&. 24) = act_PON  actor nakiRaw -- also shouminkan
+        | otherwise        = act_KAN  actor nakiRaw -- daiminkan or ankan
+        where
+            nakiRaw = findXMLtoInt str "m"
+            actor   = findXMLtoInt str "who"
+
+            act_CHII :: Int -> Int -> JValue
+            act_CHII actor nakiRaw = JObj _obj where
+                _obj = 
+                    [
+                        ("actor",    JInt actor),
+                        ("consumed", JArr consumed),
+                        ("pai",      JStr hai),
+                        ("target",   JInt target),
+                        ("type",     JStr "chii")
+                    ] where
+                        consumed = map (\i -> JStr (numToHai i)) consumedNum
+                        hai      = numToHai consumedHai
+                        target   = (actor + 3) `mod` 4
+
+                        block1 = shift nakiRaw -10
+                        called = block1 `mod` 3
+                        base   = (block1 `div` 21) * 8 + (block1 `div` 3) * 4
+
+                        tileDetail  = map (.&. 3) [shift nakiRaw -i | i <- [3, 5, 7]]
+                        consumedNum = [((!!i) tileDetail) + 4 * i + base | i <- [0 .. 2], i /= called]
+                        consumedHai = (!!called) tileDetail + 4 * called + base
+            
+            act_PON :: Int -> Int -> JValue
+            act_CHII actor nakiRaw = JObj _obj where
+                _obj = 
+                    [
+                        ("actor",    JInt actor),
+                        ("consumed", JArr consumed),
+                        ("pai",      JStr hai),
+                        ("target",   JInt target),
+                        ("type",     JStr typ)
+                    ] where
+                        consumed = map (\i -> JStr (numToHai i)) consumedNum
+                        hai      = numToHai consumedHai
+                        target   = (actor + targetR) `mod` 4
+                        typ      | (shift nakiRaw -3) .&. 1 = "pon"
+                                 | otherwise                = "kakan"
+
+                        block1  = shift nakiRaw -9
+                        called  = block1 `mod` 3
+                        base    = 4 * (block1 `div` 3)
+                        tile4th = (shift nakiRaw -5) .&. 3
+                        targetR = nakiRaw .&. 3
+
+                        ponTile     = [i + base | i <- [0 .. 3], i /= tile4th]
+                        consumedNum = [(!!i) ponTile | i <- [0 .. 2], i /= called]
+                        consumedHai | typ == "pon" = (!!called) ponTile
+                                    | otherwise    = tile4th + base
+                                    
+
+                        
+
+
 act_ALL :: String -> JValue -> JValue
 act_ALL str (JArr tmp) = JArr (ret ++ tmp) where
     ret | (tag == "D" || tag == "E" || tag == "F" || tag == "G") = [act_DAHAI str (0, 0)] -- TODO
         | (tag == "T" || tag == "U" || tag == "V" || tag == "W") = [act_TSUMO str]
-        | (tag == "DORA") = [act_DORA str]
+        | (tag == "DORA")  = [act_DORA str]
         | (tag == "REACH") = [act_REACH str]
         | (tag == "AGARI") = [act_AGARI str]
-        | (tag == "INIT") = [act_INIT str]
+        | (tag == "INIT")  = [act_INIT str]
         | otherwise = []
         where
             tag = get_tag str
 
 act_GAME :: String -> JValue
 act_GAME str = JObj obj where
-    obj = [("type",  JInt typ),
-           ("lobby", JInt lobby),
-           ("dan",   JArr jdan),
-           ("rate",  JArr jrate),
-           ("game",  game)] where
-              typ = findXMLtoInt str "type"
-              lobby = findXMLtoInt str "lobby"
-              dan = findXMLtoIntList (findXML str "dan")
-              jdan = map (\i -> JInt i) dan
-              rate = findXMLtoDoubleList (findXML str "rate")
-              jrate = map (\i -> JNum i) rate
-              game = do_ALL (make_all(get_all str)) (JArr [])
+    obj = 
+        [
+            ("type",  JInt typ),
+            ("lobby", JInt lobby),
+            ("dan",   JArr jdan),
+            ("rate",  JArr jrate),
+            ("game",  game)
+        ] where
+            typ   = findXMLtoInt str "type"
+            lobby = findXMLtoInt str "lobby"
+            dan   = findXMLtoIntList (findXML str "dan")
+            jdan  = map (\i -> JInt i) dan
+            rate  = findXMLtoDoubleList (findXML str "rate")
+            jrate = map (\i -> JNum i) rate
+            game  = do_ALL (make_all(get_all str)) (JArr [])
 
 do_ALL :: [String] -> JValue -> JValue
 do_ALL [] tmp = tmp
