@@ -182,8 +182,8 @@ act_INIT str = JObj obj where
 
 act_NAKI :: String -> JValue
 act_NAKI str = obj where
-    obj | (nakiRaw .&.  4) = act_CHII actor nakiRaw
-        | (nakiRaw .&. 24) = act_PON  actor nakiRaw -- also shouminkan
+    obj | (nakiRaw .&.  4) \= 0 = act_CHII actor nakiRaw
+        | (nakiRaw .&. 24) \= 0 = act_PON  actor nakiRaw -- also shouminkan
         -- | otherwise        = act_KAN  actor nakiRaw -- daiminkan or ankan
         where
             nakiRaw = findXMLtoInt str "m"
@@ -208,8 +208,8 @@ act_NAKI str = obj where
                         base   = (block1 `div` 21) * 8 + (block1 `div` 3) * 4
 
                         tileDetail  = map (.&. 3) [shift nakiRaw -i | i <- [3, 5, 7]]
-                        consumedNum = [(!! tileDetail i) + 4 * i + base | i <- [0 .. 2], i /= called]
-                        consumedHai = (!! tileDetail called) + 4 * called + base
+                        consumedNum = [(tileDetail !! i) + 4 * i + base | i <- [0 .. 2], i /= called]
+                        consumedHai = (tileDetail !! called) + 4 * called + base
             
             act_PON :: Int -> Int -> JValue
             act_PON actor nakiRaw = JObj _obj where
@@ -224,8 +224,8 @@ act_NAKI str = obj where
                         consumed = map (\i -> JStr (numToHai i)) consumedNum
                         hai      = numToHai consumedHai
                         target   = (actor + targetR) `mod` 4
-                        typ      | (shift nakiRaw -3) .&. 1 = "pon"
-                                 | otherwise                = "kakan"
+                        typ      | ((shift nakiRaw -3) .&. 1) \= 0 = "pon"
+                                 | otherwise                       = "kakan"
 
                         block1  = shift nakiRaw -9
                         called  = block1 `mod` 3
@@ -234,8 +234,8 @@ act_NAKI str = obj where
                         targetR = nakiRaw .&. 3
 
                         ponTile     = [i + base | i <- [0 .. 3], i /= tile4th]
-                        consumedNum = [(!! ponTile i) | i <- [0 .. 2], i /= called]
-                        consumedHai | typ == "pon" = !! ponTile called
+                        consumedNum = [(ponTile !! i) | i <- [0 .. 2], i /= called]
+                        consumedHai | typ == "pon" = ponTile !! called
                                     | otherwise    = tile4th + base
                                     
 
