@@ -182,8 +182,8 @@ act_INIT str = JObj obj where
 
 act_NAKI :: String -> JValue
 act_NAKI str = obj where
-    obj | (nakiRaw .&.  4) \= 0 = act_CHII actor nakiRaw
-        | (nakiRaw .&. 24) \= 0 = act_PON  actor nakiRaw -- also shouminkan
+    obj | (nakiRaw .&.  4) /= 0 = act_CHII actor nakiRaw
+        | (nakiRaw .&. 24) /= 0 = act_PON  actor nakiRaw -- also shouminkan
         -- | otherwise        = act_KAN  actor nakiRaw -- daiminkan or ankan
         where
             nakiRaw = findXMLtoInt str "m"
@@ -203,11 +203,11 @@ act_NAKI str = obj where
                         hai      = numToHai consumedHai
                         target   = (actor + 3) `mod` 4
 
-                        block1 = shift nakiRaw -10
+                        block1 = shiftR nakiRaw 10
                         called = block1 `mod` 3
                         base   = (block1 `div` 21) * 8 + (block1 `div` 3) * 4
 
-                        tileDetail  = map (.&. 3) [shift nakiRaw -i | i <- [3, 5, 7]]
+                        tileDetail  = map (.&. 3) [shiftR nakiRaw i | i <- [3, 5, 7]]
                         consumedNum = [(tileDetail !! i) + 4 * i + base | i <- [0 .. 2], i /= called]
                         consumedHai = (tileDetail !! called) + 4 * called + base
             
@@ -224,13 +224,13 @@ act_NAKI str = obj where
                         consumed = map (\i -> JStr (numToHai i)) consumedNum
                         hai      = numToHai consumedHai
                         target   = (actor + targetR) `mod` 4
-                        typ      | ((shift nakiRaw -3) .&. 1) \= 0 = "pon"
+                        typ      | ((shiftR nakiRaw -) .&. 1) /= 0 = "pon"
                                  | otherwise                       = "kakan"
 
-                        block1  = shift nakiRaw -9
+                        block1  = shiftR nakiRaw 9
                         called  = block1 `mod` 3
                         base    = 4 * (block1 `div` 3)
-                        tile4th = (shift nakiRaw -5) .&. 3
+                        tile4th = (shiftR nakiRaw 5) .&. 3
                         targetR = nakiRaw .&. 3
 
                         ponTile     = [i + base | i <- [0 .. 3], i /= tile4th]
