@@ -6,10 +6,10 @@ import qualified Data.Map as Map
 
 data JValue = JNum Double
             | JInt Int
-            | JStr String 
-            | JBol Bool 
-            | JNul 
-            | JArr [JValue] 
+            | JStr String
+            | JBol Bool
+            | JNul
+            | JArr [JValue]
             | JObj [(String, JValue)]
               deriving (Ord, Eq)
 
@@ -43,9 +43,9 @@ numToCol n | (n `div` 4) <  9 = "m"
 numToID  :: Int -> Int
 numToID n = (((n `div` 4) `mod` 9) + 1)
 numToHai :: Int -> String
-numToHai n | n == 16 = "0m" 
-           | n == 52 = "0p" 
-           | n == 88 = "0s" 
+numToHai n | n == 16 = "0m"
+           | n == 52 = "0p"
+           | n == 88 = "0s"
            | otherwise = show(numToID(n)) ++ numToCol(n)
 
 findXMLtoIntList :: String -> [Int]
@@ -90,16 +90,16 @@ act_RYUUKYOKU str = JObj obj where
 
 act_DORA :: String -> JValue
 act_DORA str = JObj obj where
-    obj = 
+    obj =
         [
-            ("dora_marker", JStr hai), 
+            ("dora_marker", JStr hai),
             ("type",        JStr "dora")
         ] where
             hai = numToHai (findXMLtoInt str "hai")
 
 act_DAHAI :: String -> (Int, Int) -> JValue
 act_DAHAI str lst = JObj obj where
-    obj = 
+    obj =
         [
             ("actor",     JInt actor),
             ("pai",       JStr hai),
@@ -115,8 +115,8 @@ act_TSUMO :: String -> JValue
 act_TSUMO str = JObj obj where
     obj =
         [
-            ("actor", JInt actor), 
-            ("pai",   JStr hai), 
+            ("actor", JInt actor),
+            ("pai",   JStr hai),
             ("type",  JStr "tsumo")
         ] where
             actor = get_actor (head str)
@@ -175,7 +175,7 @@ act_INIT str = JObj obj where
             jtehais = [ JArr (getjTehai ("hai" ++ [i])) | i <- ['0' .. '3'] ] where
                 getjTehai pat = map (\i -> JStr i)  (getTehai pat) where
                     getTehai pat = getHaiList (findXMLtoIntList (findXML str pat)) where
-                        getHaiList hais = map numToHai hais 
+                        getHaiList hais = map numToHai hais
             nowKyu = (!!0) seed
             seed = findXMLtoIntList seedstr where
                 seedstr = findXML str "seed"
@@ -191,7 +191,7 @@ act_NAKI str = obj where
 
             act_CHII :: Int -> Int -> JValue
             act_CHII actor nakiRaw = JObj _obj where
-                _obj = 
+                _obj =
                     [
                         ("actor",    JInt actor),
                         ("consumed", JArr consumed),
@@ -210,10 +210,10 @@ act_NAKI str = obj where
                         tileDetail  = map (.&. 3) [shiftR nakiRaw i | i <- [3, 5, 7]]
                         consumedNum = [(tileDetail !! i) + 4 * i + base | i <- [0 .. 2], i /= called]
                         consumedHai = (tileDetail !! called) + 4 * called + base
-            
+
             act_PON :: Int -> Int -> JValue
             act_PON actor nakiRaw = JObj _obj where
-                _obj = 
+                _obj =
                     [
                         ("actor",    JInt actor),
                         ("consumed", JArr consumed),
@@ -240,27 +240,34 @@ act_NAKI str = obj where
 
             act_KAN :: Int -> Int -> JValue
             act_KAN actor nakiRaw = JObj _obj where
-                _obj = 
-                    [
-                        ("actor",    JInt actor),
-                        ("consumed", JArr consumed),
-                        ("pai",      JStr hai),
-                        ("target",   JInt target),
-                        ("type",     JStr typ)
-                    ] where
-                        consumed = map (\i -> JStr (numToHai i)) consumedNum
-                        hai      = numToHai consumedHai
-                        target   = (actor + targetR) `mod` 4
-                        typ      | target == actor = "ankan"
-                                 | otherwise       = "daiminkan"
+                _obj | typ == "ankan" =
+                        [
+                            ("actor",    JInt actor),
+                            ("consumed", JArr consumed),
+                            ("type",     JStr typ)
+                        ]
+                     | otherwise =
+                        [
+                            ("actor",    JInt actor),
+                            ("consumed", JArr consumed),
+                            ("pai",      JStr hai),
+                            ("target",   JInt target),
+                            ("type",     JStr typ)
+                        ] where
+                            consumed | typ == "ankan" = map (\i -> JStr (numToHai i)) [base + i | i <- [0 .. 3]]
+                                     | otherwise      = map (\i -> JStr (numToHai i)) consumedNum
+                            hai      = numToHai consumedHai
+                            target   = (actor + targetR) `mod` 4
+                            typ      | target == actor = "ankan"
+                                     | otherwise       = "daiminkan"
 
-                        block1  = shiftR nakiRaw 8
-                        called  = block1 `mod` 4
-                        base    = 4 * (block1 `div` 4)
-                        targetR = nakiRaw .&. 3
+                            block1  = shiftR nakiRaw 8
+                            called  = block1 `mod` 4
+                            base    = 4 * (block1 `div` 4)
+                            targetR = nakiRaw .&. 3
 
-                        consumedNum = [i + base | i <- [0 .. 3], i /= called]
-                        consumedHai = called + base
+                            consumedNum = [i + base | i <- [0 .. 3], i /= called]
+                            consumedHai = called + base
 
 act_ALL :: String -> JValue -> JValue
 act_ALL str (JArr tmp) = JArr (ret ++ tmp) where
@@ -277,7 +284,7 @@ act_ALL str (JArr tmp) = JArr (ret ++ tmp) where
 
 act_GAME :: String -> JValue
 act_GAME str = JObj obj where
-    obj = 
+    obj =
         [
             ("type",  JInt typ),
             ("lobby", JInt lobby),
