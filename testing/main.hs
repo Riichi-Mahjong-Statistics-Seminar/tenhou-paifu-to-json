@@ -155,7 +155,7 @@ act_INIT str = JObj obj where
             ("type",        JStr "start_kyoku")
         ]
     bakaze = (if nowKyu < 4 then "E" else if nowKyu < 8 then "S" else "W")
-    doraMarker = numToHai (!!5) seed
+    doraMarker = numToHai ((!!5) seed)
     honba = (!!1) seed
     kyoku = (nowKyu `mod` 4) + 1
     kyotaku = (!!2) seed
@@ -304,7 +304,7 @@ act_GAME str = JObj obj where
     game  = do_ALL (make_all(get_all str))
 
 do_ALL :: [String] -> JValue
-do_ALL xs = foldl act_ALL (0, JArr []) xs
+do_ALL xs = snd (foldl act_ALL (0, JArr []) xs)
 
 main = do
     str <- getLine
