@@ -114,11 +114,10 @@ act_TSUMO str = (num, JObj obj) where
             ("pai",   JStr hai),
             ("type",  JStr "tsumo")
         ] 
-    num   = read (tail str) :: Int
-    where
-        actor = get_actor (head str)
-        hai   = numToHai num
-        num   = read (tail str) :: Int
+    num = read (tail str) :: Int
+        where
+            actor = get_actor (head str)
+            hai   = numToHai num
 
 act_REACH :: String -> JValue
 act_REACH str = JObj obj where
