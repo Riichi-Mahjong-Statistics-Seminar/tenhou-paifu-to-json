@@ -115,8 +115,8 @@ act_TSUMO str = (num, JObj obj) where
             ("type",  JStr "tsumo")
         ] where
             actor = get_actor (head str)
-            hai   = numToHai (read (num) :: Int)
-            num   = tail str
+            hai   = numToHai num
+            num   = read (tail str) :: Int
 
 act_REACH :: String -> JValue
 act_REACH str = JObj obj where
@@ -280,8 +280,8 @@ act_ALL (lst, JArr tmp) str = (now, JArr (ret ++ tmp)) where
         | (tag == "DORA" || tag == "REACH")  = lst -- open a new dora or reach do not change last draw
         | (tag == "AGARI" || tag == "INIT" || tag == "N") = 0 -- dahai, agari, init, naki reset it
         | otherwise = 0 -- do not sure about it
-        where
-            tag = get_tag str
+
+    where tag = get_tag str
 
 act_GAME :: String -> JValue
 act_GAME str = JObj obj where
@@ -299,7 +299,7 @@ act_GAME str = JObj obj where
             jdan  = map (\i -> JInt i) dan
             rate  = findXMLtoDoubleList (findXML str "rate")
             jrate = map (\i -> JNum i) rate
-            game  = do_ALL (make_all(get_all str)) (JArr [])
+            game  = do_ALL (make_all(get_all str))
 
 do_ALL :: [String] -> JValue
 do_ALL xs = foldl act_ALL (0, JArr []) xs
