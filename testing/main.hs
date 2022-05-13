@@ -113,10 +113,12 @@ act_TSUMO str = (num, JObj obj) where
             ("actor", JInt actor),
             ("pai",   JStr hai),
             ("type",  JStr "tsumo")
-        ] where
-            actor = get_actor (head str)
-            hai   = numToHai num
-            num   = read (tail str) :: Int
+        ] 
+    num   = read (tail str) :: Int
+    where
+        actor = get_actor (head str)
+        hai   = numToHai num
+        num   = read (tail str) :: Int
 
 act_REACH :: String -> JValue
 act_REACH str = JObj obj where
@@ -281,7 +283,7 @@ act_ALL (lst, JArr tmp) str = (now, JArr (ret ++ tmp)) where
         | (tag == "AGARI" || tag == "INIT" || tag == "N") = 0 -- dahai, agari, init, naki reset it
         | otherwise = 0 -- do not sure about it
 
-        where tag = get_tag str
+    where tag = get_tag str
 
 act_GAME :: String -> JValue
 act_GAME str = JObj obj where
