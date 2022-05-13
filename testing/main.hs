@@ -69,11 +69,6 @@ make_all str = map (!!1) (drop 1 str)
 get_tag :: String -> String
 get_tag str = head ( map (!!0) (str =~ "[A-Z]*" :: [[String]]))
 
-isTsumogiri :: Int -> (Int, Int) -> Bool
-isTsumogiri now (lst1, lst2) = lstnum == now where
-    lstnum = (if lst > 0 then -1 else -lst) where
-        lst = (if (lst1 == 1004 || lst1 == 1002) then lst2 else lst1)
-
 get_actor :: Char -> Int
 get_actor 'D' = 0
 get_actor 'E' = 1
@@ -97,7 +92,7 @@ act_DORA str = JObj obj where
         ] where
             hai = numToHai (findXMLtoInt str "hai")
 
-act_DAHAI :: String -> (Int, Int) -> JValue
+act_DAHAI :: String -> Int -> JValue -- the second input means what we had drew
 act_DAHAI str lst = JObj obj where
     obj =
         [
@@ -109,10 +104,10 @@ act_DAHAI str lst = JObj obj where
             actor     = get_actor (head str)
             hai       = numToHai num
             num       = read (tail str) :: Int
-            tsumogiri = isTsumogiri num lst
+            tsumogiri = lst == num
 
-act_TSUMO :: String -> JValue
-act_TSUMO str = JObj obj where
+act_TSUMO :: String -> (Int, JValue) -- the first output means what to draw, we use it to judge tsumogiri
+act_TSUMO str = (num, JObj obj) where
     obj =
         [
             ("actor", JInt actor),
@@ -269,16 +264,22 @@ act_NAKI str = obj where
                             consumedNum = [i + base | i <- [0 .. 3], i /= called]
                             consumedHai = called + base
 
-act_ALL :: String -> JValue -> JValue
-act_ALL str (JArr tmp) = JArr (ret ++ tmp) where
-    ret | (tag == "D" || tag == "E" || tag == "F" || tag == "G") = [act_DAHAI str (0, 0)] -- TODO
-        | (tag == "T" || tag == "U" || tag == "V" || tag == "W") = [act_TSUMO str]
+act_ALL :: (Int, JValue) -> String -> (Int, JValue)
+act_ALL (lst, JArr tmp) str = (now, JArr (ret ++ tmp)) where
+    ret | (tag == "D" || tag == "E" || tag == "F" || tag == "G") = [act_DAHAI str lst] -- put last draw into it
+        | (tag == "T" || tag == "U" || tag == "V" || tag == "W") = [snd (act_TSUMO str)] -- snd means string
         | (tag == "DORA")  = [act_DORA str]
         | (tag == "REACH") = [act_REACH str]
         | (tag == "AGARI") = [act_AGARI str]
         | (tag == "INIT")  = [act_INIT str]
         | (tag == "N")     = [act_NAKI str]
         | otherwise = []
+
+    now | (tag == "D" || tag == "E" || tag == "F" || tag == "G") = 0
+        | (tag == "T" || tag == "U" || tag == "V" || tag == "W") = fst (act_TSUMO str) -- fst means int
+        | (tag == "DORA" || tag == "REACH")  = lst -- open a new dora or reach do not change last draw
+        | (tag == "AGARI" || tag == "INIT" || tag == "N") = 0 -- dahai, agari, init, naki reset it
+        | otherwise = 0 -- do not sure about it
         where
             tag = get_tag str
 
@@ -300,9 +301,8 @@ act_GAME str = JObj obj where
             jrate = map (\i -> JNum i) rate
             game  = do_ALL (make_all(get_all str)) (JArr [])
 
-do_ALL :: [String] -> JValue -> JValue
-do_ALL [] tmp = tmp
-do_ALL (x : xs) tmp = act_ALL x (do_ALL xs tmp)
+do_ALL :: [String] -> JValue
+do_ALL xs = foldl act_ALL (0, JArr []) xs
 
 main = do
     str <- getLine
