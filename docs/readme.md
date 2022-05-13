@@ -30,7 +30,7 @@ $ ghc -O2 --make main.hs
 ## Usage
 
 ```sh
-$ main <[Input File] >[Output File]
+$ ./main <[Input File] >[Output File]
 ```
 
 ## Format
