@@ -1,6 +1,6 @@
 module Jsondata ( 
-   JValue, 
-   jsonPrettyShow 
+   jsonPrettyShow,
+   JValue(JNum, JInt, JStr, JBol, JNul, JArr, JObj)
 ) where 
 
 import Data.List

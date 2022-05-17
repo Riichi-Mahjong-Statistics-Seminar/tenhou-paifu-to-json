@@ -1,3 +1,4 @@
+module Main where
 import Data.List
 import Data.Bits
 import System.IO 
@@ -216,7 +217,7 @@ act_NAKI str = obj where
         consumedHai = called + base
 
 act_ALL :: (Int, JValue) -> String -> (Int, JValue)
-act_ALL (lst, JArr tmp) str = (now, JArr (tmp ++ ret)) where
+act_ALL (lst, JArr tmp) str = (now, JArr(tmp ++ ret)) where
     ret | (tag == "D" || tag == "E" || tag == "F" || tag == "G") = [act_DAHAI str lst] -- put last draw into it
         | (tag == "T" || tag == "U" || tag == "V" || tag == "W") = [snd (act_TSUMO str)] -- snd means string
         | (tag == "DORA")  = [act_DORA str]
