@@ -1,39 +1,9 @@
-import Text.Regex.PCRE
 import Data.List
 import Data.Bits
 import System.IO 
-import qualified Data.Map as Map
 
-data JValue = JNum Double
-            | JInt Int
-            | JStr String
-            | JBol Bool
-            | JNul
-            | JArr [JValue]
-            | JObj [(String, JValue)]
-              deriving (Ord, Eq)
-
-instance Show JValue where
-    show = jsonPrettyShow
-
-jsonPrettyShow :: JValue -> String
-jsonPrettyShow = prettyJson 0 where
-    prettyJson level (JStr s) = (show s)
-    prettyJson level (JNum d) = (show d)
-    prettyJson level (JInt i) = (show i)
-    prettyJson level (JBol b) | b = "true" | not b = "false"
-    prettyJson level JNul = "null"
-    prettyJson level (JArr []) = "[]"
-    prettyJson level (JArr vs) = "[" ++ prettyList level prettyJson vs ++ "]"
-    prettyJson level (JObj []) = "{}"
-    prettyJson level (JObj ps) = "{" ++ prettyList level prettyPair ps ++ "}"
-
-    prettyList level pretty xs = prettyList' xs ++ "\n" ++ replicate level ' '
-        where prettyList' = intercalate "," . map ((indent++) . (pretty level'))
-              indent = "\n" ++ replicate level' ' '
-              level' = level + 4
-
-    prettyPair level (key, val) = show key ++ ": " ++ prettyJson level val
+import Jsondata
+import XMLdata
 
 numToCol :: Int -> String
 numToCol n | (n `div` 4) <  9 = "m"
@@ -47,27 +17,6 @@ numToHai n | n == 16 = "0m"
            | n == 52 = "0p"
            | n == 88 = "0s"
            | otherwise = show(numToID(n)) ++ numToCol(n)
-
-findXMLtoIntList :: String -> [Int]
-findXMLtoIntList str = map (read) (map (!!0) (str =~ ("[0-9]+") :: [[String]]))
-
-findXMLtoDoubleList :: String -> [Double]
-findXMLtoDoubleList str = map (read) (map (!!0) (str =~ ("[0-9.]+") :: [[String]]))
-
-findXMLtoInt :: String -> String -> Int
-findXMLtoInt str pattern = read (head (map (!!1) (str =~ (pattern ++ "=\"(.*?)\"") :: [[String]]))) :: Int
-
-findXML :: String -> String -> String
-findXML str pattern = head (map (!!1) (str =~ (pattern ++ "=\"(.*?)\"") :: [[String]]))
-
-get_all :: String -> [[String]]
-get_all str = (str =~ "<(.*?)/>" :: [[String]])
-
-make_all :: [[String]] -> [String]
-make_all str = map (!!1) (drop 1 str)
-
-get_tag :: String -> String
-get_tag str = head ( map (!!0) (str =~ "[A-Z]*" :: [[String]]))
 
 get_actor :: Char -> Int
 get_actor 'D' = 0
