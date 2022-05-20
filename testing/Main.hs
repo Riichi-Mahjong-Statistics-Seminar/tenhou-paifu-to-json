@@ -240,13 +240,13 @@ act_GAME str = JObj obj where
     obj =
         [
             ("type",  JInt typ),
-            ("lobby", JInt lobby),
+         -- ("lobby", JInt lobby),
             ("dan",   JArr jdan),
             ("rate",  JArr jrate),
             ("game",  game)
         ]
     typ   = findXMLtoInt str "type"
-    lobby = findXMLtoInt str "lobby"
+ -- lobby = findXMLtoInt str "lobby"
     dan   = findXMLtoIntList (findXML str "dan")
     jdan  = map (\i -> JInt i) dan
     rate  = findXMLtoDoubleList (findXML str "rate")
