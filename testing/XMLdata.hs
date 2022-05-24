@@ -4,6 +4,7 @@ module XMLdata (
     findXMLtoInt,
     findXML,
     findXMLMaybe,
+    findXMLMaybetoIntList,
     get_all,
     make_all,
     get_tag
@@ -30,7 +31,7 @@ findXMLMaybe str pattern | (null res) == True = Nothing
                          where res = map (!!1) (str =~ (pattern ++ "=\"(.*?)\"") :: [[String]])
 
 findXMLMaybetoIntList :: Maybe String -> Maybe [Int]
-findXMLMaybetoIntList Just str = Just (findXMLtoIntList str)
+findXMLMaybetoIntList (Just str) = Just (findXMLtoIntList str)
 findXMLMaybetoIntList Nothing  = Nothing
 
 get_all :: String -> [[String]]
