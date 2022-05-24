@@ -90,10 +90,47 @@ act_AGARI :: String -> JValue
 act_AGARI str = JObj obj where
     obj =
         [
-            ("actor",   JInt actor),
-            ("fromwho", JInt fromwho),
-            ("type",    JStr "agari")
+            ("honba",       JInt honba),
+            ("kyotaku",     JInt kyotaku),
+            ("hai",         JArr jhai),
+            ("machi",       JStr machi),
+            ("han",         JInt han),
+            ("hu",          JInt hu),
+            ("score",       JInt score),
+            ("yaku",        JArr jyaku),
+            ("dora_marker", JStr doraMarker),
+            ("ura_marker",  JStfr uraMarker),
+            ("actor",       JInt actor),
+            ("fromwho",     JInt fromwho),
+            ("type",        JStr "agari")
         ]
+    
+    ba      = findXMLtoIntList (findXML str "ba")
+    ten     = findXMLtoIntList (findXML str "ten")
+    yaku    = findXMLtoIntList (findXML str "yaku")
+    hai     = findXMLtoIntList (findXML str "hai")
+    yakupr  = getPair yaku where
+        getPair :: [Int] -> [(Int, Int)]
+        getPair []               = []
+        getPair (x1 : (x2 : xs)) = (x1, x2) : (getPair xs)
+    
+    honba   = (!!0) ba
+    kyotaku = (!!1) ba
+    jhai    = map (JInt . numToHai) hai
+    machi   = numToHai (findXML str "machi")
+    han     = sum (map snd yakupr)
+    hu      = (!!0) ten
+    score   = (!!1) ten
+    jyaku   = concat (map getJyaku yakupr) where
+        getJyaku :: (Int, Int) -> [JValue]
+        getJyaku (52, j) = take j (repeat (JInt 52))
+        getJyaku (53, j) = take j (repeat (JInt 53))
+        getJyaku (54, j) = take j (repeat (JInt 54))
+        getJyaku (i , j) = [JInt i]
+
+    dora_marker = numToHai (findXML str "doraHai")
+    ura_marker  = numToHai (findXML str "doraHaiUra")
+
     actor   = findXMLtoInt str "who"
     fromwho = findXMLtoInt str "fromWho"
 
@@ -128,8 +165,7 @@ act_INIT str = JObj obj where
 
     jtehais = [JArr (getjTehai ("hai" ++ [i])) | i <- ['0' .. '3']] where
         getjTehai pat = map JStr (getTehai pat) where
-            getTehai pat = getHaiList (findXMLtoIntList (findXML str pat)) where
-                getHaiList hais = map numToHai hais
+            getTehai pat = map numToHai (findXMLtoIntList (findXML str pat))
 
     nowKyu = (!!0) seed
     seed = findXMLtoIntList seedstr where

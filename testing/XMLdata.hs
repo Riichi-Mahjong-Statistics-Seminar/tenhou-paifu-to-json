@@ -29,6 +29,10 @@ findXMLMaybe str pattern | (null res) == True = Nothing
                          | otherwise          = Just (head res)
                          where res = map (!!1) (str =~ (pattern ++ "=\"(.*?)\"") :: [[String]])
 
+findXMLMaybetoIntList :: Maybe String -> Maybe [Int]
+findXMLMaybetoIntList Just str = Just (findXMLtoIntList str)
+findXMLMaybetoIntList Nothing  = Nothing
+
 get_all :: String -> [[String]]
 get_all str = (str =~ "<(.*?)/>" :: [[String]])
 
