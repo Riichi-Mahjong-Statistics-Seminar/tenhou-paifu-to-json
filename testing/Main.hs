@@ -93,6 +93,7 @@ act_AGARI str = JObj obj where
             ("honba",       JInt honba),
             ("kyotaku",     JInt kyotaku),
             ("hai",         JArr jhai),
+            ("naki",             jnaki)
             ("machi",       JStr machi),
             ("han",         JInt han),
             ("hu",          JInt hu),
@@ -114,6 +115,9 @@ act_AGARI str = JObj obj where
                 yakuman  = findXMLtoIntList (findXML str "yakuman")
 
     hai     = findXMLtoIntList (findXML str "hai")
+    naki    = findXMLMaybetoIntList (findXMLMaybe str "m")
+    jnaki   | naki == Nothing = JNul
+            | otherwise       = JArr (map (act_NAKI actor) naki)
     yakupr  = getPair yaku where
         getPair :: [Int] -> [(Int, Int)]
         getPair []               = []
@@ -140,6 +144,88 @@ act_AGARI str = JObj obj where
 
     actor   = findXMLtoInt str "who"
     fromwho = findXMLtoInt str "fromWho"
+
+    act_NAKI :: Int -> Int -> JValue
+    act_NAKI actor nakiRaw = obj where
+    obj | (nakiRaw .&.  4) /= 0 = act_CHII actor nakiRaw
+        | (nakiRaw .&. 24) /= 0 = act_PON  actor nakiRaw -- also shouminkan
+        | otherwise             = act_KAN  actor nakiRaw -- daiminkan or ankan
+
+    act_CHII :: Int -> Int -> JValue
+    act_CHII actor nakiRaw = JObj obj' where
+        obj' =
+            [
+                ("consumed", JArr consumed),
+                ("pai",      JStr hai),
+                ("target",   JInt target),
+                ("type",     JStr "chii")
+            ]
+        consumed = map (JStr . numToHai) consumedNum
+        hai      = numToHai consumedHai
+        target   = (actor + 3) `mod` 4
+
+        block1 = shiftR nakiRaw 10
+        called = block1 `mod` 3
+        base   = (block1 `div` 21) * 8 + (block1 `div` 3) * 4
+
+        tileDetail  = map (.&. 3) [shiftR nakiRaw i | i <- [3, 5, 7]]
+        consumedNum = [(tileDetail !! i) + 4 * i + base | i <- [0 .. 2], i /= called]
+        consumedHai = (tileDetail !! called) + 4 * called + base
+
+    act_PON :: Int -> Int -> JValue
+    act_PON actor nakiRaw = JObj obj' where
+        obj' =
+            [
+                ("consumed", JArr consumed),
+                ("pai",      JStr hai),
+                ("target",   JInt target),
+                ("type",     JStr typ)
+            ]
+        consumed = map (JStr . numToHai) consumedNum
+        hai      = numToHai consumedHai
+        target   = (actor + targetR) `mod` 4
+        typ      | ((shiftR nakiRaw 3) .&. 1) /= 0 = "pon"
+                 | otherwise                       = "kakan"
+
+        block1  = shiftR nakiRaw 9
+        called  = block1 `mod` 3
+        base    = 4 * (block1 `div` 3)
+        tile4th = (shiftR nakiRaw 5) .&. 3
+        targetR = nakiRaw .&. 3
+
+        ponTile     = [i + base | i <- [0 .. 3], i /= tile4th]
+        consumedNum = [(ponTile !! i) | i <- [0 .. 2], i /= called]
+        consumedHai | typ == "pon" = ponTile !! called
+                    | otherwise    = tile4th + base
+
+    act_KAN :: Int -> Int -> JValue
+    act_KAN actor nakiRaw = JObj obj' where
+        obj' | typ == "ankan" =
+            [
+                ("consumed", JArr consumed),
+                ("type",     JStr typ)
+            ]
+             | otherwise =
+            [
+                ("consumed", JArr consumed),
+                ("pai",      JStr hai),
+                ("target",   JInt target),
+                ("type",     JStr typ)
+            ]
+        consumed | typ == "ankan" = map (JStr . numToHai) [base + i | i <- [0 .. 3]]
+                 | otherwise      = map (JStr . numToHai) consumedNum
+        hai      = numToHai consumedHai
+        target   = (actor + targetR) `mod` 4
+        typ      | target == actor = "ankan"
+                 | otherwise       = "daiminkan"
+
+        block1  = shiftR nakiRaw 8
+        called  = block1 `mod` 4
+        base    = 4 * (block1 `div` 4)
+        targetR = nakiRaw .&. 3
+
+        consumedNum = [i + base | i <- [0 .. 3], i /= called]
+        consumedHai = called + base
 
 act_INIT :: String -> JValue
 act_INIT str = JObj obj where
