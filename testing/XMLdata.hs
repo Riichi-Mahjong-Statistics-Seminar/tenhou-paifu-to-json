@@ -26,7 +26,7 @@ findXML str pattern = head (map (!!1) (str =~ (pattern ++ "=\"(.*?)\"") :: [[Str
 
 findXMLMaybe :: String -> String -> Maybe String
 findXMLMaybe str pattern | (null res) == True = Nothing
-                         | otherwise          = Just (read (head res))
+                         | otherwise          = Just (head res)
                          where res = map (!!1) (str =~ (pattern ++ "=\"(.*?)\"") :: [[String]])
 
 get_all :: String -> [[String]]
