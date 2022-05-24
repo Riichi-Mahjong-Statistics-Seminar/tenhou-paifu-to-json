@@ -36,7 +36,7 @@ findXMLMaybetoInt :: String -> String -> Maybe Int
 findXMLMaybetoInt str pattern | res == Nothing = Nothing
                               | otherwise      = Just (read jres :: Int)
                               where res  = findXMLMaybe str pattern 
-                                    jres = (fromMaybe "" res)
+                                    jres = fromJust res
 
 findXMLMaybetoIntList :: Maybe String -> Maybe [Int]
 findXMLMaybetoIntList (Just str) = Just (findXMLtoIntList str)

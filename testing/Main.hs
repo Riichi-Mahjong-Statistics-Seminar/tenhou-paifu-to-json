@@ -130,7 +130,7 @@ act_AGARI str = JObj obj where
 
     doraMarker = numToHai (findXMLtoInt str "doraHai")
     uraMarker  | doraHaiUra == Nothing = JNul 
-               | otherwise             = JStr (numToHai doraHaiUra)
+               | otherwise             = JStr (numToHai (fromJust doraHaiUra))
                where doraHaiUra = findXMLMaybetoInt str "doraHaiUra"
 
     actor   = findXMLtoInt str "who"
