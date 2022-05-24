@@ -389,7 +389,7 @@ act_GAME str = JObj obj where
     rate  = findXMLtoDoubleList (findXML str "rate")
     jrate = map JNum rate
     game  = do_ALL (make_all(get_all str))
-    owari = map (JInt . round) [xs !! i*2 | i <- [0 .. 3]]
+    owari = map (JInt . round) [xs !! (i*2) | i <- [0 .. 3]]
     xs    = findXMLtoDoubleList (findXML str "owari")
     
 
