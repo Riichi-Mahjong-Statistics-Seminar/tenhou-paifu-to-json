@@ -250,7 +250,7 @@ act_GAME str = JObj obj where
          -- ("lobby", JInt lobby),
             ("dan",   JArr jdan),
             ("rate",  JArr jrate),
-            ("game",  game)
+            ("game",  game),
             ("owari", JArr owari)
         ]
     typ   = findXMLtoInt str "type"

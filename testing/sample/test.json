@@ -4683,6 +4683,10 @@
             "tsumogiri": false
         },
         {
+            "reason": "howanpai",
+            "type": "ryuukyoku"
+        },
+        {
             "bakaze": "S",
             "dora_marker": "6z",
             "honba": 1,
@@ -8219,5 +8223,11 @@
             "fromwho": 0,
             "type": "agari"
         }
+    ],
+    "owari": [
+        278,
+        -72,
+        462,
+        6
     ]
 }
