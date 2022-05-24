@@ -116,8 +116,8 @@ act_AGARI str = JObj obj where
     
     honba   = (!!0) ba
     kyotaku = (!!1) ba
-    jhai    = map (JInt . numToHai) hai
-    machi   = numToHai (findXML str "machi")
+    jhai    = map (JStr . numToHai) hai
+    machi   = numToHai (findXMLtoInt str "machi")
     han     = sum (map snd yakupr)
     hu      = (!!0) ten
     score   = (!!1) ten
@@ -128,8 +128,8 @@ act_AGARI str = JObj obj where
         getJyaku (54, j) = take j (repeat (JInt 54))
         getJyaku (i , j) = [JInt i]
 
-    dora_marker = numToHai (findXML str "doraHai")
-    ura_marker  = numToHai (findXML str "doraHaiUra")
+    doraMarker = numToHai (findXMLtoInt str "doraHai")
+    uraMarker  = numToHai (findXMLtoInt str "doraHaiUra")
 
     actor   = findXMLtoInt str "who"
     fromwho = findXMLtoInt str "fromWho"
