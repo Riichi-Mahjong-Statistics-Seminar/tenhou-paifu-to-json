@@ -99,7 +99,7 @@ act_AGARI str = JObj obj where
             ("score",       JInt score),
             ("yaku",        JArr jyaku),
             ("dora_marker", JStr doraMarker),
-            ("ura_marker",  JStfr uraMarker),
+            ("ura_marker",  JStr uraMarker),
             ("actor",       JInt actor),
             ("fromwho",     JInt fromwho),
             ("type",        JStr "agari")
