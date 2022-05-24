@@ -251,6 +251,7 @@ act_GAME str = JObj obj where
             ("dan",   JArr jdan),
             ("rate",  JArr jrate),
             ("game",  game)
+            ("owari", JArr owari)
         ]
     typ   = findXMLtoInt str "type"
  -- lobby = findXMLtoInt str "lobby"
@@ -259,6 +260,9 @@ act_GAME str = JObj obj where
     rate  = findXMLtoDoubleList (findXML str "rate")
     jrate = map (\i -> JNum i) rate
     game  = do_ALL (make_all(get_all str))
+    owari = map (JInt . round) [xs !! i*2 | i <- [0 .. 3]]
+    xs    = findXMLtoDoubleList (findXML str "owari")
+    
 
 do_ALL :: [String] -> JValue
 do_ALL xs = snd (foldl act_ALL (0, JArr []) xs)

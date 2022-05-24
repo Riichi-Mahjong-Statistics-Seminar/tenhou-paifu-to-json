@@ -13,10 +13,10 @@ import Text.Regex.PCRE
 import Data.List
 
 findXMLtoIntList :: String -> [Int]
-findXMLtoIntList str = map (read) (map (!!0) (str =~ ("[0-9]+") :: [[String]]))
+findXMLtoIntList str = map (read) (map (!!0) (str =~ ("[0-9-]+") :: [[String]]))
 
 findXMLtoDoubleList :: String -> [Double]
-findXMLtoDoubleList str = map (read) (map (!!0) (str =~ ("[0-9.]+") :: [[String]]))
+findXMLtoDoubleList str = map (read) (map (!!0) (str =~ ("[0-9.-]+") :: [[String]]))
 
 findXMLtoInt :: String -> String -> Int
 findXMLtoInt str pattern = read (head (map (!!1) (str =~ (pattern ++ "=\"(.*?)\"") :: [[String]]))) :: Int
