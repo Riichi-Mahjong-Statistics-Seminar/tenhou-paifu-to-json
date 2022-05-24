@@ -3,6 +3,7 @@ module XMLdata (
     findXMLtoDoubleList,
     findXMLtoInt,
     findXML,
+    findXMLMaybe,
     get_all,
     make_all,
     get_tag
@@ -22,6 +23,11 @@ findXMLtoInt str pattern = read (head (map (!!1) (str =~ (pattern ++ "=\"(.*?)\"
 
 findXML :: String -> String -> String
 findXML str pattern = head (map (!!1) (str =~ (pattern ++ "=\"(.*?)\"") :: [[String]]))
+
+findXMLMaybe :: String -> String -> Maybe String
+findXMLMaybe str pattern | (null res) == True = Nothing
+                         | otherwise          = Just (read (head res))
+                         where res = map (!!1) (str =~ (pattern ++ "=\"(.*?)\"") :: [[String]])
 
 get_all :: String -> [[String]]
 get_all str = (str =~ "<(.*?)/>" :: [[String]])

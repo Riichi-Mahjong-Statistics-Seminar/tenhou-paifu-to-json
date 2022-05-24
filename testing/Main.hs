@@ -1,6 +1,7 @@
 module Main where
 import Data.List
 import Data.Bits
+import Data.Maybe
 import System.IO 
 
 import Jsondata
@@ -31,7 +32,13 @@ get_actor 'W' = 3
 
 act_RYUUKYOKU :: String -> JValue
 act_RYUUKYOKU str = JObj obj where
-    obj = [("type", JStr "ryuukyoku")]
+    obj =
+        [
+            ("reason", JStr reason),
+            ("type",   JStr "ryuukyoku")
+        ] where
+            reason = fromMaybe "howanpai" res
+            res    = findXMLMaybe str "type"
 
 act_DORA :: String -> JValue
 act_DORA str = JObj obj where
@@ -220,18 +227,18 @@ act_ALL :: (Int, JValue) -> String -> (Int, JValue)
 act_ALL (lst, JArr tmp) str = (now, JArr(tmp ++ ret)) where
     ret | (tag == "D" || tag == "E" || tag == "F" || tag == "G") = [act_DAHAI str lst] -- put last draw into it
         | (tag == "T" || tag == "U" || tag == "V" || tag == "W") = [snd (act_TSUMO str)] -- snd means string
-        | (tag == "DORA")  = [act_DORA str]
-        | (tag == "REACH") = [act_REACH str]
-        | (tag == "AGARI") = [act_AGARI str]
-        | (tag == "INIT")  = [act_INIT str]
-        | (tag == "N")     = [act_NAKI str]
+        | (tag == "RYUUKYOKU") = [act_RYUUKYOKU str]
+        | (tag == "DORA")      = [act_DORA str]
+        | (tag == "REACH")     = [act_REACH str]
+        | (tag == "AGARI")     = [act_AGARI str]
+        | (tag == "INIT")      = [act_INIT str]
+        | (tag == "N")         = [act_NAKI str]
         | otherwise = []
 
     now | (tag == "D" || tag == "E" || tag == "F" || tag == "G") = 0
         | (tag == "T" || tag == "U" || tag == "V" || tag == "W") = fst (act_TSUMO str) -- fst means int
         | (tag == "DORA" || tag == "REACH")  = lst -- open a new dora or reach do not change last draw
-        | (tag == "AGARI" || tag == "INIT" || tag == "N") = 0 -- dahai, agari, init, naki reset it
-        | otherwise = 0 -- do not sure about it
+        | otherwise = 0 -- or reset it
 
     tag = get_tag str
 
