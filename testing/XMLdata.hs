@@ -13,6 +13,7 @@ module XMLdata (
 
 import Text.Regex.PCRE
 import Data.List
+import Data.Maybe
 
 findXMLtoIntList :: String -> [Int]
 findXMLtoIntList str = map (read) (map (!!0) (str =~ ("[0-9-]+") :: [[String]]))
