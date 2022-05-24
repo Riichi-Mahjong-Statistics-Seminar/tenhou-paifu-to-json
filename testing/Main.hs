@@ -98,7 +98,7 @@ act_AGARI str = JObj obj where
             ("hu",          JInt hu),
             ("score",       JInt score),
             ("yaku",        JArr jyaku),
-            ("dora_marker", JStr doraMarker),
+            ("dora_marker", JArr doraMarker),
             ("ura_marker",       uraMarker),
             ("actor",       JInt actor),
             ("fromwho",     JInt fromwho),
@@ -133,10 +133,10 @@ act_AGARI str = JObj obj where
         getJyaku (54, j) = take j (repeat (JInt 54))
         getJyaku (i , j) = [JInt i]
 
-    doraMarker = numToHai (findXMLtoInt str "doraHai")
+    doraMarker = map (JInt . numToHai) (findXMLtoIntList str "doraHai")
     uraMarker  | doraHaiUra == Nothing = JNul 
-               | otherwise             = JStr (numToHai (fromJust doraHaiUra))
-               where doraHaiUra = findXMLMaybetoInt str "doraHaiUra"
+               | otherwise             = JArr (map (JInt . numToHai) (fromJust doraHaiUra))
+               where doraHaiUra = findXMLMaybetoIntList (findXMLMaybe str "doraHaiUra") 
 
     actor   = findXMLtoInt str "who"
     fromwho = findXMLtoInt str "fromWho"
