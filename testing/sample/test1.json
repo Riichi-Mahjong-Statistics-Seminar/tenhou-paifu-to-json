@@ -369,7 +369,9 @@
             "yaku": [
                 47
             ],
-            "dora_marker": "3m",
+            "dora_marker": [
+                "3m"
+            ],
             "ura_marker": null,
             "actor": 3,
             "fromwho": 2,
