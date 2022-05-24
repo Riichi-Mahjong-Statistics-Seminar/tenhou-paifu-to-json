@@ -286,4 +286,81 @@
             "actor": 1,
             "pai": "1m",
             "type": "dahai",
-            "tsumogiri": f
+            "tsumogiri": false
+        },
+        {
+            "actor": 2,
+            "pai": "3m",
+            "type": "tsumo"
+        },
+        {
+            "actor": 2,
+            "pai": "3z",
+            "type": "dahai",
+            "tsumogiri": false
+        },
+        {
+            "actor": 3,
+            "pai": "5z",
+            "type": "tsumo"
+        },
+        {
+            "actor": 3,
+            "pai": "8m",
+            "type": "dahai",
+            "tsumogiri": false
+        },
+        {
+            "actor": 0,
+            "pai": "2z",
+            "type": "tsumo"
+        },
+        {
+            "actor": 0,
+            "pai": "2z",
+            "type": "dahai",
+            "tsumogiri": true
+        },
+        {
+            "actor": 1,
+            "pai": "4p",
+            "type": "tsumo"
+        },
+        {
+            "actor": 1,
+            "pai": "1m",
+            "type": "dahai",
+            "tsumogiri": false
+        },
+        {
+            "actor": 2,
+            "pai": "1p",
+            "type": "tsumo"
+        },
+        {
+            "actor": 2,
+            "pai": "1p",
+            "type": "dahai",
+            "tsumogiri": true
+        },
+        {
+            "honba": 0,
+            "kyotaku": 0,
+            "hai": [
+                "1m",
+                "9m",
+                "1p",
+                "9p",
+                "1s",
+                "9s",
+                "1z",
+                "2z",
+                "3z",
+                "4z",
+                "5z",
+                "5z",
+                "6z",
+                "7z"
+            ],
+            "machi": "1p",
+            "han": 

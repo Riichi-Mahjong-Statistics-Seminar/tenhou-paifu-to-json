@@ -2121,4 +2121,57 @@
         },
         {
             "actor": 2,
-       
+            "pai": "6p",
+            "type": "dahai",
+            "tsumogiri": false
+        },
+        {
+            "actor": 3,
+            "pai": "8p",
+            "type": "tsumo"
+        },
+        {
+            "actor": 3,
+            "pai": "8p",
+            "type": "dahai",
+            "tsumogiri": true
+        },
+        {
+            "actor": 0,
+            "pai": "7s",
+            "type": "tsumo"
+        },
+        {
+            "actor": 0,
+            "pai": "7s",
+            "type": "dahai",
+            "tsumogiri": true
+        },
+        {
+            "actor": 1,
+            "pai": "7s",
+            "type": "tsumo"
+        },
+        {
+            "actor": 1,
+            "pai": "6p",
+            "type": "dahai",
+            "tsumogiri": false
+        },
+        {
+            "actor": 2,
+            "pai": "5m",
+            "type": "tsumo"
+        },
+        {
+            "honba": 1,
+            "kyotaku": 0,
+            "hai": [
+                "0m",
+                "5m",
+                "5m",
+                "3s",
+                "3s"
+            ],
+            "machi": "5m",
+            "han": 
