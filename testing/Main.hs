@@ -110,7 +110,7 @@ act_AGARI str = JObj obj where
     yaku    | findYaku == Nothing = yakuman
             | otherwise           = fromJust findYaku
             where
-                findYaku = findXMLtoMaybeIntList (findXMLMaybe str "yaku")
+                findYaku = findXMLMaybetoIntList (findXMLMaybe str "yaku")
                 yakuman  = findXMLtoIntList (findXML str "yakuman")
 
     hai     = findXMLtoIntList (findXML str "hai")
