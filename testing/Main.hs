@@ -117,7 +117,7 @@ act_AGARI str = JObj obj where
     hai     = findXMLtoIntList (findXML str "hai")
     naki    = findXMLMaybetoIntList (findXMLMaybe str "m")
     jnaki   | naki == Nothing = JNul
-            | otherwise       = JArr (map (act_NAKI actor) naki)
+            | otherwise       = JArr (map (act_NAKI actor) (fromJust naki))
     yakupr  = getPair yaku where
         getPair :: [Int] -> [(Int, Int)]
         getPair []               = []
@@ -147,9 +147,9 @@ act_AGARI str = JObj obj where
 
     act_NAKI :: Int -> Int -> JValue
     act_NAKI actor nakiRaw = obj' where
-    obj' | (nakiRaw .&.  4) /= 0 = act_CHII actor nakiRaw
-         | (nakiRaw .&. 24) /= 0 = act_PON  actor nakiRaw -- also shouminkan
-         | otherwise             = act_KAN  actor nakiRaw -- daiminkan or ankan
+        obj' | (nakiRaw .&.  4) /= 0 = act_CHII actor nakiRaw
+             | (nakiRaw .&. 24) /= 0 = act_PON  actor nakiRaw -- also shouminkan
+             | otherwise             = act_KAN  actor nakiRaw -- daiminkan or ankan
 
     act_CHII :: Int -> Int -> JValue
     act_CHII actor nakiRaw = JObj obj' where
