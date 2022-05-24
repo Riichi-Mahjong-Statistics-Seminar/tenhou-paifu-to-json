@@ -146,10 +146,10 @@ act_AGARI str = JObj obj where
     fromwho = findXMLtoInt str "fromWho"
 
     act_NAKI :: Int -> Int -> JValue
-    act_NAKI actor nakiRaw = obj where
-    obj | (nakiRaw .&.  4) /= 0 = act_CHII actor nakiRaw
-        | (nakiRaw .&. 24) /= 0 = act_PON  actor nakiRaw -- also shouminkan
-        | otherwise             = act_KAN  actor nakiRaw -- daiminkan or ankan
+    act_NAKI actor nakiRaw = obj' where
+    obj' | (nakiRaw .&.  4) /= 0 = act_CHII actor nakiRaw
+         | (nakiRaw .&. 24) /= 0 = act_PON  actor nakiRaw -- also shouminkan
+         | otherwise             = act_KAN  actor nakiRaw -- daiminkan or ankan
 
     act_CHII :: Int -> Int -> JValue
     act_CHII actor nakiRaw = JObj obj' where
