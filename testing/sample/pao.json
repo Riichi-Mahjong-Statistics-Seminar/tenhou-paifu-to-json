@@ -627,8 +627,12 @@
                 52,
                 54
             ],
-            "dora_marker": "6m",
-            "ura_marker": "1m",
+            "dora_marker": [
+                "6m"
+            ],
+            "ura_marker": [
+                "1m"
+            ],
             "actor": 0,
             "fromwho": 0,
             "type": "agari"
@@ -1013,8 +1017,12 @@
                 54,
                 53
             ],
-            "dora_marker": "2s",
-            "ura_marker": "3s",
+            "dora_marker": [
+                "2s"
+            ],
+            "ura_marker": [
+                "3s"
+            ],
             "actor": 3,
             "fromwho": 3,
             "type": "agari"
@@ -1484,8 +1492,12 @@
                 8,
                 54
             ],
-            "dora_marker": "8p",
-            "ura_marker": "9s",
+            "dora_marker": [
+                "8p"
+            ],
+            "ura_marker": [
+                "9s"
+            ],
             "actor": 1,
             "fromwho": 0,
             "type": "agari"
@@ -2180,7 +2192,9 @@
             "yaku": [
                 39
             ],
-            "dora_marker": "9p",
+            "dora_marker": [
+                "9p"
+            ],
             "ura_marker": null,
             "actor": 2,
             "fromwho": 2,

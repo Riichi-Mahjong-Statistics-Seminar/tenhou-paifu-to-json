@@ -825,8 +825,12 @@
                 52,
                 53
             ],
-            "dora_marker": "9p",
-            "ura_marker": "4m",
+            "dora_marker": [
+                "9p"
+            ],
+            "ura_marker": [
+                "4m"
+            ],
             "actor": 2,
             "fromwho": 1,
             "type": "agari"
@@ -1324,7 +1328,9 @@
                 52,
                 52
             ],
-            "dora_marker": "3m",
+            "dora_marker": [
+                "3m"
+            ],
             "ura_marker": null,
             "actor": 1,
             "fromwho": 2,
@@ -1860,8 +1866,12 @@
                 0,
                 52
             ],
-            "dora_marker": "2s",
-            "ura_marker": "6s",
+            "dora_marker": [
+                "2s"
+            ],
+            "ura_marker": [
+                "6s"
+            ],
             "actor": 0,
             "fromwho": 0,
             "type": "agari"
@@ -2531,7 +2541,9 @@
             "yaku": [
                 25
             ],
-            "dora_marker": "4m",
+            "dora_marker": [
+                "4m"
+            ],
             "ura_marker": null,
             "actor": 0,
             "fromwho": 3,
@@ -3284,8 +3296,12 @@
                 54,
                 54
             ],
-            "dora_marker": "6m",
-            "ura_marker": "5s",
+            "dora_marker": [
+                "6m"
+            ],
+            "ura_marker": [
+                "5s"
+            ],
             "actor": 3,
             "fromwho": 3,
             "type": "agari"
@@ -3968,8 +3984,12 @@
                 7,
                 54
             ],
-            "dora_marker": "2s",
-            "ura_marker": "4m",
+            "dora_marker": [
+                "2s"
+            ],
+            "ura_marker": [
+                "4m"
+            ],
             "actor": 1,
             "fromwho": 1,
             "type": "agari"
@@ -5386,7 +5406,9 @@
             "yaku": [
                 7
             ],
-            "dora_marker": "6z",
+            "dora_marker": [
+                "6z"
+            ],
             "ura_marker": null,
             "actor": 3,
             "fromwho": 1,
@@ -5887,7 +5909,9 @@
                 15,
                 54
             ],
-            "dora_marker": "5z",
+            "dora_marker": [
+                "5z"
+            ],
             "ura_marker": null,
             "actor": 1,
             "fromwho": 1,
@@ -6355,7 +6379,9 @@
             "yaku": [
                 20
             ],
-            "dora_marker": "7z",
+            "dora_marker": [
+                "7z"
+            ],
             "ura_marker": null,
             "actor": 3,
             "fromwho": 3,
@@ -7061,7 +7087,9 @@
                 54,
                 54
             ],
-            "dora_marker": "4z",
+            "dora_marker": [
+                "4z"
+            ],
             "ura_marker": null,
             "actor": 2,
             "fromwho": 0,
@@ -7639,7 +7667,9 @@
                 24,
                 15
             ],
-            "dora_marker": "2p",
+            "dora_marker": [
+                "2p"
+            ],
             "ura_marker": null,
             "actor": 0,
             "fromwho": 3,
@@ -8531,7 +8561,9 @@
                 20,
                 52
             ],
-            "dora_marker": "7m",
+            "dora_marker": [
+                "7m"
+            ],
             "ura_marker": null,
             "actor": 1,
             "fromwho": 0,
