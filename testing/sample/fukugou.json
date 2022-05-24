@@ -497,6 +497,7 @@
                 "6s",
                 "7s"
             ],
+            "naki": null,
             "machi": "8p",
             "han": 4,
             "hu": 30,
@@ -895,6 +896,17 @@
                 "1z",
                 "1z"
             ],
+            "naki": [
+                {
+                    "consumed": [
+                        "9m",
+                        "9m"
+                    ],
+                    "pai": "9m",
+                    "target": 3,
+                    "type": "pon"
+                }
+            ],
             "machi": "4p",
             "han": 1,
             "hu": 40,
@@ -1044,6 +1056,7 @@
                 "4s",
                 "0s"
             ],
+            "naki": null,
             "machi": "0s",
             "han": 13,
             "hu": 20,
@@ -2805,6 +2818,7 @@
                 "3z",
                 "3z"
             ],
+            "naki": null,
             "machi": "3s",
             "han": 2,
             "hu": 30,
@@ -3685,6 +3699,7 @@
                 "5z",
                 "5z"
             ],
+            "naki": null,
             "machi": "5z",
             "han": 39,
             "hu": 60,
