@@ -2174,4 +2174,23 @@
                 "3s"
             ],
             "machi": "5m",
-            "han": 
+            "han": 1,
+            "hu": 40,
+            "score": 32000,
+            "yaku": [
+                39
+            ],
+            "dora_marker": "9p",
+            "ura_marker": null,
+            "actor": 2,
+            "fromwho": 2,
+            "type": "agari"
+        }
+    ],
+    "owari": [
+        -42,
+        -104,
+        472,
+        -32
+    ]
+}

@@ -363,4 +363,23 @@
                 "7z"
             ],
             "machi": "1p",
-            "han": 
+            "han": 1,
+            "hu": 0,
+            "score": 32000,
+            "yaku": [
+                47
+            ],
+            "dora_marker": "3m",
+            "ura_marker": null,
+            "actor": 3,
+            "fromwho": 2,
+            "type": "agari"
+        }
+    ],
+    "owari": [
+        500,
+        10,
+        500,
+        -30
+    ]
+}
