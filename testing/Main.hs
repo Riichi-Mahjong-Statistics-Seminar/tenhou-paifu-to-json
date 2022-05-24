@@ -107,7 +107,7 @@ act_AGARI str = JObj obj where
     
     ba      = findXMLtoIntList (findXML str "ba")
     ten     = findXMLtoIntList (findXML str "ten")
-    yaku    | findYaku == Nothing = concatMap (\i -> [i, 1]) yakuman
+    yaku    | findYaku == Nothing = concatMap (\i -> [i, 13]) yakuman
             | otherwise           = fromJust findYaku
             where
                 findYaku = findXMLMaybetoIntList (findXMLMaybe str "yaku")
