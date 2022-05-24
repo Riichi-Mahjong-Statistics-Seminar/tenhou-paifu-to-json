@@ -133,7 +133,7 @@ act_AGARI str = JObj obj where
         getJyaku (54, j) = take j (repeat (JInt 54))
         getJyaku (i , j) = [JInt i]
 
-    doraMarker = map (JStr . numToHai) (findXMLtoIntList str "doraHai")
+    doraMarker = map (JStr . numToHai) (findXMLtoIntList (findXML str "doraHai"))
     uraMarker  | doraHaiUra == Nothing = JNul 
                | otherwise             = JArr (map (JStr . numToHai) (fromJust doraHaiUra))
                where doraHaiUra = findXMLMaybetoIntList (findXMLMaybe str "doraHaiUra") 
