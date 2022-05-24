@@ -31,10 +31,11 @@ findXMLMaybe str pattern | (null res) == True = Nothing
                          | otherwise          = Just (head res)
                          where res = map (!!1) (str =~ (pattern ++ "=\"(.*?)\"") :: [[String]])
 
-findXMLMaybetoInt :: String -> String -> Maybe [Int]
+findXMLMaybetoInt :: String -> String -> Maybe Int
 findXMLMaybetoInt str pattern | res == Nothing = Nothing
-                              | otherwise      = read res :: Int
-                              where res = findXMLMaybe str pattern 
+                              | otherwise      = Just (read jres :: Int)
+                              where res  = findXMLMaybe str pattern 
+                                    jres = (fromMaybe 0 res)
 
 findXMLMaybetoIntList :: Maybe String -> Maybe [Int]
 findXMLMaybetoIntList (Just str) = Just (findXMLtoIntList str)
