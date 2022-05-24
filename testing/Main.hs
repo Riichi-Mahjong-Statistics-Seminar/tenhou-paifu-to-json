@@ -118,7 +118,7 @@ act_INIT str = JObj obj where
     kyotaku = (!!2) seed
     oya = findXMLtoInt str "oya"
 
-    jscores = map (\i -> JInt i) scores where
+    jscores = map JInt scores where
         scores = findXMLtoIntList newstr where -- add "00" to scores
             newstr = addZero (findXML str "ten") where
                 addZero :: String -> String
@@ -127,7 +127,7 @@ act_INIT str = JObj obj where
                 addZero   x       = x ++ "00" -- add to end
 
     jtehais = [JArr (getjTehai ("hai" ++ [i])) | i <- ['0' .. '3']] where
-        getjTehai pat = map (\i -> JStr i)  (getTehai pat) where
+        getjTehai pat = map Jstr (getTehai pat) where
             getTehai pat = getHaiList (findXMLtoIntList (findXML str pat)) where
                 getHaiList hais = map numToHai hais
 
@@ -153,7 +153,7 @@ act_NAKI str = obj where
                 ("target",   JInt target),
                 ("type",     JStr "chii")
             ]
-        consumed = map (\i -> JStr (numToHai i)) consumedNum
+        consumed = map (JStr . numToHai) consumedNum
         hai      = numToHai consumedHai
         target   = (actor + 3) `mod` 4
 
@@ -175,7 +175,7 @@ act_NAKI str = obj where
                 ("target",   JInt target),
                 ("type",     JStr typ)
             ]
-        consumed = map (\i -> JStr (numToHai i)) consumedNum
+        consumed = map (JStr . numToHai) consumedNum
         hai      = numToHai consumedHai
         target   = (actor + targetR) `mod` 4
         typ      | ((shiftR nakiRaw 3) .&. 1) /= 0 = "pon"
@@ -208,8 +208,8 @@ act_NAKI str = obj where
                 ("target",   JInt target),
                 ("type",     JStr typ)
             ]
-        consumed | typ == "ankan" = map (\i -> JStr (numToHai i)) [base + i | i <- [0 .. 3]]
-                 | otherwise      = map (\i -> JStr (numToHai i)) consumedNum
+        consumed | typ == "ankan" = map (JStr . numToHai) [base + i | i <- [0 .. 3]]
+                 | otherwise      = map (JStr . numToHai) consumedNum
         hai      = numToHai consumedHai
         target   = (actor + targetR) `mod` 4
         typ      | target == actor = "ankan"
@@ -256,9 +256,9 @@ act_GAME str = JObj obj where
     typ   = findXMLtoInt str "type"
  -- lobby = findXMLtoInt str "lobby"
     dan   = findXMLtoIntList (findXML str "dan")
-    jdan  = map (\i -> JInt i) dan
+    jdan  = map JInt dan
     rate  = findXMLtoDoubleList (findXML str "rate")
-    jrate = map (\i -> JNum i) rate
+    jrate = map JNum rate
     game  = do_ALL (make_all(get_all str))
     owari = map (JInt . round) [xs !! i*2 | i <- [0 .. 3]]
     xs    = findXMLtoDoubleList (findXML str "owari")
