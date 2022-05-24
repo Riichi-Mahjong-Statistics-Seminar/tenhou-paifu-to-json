@@ -107,7 +107,12 @@ act_AGARI str = JObj obj where
     
     ba      = findXMLtoIntList (findXML str "ba")
     ten     = findXMLtoIntList (findXML str "ten")
-    yaku    = findXMLtoIntList (findXML str "yaku")
+    yaku    | findYaku == Nothing = yakuman
+            | otherwise           = fromJust findYaku
+            where
+                findYaku = findXMLtoMaybeIntList (findXMLMaybe str "yaku")
+                yakuman  = findXMLtoIntList (findXML str "yakuman")
+
     hai     = findXMLtoIntList (findXML str "hai")
     yakupr  = getPair yaku where
         getPair :: [Int] -> [(Int, Int)]
