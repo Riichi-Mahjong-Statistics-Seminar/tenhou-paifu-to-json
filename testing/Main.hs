@@ -93,7 +93,7 @@ act_AGARI str = JObj obj where
             ("honba",       JInt honba),
             ("kyotaku",     JInt kyotaku),
             ("hai",         JArr jhai),
-            ("naki",             jnaki)
+            ("naki",             jnaki),
             ("machi",       JStr machi),
             ("han",         JInt han),
             ("hu",          JInt hu),
