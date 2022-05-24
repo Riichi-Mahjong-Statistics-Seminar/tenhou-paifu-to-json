@@ -127,7 +127,7 @@ act_INIT str = JObj obj where
                 addZero   x       = x ++ "00" -- add to end
 
     jtehais = [JArr (getjTehai ("hai" ++ [i])) | i <- ['0' .. '3']] where
-        getjTehai pat = map Jstr (getTehai pat) where
+        getjTehai pat = map JStr (getTehai pat) where
             getTehai pat = getHaiList (findXMLtoIntList (findXML str pat)) where
                 getHaiList hais = map numToHai hais
 
