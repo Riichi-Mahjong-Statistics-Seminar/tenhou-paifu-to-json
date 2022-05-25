@@ -1,12 +1,21 @@
 module Main where
 import Data.List
-import Data.List.Index
 import Data.Bits
 import Data.Maybe
 import System.IO 
 
 import Jsondata
 import XMLdata
+
+deleteAt :: Int -> [a] -> [a]
+deleteAt i ls
+    | i < 0 = ls
+    | otherwise = go i ls
+    where
+        go 0 (_:xs) = xs
+        go n (x:xs) = x : go (n-1) xs
+        go _ []     = []
+-- Copy from Data.List.Index
 
 numToCol :: Int -> String
 numToCol n | (n `div` 4) <  9 = "m"
