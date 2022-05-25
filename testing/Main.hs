@@ -1,5 +1,6 @@
 module Main where
 import Data.List
+import Data.List.Index
 import Data.Bits
 import Data.Maybe
 import System.IO 
@@ -152,7 +153,7 @@ act_AGARI str = JObj obj where
 
     act_NAKI' :: Int -> Int -> JValue
     act_NAKI' actor nakiRaw = delActor (act_NAKI nakistr) where
-        nakistr = "m=\"" ++ nakiRaw ++ "\",who=\"" ++ actor ++ "\""
+        nakistr = "m=\"" ++ show(nakiRaw) ++ "\",who=\"" ++ show(actor) ++ "\""
         delActor :: JValue -> JValue
         delActor (JObj obj) = JObj (deleteAt 0 obj)
 
