@@ -315,14 +315,16 @@ act_GAME str = JObj obj where
     obj =
         [
             ("type",  JInt typ),
-         -- ("lobby", JInt lobby),
+            ("lobby",      lobby),
             ("dan",   JArr jdan),
             ("rate",  JArr jrate),
-            ("game",  game),
+            ("game",       game),
             ("owari", JArr owari)
         ]
     typ   = findXMLtoInt str "type"
- -- lobby = findXMLtoInt str "lobby"
+    lobby | findLobby == Nothing = JNul
+          | otherwise            = JInt (fromJust lobby)
+            where findLobby = findXMLMaybetoInt str "lobby"
     dan   = findXMLtoIntList (findXML str "dan")
     jdan  = map JInt dan
     rate  = findXMLtoDoubleList (findXML str "rate")
@@ -330,7 +332,6 @@ act_GAME str = JObj obj where
     game  = do_ALL (make_all(get_all str))
     owari = map (JInt . round) [xs !! (i*2) | i <- [0 .. 3]]
     xs    = findXMLtoDoubleList (findXML str "owari")
-    
 
 do_ALL :: [String] -> JValue
 do_ALL xs = snd (foldl act_ALL (0, JArr []) xs)
