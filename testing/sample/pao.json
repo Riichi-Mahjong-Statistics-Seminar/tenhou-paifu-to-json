@@ -636,6 +636,7 @@
             ],
             "actor": 0,
             "fromwho": 0,
+            "paowho": null,
             "type": "agari"
         },
         {
@@ -1027,6 +1028,7 @@
             ],
             "actor": 3,
             "fromwho": 3,
+            "paowho": null,
             "type": "agari"
         },
         {
@@ -1503,6 +1505,7 @@
             ],
             "actor": 1,
             "fromwho": 0,
+            "paowho": null,
             "type": "agari"
         },
         {
@@ -2230,6 +2233,7 @@
             "ura_marker": null,
             "actor": 2,
             "fromwho": 2,
+            "paowho": 0,
             "type": "agari"
         }
     ],

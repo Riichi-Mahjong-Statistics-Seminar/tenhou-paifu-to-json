@@ -376,6 +376,7 @@
             "ura_marker": null,
             "actor": 3,
             "fromwho": 2,
+            "paowho": null,
             "type": "agari"
         }
     ],

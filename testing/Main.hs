@@ -103,6 +103,7 @@ act_AGARI str = JObj obj where
             ("ura_marker",       uraMarker),
             ("actor",       JInt actor),
             ("fromwho",     JInt fromwho),
+            ("paowho",           paowho),
             ("type",        JStr "agari")
         ]
     
@@ -141,9 +142,12 @@ act_AGARI str = JObj obj where
     uraMarker  | doraHaiUra == Nothing = JNul 
                | otherwise             = JArr (map (JStr . numToHai) (fromJust doraHaiUra))
                where doraHaiUra = findXMLMaybetoIntList (findXMLMaybe str "doraHaiUra") 
-
+   
     actor   = findXMLtoInt str "who"
     fromwho = findXMLtoInt str "fromWho"
+    paowho  | findPao == Nothing = JNul
+            | otherwise          = JInt (fromJust findPao)
+            where findPao = findXMLMaybetoInt str "paoWho"
 
     act_NAKI :: Int -> Int -> JValue
     act_NAKI actor nakiRaw = obj' where

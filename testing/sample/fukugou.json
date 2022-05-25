@@ -516,6 +516,7 @@
             ],
             "actor": 0,
             "fromwho": 0,
+            "paowho": null,
             "type": "agari"
         },
         {
@@ -920,6 +921,7 @@
             "ura_marker": null,
             "actor": 2,
             "fromwho": 0,
+            "paowho": null,
             "type": "agari"
         },
         {
@@ -1070,6 +1072,7 @@
             "ura_marker": null,
             "actor": 0,
             "fromwho": 0,
+            "paowho": null,
             "type": "agari"
         },
         {
@@ -2833,6 +2836,7 @@
             "ura_marker": null,
             "actor": 3,
             "fromwho": 2,
+            "paowho": null,
             "type": "agari"
         },
         {
@@ -3715,6 +3719,7 @@
             "ura_marker": null,
             "actor": 3,
             "fromwho": 3,
+            "paowho": null,
             "type": "agari"
         }
     ],
