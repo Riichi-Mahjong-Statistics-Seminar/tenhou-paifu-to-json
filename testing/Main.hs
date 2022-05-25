@@ -323,7 +323,7 @@ act_GAME str = JObj obj where
         ]
     typ   = findXMLtoInt str "type"
     lobby | findLobby == Nothing = JNul
-          | otherwise            = JInt (fromJust lobby)
+          | otherwise            = JInt (fromJust findLobby)
             where findLobby = findXMLMaybetoInt str "lobby"
     dan   = findXMLtoIntList (findXML str "dan")
     jdan  = map JInt dan
