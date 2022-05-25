@@ -7,16 +7,6 @@ import System.IO
 import Jsondata
 import XMLdata
 
-deleteAt :: Int -> [a] -> [a]
-deleteAt i ls
-    | i < 0 = ls
-    | otherwise = go i ls
-    where
-        go 0 (_:xs) = xs
-        go n (x:xs) = x : go (n-1) xs
-        go _ []     = []
--- Copy from Data.List.Index
-
 numToCol :: Int -> String
 numToCol n | (n `div` 4) <  9 = "m"
            | (n `div` 4) < 18 = "p"
@@ -164,7 +154,7 @@ act_AGARI str = JObj obj where
     act_NAKI' actor nakiRaw = delActor (act_NAKI nakistr) where
         nakistr = "m=\"" ++ show(nakiRaw) ++ "\",who=\"" ++ show(actor) ++ "\""
         delActor :: JValue -> JValue
-        delActor (JObj obj) = JObj (deleteAt 0 obj)
+        delActor (JObj obj) = JObj (tail obj) -- actor is always the first one
 
 act_INIT :: String -> JValue
 act_INIT str = JObj obj where
