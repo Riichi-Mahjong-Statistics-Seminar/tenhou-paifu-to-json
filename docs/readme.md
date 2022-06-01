@@ -4,16 +4,7 @@ Converting tenhou paifu (XML) to readable json.
 
 ## Install
 
-This project uses C++ or Haskell.
-
-#### To use the C++ version:
-
-```sh
-$ cmake .
-$ make
-```
-
-#### To use the Haskell version:
+This project uses Haskell.
 
 The haskell version need Regex.pcre library. You can install it by
 
@@ -32,5 +23,3 @@ $ ghc -O2 --make main.hs
 ```sh
 $ ./main <[Input File] >[Output File]
 ```
-
-## Format
