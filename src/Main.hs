@@ -246,7 +246,8 @@ act_NAKI str = obj where
         targetR = nakiRaw .&. 3
 
         ponTile     = [i + base | i <- [0 .. 3], i /= tile4th]
-        consumedNum = [(ponTile !! i) | i <- [0 .. 2], i /= called]
+        consumedNum | typ == "pon" = [(ponTile !! i) | i <- [0 .. 2], i /= called]
+                    | otherwise    = ponTile
         consumedHai | typ == "pon" = ponTile !! called
                     | otherwise    = tile4th + base
 
