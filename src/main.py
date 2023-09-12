@@ -280,6 +280,7 @@ def actAgari(dat):
         "paowho"      : paowho,
         "type"        : "agari"
     }
+    return ret
 
 def round(dat):
     assert(dat[0] [0] == "INIT")

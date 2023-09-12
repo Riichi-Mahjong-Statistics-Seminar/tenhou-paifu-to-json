@@ -442,7 +442,51 @@
                     "type": "dahai",
                     "tsumogiri": false
                 },
-                null
+                {
+                    "honba": 0,
+                    "kyotaku": 0,
+                    "hai": [
+                        "6m",
+                        "7m",
+                        "8m",
+                        "6p",
+                        "6p",
+                        "8p",
+                        "8p",
+                        "8p",
+                        "3s",
+                        "4s",
+                        "0s"
+                    ],
+                    "naki": [
+                        {
+                            "consumed": [
+                                "2m",
+                                "2m"
+                            ],
+                            "pai": "2m",
+                            "target": 0,
+                            "type": "pon"
+                        }
+                    ],
+                    "machi": "8p",
+                    "han": 3,
+                    "hu": 30,
+                    "score": 3900,
+                    "yaku": [
+                        8,
+                        52,
+                        54
+                    ],
+                    "dora_marker": [
+                        "2s"
+                    ],
+                    "ura_marker": null,
+                    "actor": 3,
+                    "fromwho": 1,
+                    "paowho": null,
+                    "type": "agari"
+                }
             ]
         },
         {
@@ -873,8 +917,95 @@
                     "type": "dahai",
                     "tsumogiri": false
                 },
-                null,
-                null
+                {
+                    "honba": 0,
+                    "kyotaku": 0,
+                    "hai": [
+                        "6m",
+                        "7m",
+                        "8m",
+                        "6p",
+                        "6p",
+                        "8p",
+                        "8p",
+                        "8p",
+                        "3s",
+                        "4s",
+                        "0s"
+                    ],
+                    "naki": [
+                        {
+                            "consumed": [
+                                "2m",
+                                "2m"
+                            ],
+                            "pai": "2m",
+                            "target": 0,
+                            "type": "pon"
+                        }
+                    ],
+                    "machi": "8p",
+                    "han": 3,
+                    "hu": 30,
+                    "score": 3900,
+                    "yaku": [
+                        8,
+                        52,
+                        54
+                    ],
+                    "dora_marker": [
+                        "2s"
+                    ],
+                    "ura_marker": null,
+                    "actor": 3,
+                    "fromwho": 1,
+                    "paowho": null,
+                    "type": "agari"
+                },
+                {
+                    "honba": 0,
+                    "kyotaku": 0,
+                    "hai": [
+                        "6m",
+                        "6m",
+                        "3p",
+                        "4p",
+                        "5p",
+                        "7p",
+                        "8p",
+                        "9p",
+                        "2s",
+                        "3s",
+                        "4s"
+                    ],
+                    "naki": [
+                        {
+                            "consumed": [
+                                "5z",
+                                "5z"
+                            ],
+                            "pai": "5z",
+                            "target": 3,
+                            "type": "pon"
+                        }
+                    ],
+                    "machi": "8p",
+                    "han": 2,
+                    "hu": 30,
+                    "score": 2900,
+                    "yaku": [
+                        18,
+                        52
+                    ],
+                    "dora_marker": [
+                        "2s"
+                    ],
+                    "ura_marker": null,
+                    "actor": 0,
+                    "fromwho": 1,
+                    "paowho": null,
+                    "type": "agari"
+                }
             ]
         },
         {
@@ -3083,7 +3214,47 @@
                     "type": "dahai",
                     "tsumogiri": true
                 },
-                null
+                {
+                    "honba": 3,
+                    "kyotaku": 1,
+                    "hai": [
+                        "5m",
+                        "6m",
+                        "7m",
+                        "6p",
+                        "7p",
+                        "8p",
+                        "1s",
+                        "1s",
+                        "7s",
+                        "8s",
+                        "9s",
+                        "4z",
+                        "4z",
+                        "4z"
+                    ],
+                    "naki": null,
+                    "machi": "7m",
+                    "han": 4,
+                    "hu": 40,
+                    "score": 8000,
+                    "yaku": [
+                        1,
+                        2,
+                        13,
+                        52
+                    ],
+                    "dora_marker": [
+                        "7p"
+                    ],
+                    "ura_marker": [
+                        "9p"
+                    ],
+                    "actor": 0,
+                    "fromwho": 2,
+                    "paowho": null,
+                    "type": "agari"
+                }
             ]
         },
         {
@@ -3760,7 +3931,42 @@
                     "type": "dahai",
                     "tsumogiri": true
                 },
-                null
+                {
+                    "honba": 0,
+                    "kyotaku": 1,
+                    "hai": [
+                        "2m",
+                        "3m",
+                        "3m",
+                        "4m",
+                        "4m",
+                        "5m",
+                        "3p",
+                        "3p",
+                        "3p",
+                        "7p",
+                        "7p",
+                        "5s",
+                        "6s",
+                        "7s"
+                    ],
+                    "naki": null,
+                    "machi": "3p",
+                    "han": 1,
+                    "hu": 40,
+                    "score": 1300,
+                    "yaku": [
+                        8
+                    ],
+                    "dora_marker": [
+                        "5z"
+                    ],
+                    "ura_marker": null,
+                    "actor": 3,
+                    "fromwho": 2,
+                    "paowho": null,
+                    "type": "agari"
+                }
             ]
         },
         {
@@ -4246,7 +4452,49 @@
                     "pai": "1s",
                     "type": "tsumo"
                 },
-                null
+                {
+                    "honba": 0,
+                    "kyotaku": 0,
+                    "hai": [
+                        "6m",
+                        "7m",
+                        "8m",
+                        "2p",
+                        "3p",
+                        "4p",
+                        "5p",
+                        "5p",
+                        "1s",
+                        "2s",
+                        "3s"
+                    ],
+                    "naki": [
+                        {
+                            "consumed": [
+                                "2z",
+                                "2z"
+                            ],
+                            "pai": "2z",
+                            "target": 2,
+                            "type": "pon"
+                        }
+                    ],
+                    "machi": "1s",
+                    "han": 1,
+                    "hu": 30,
+                    "score": 1100,
+                    "yaku": [
+                        11
+                    ],
+                    "dora_marker": [
+                        "0s"
+                    ],
+                    "ura_marker": null,
+                    "actor": 0,
+                    "fromwho": 0,
+                    "paowho": null,
+                    "type": "agari"
+                }
             ]
         },
         {
@@ -4838,7 +5086,46 @@
                     "type": "dahai",
                     "tsumogiri": true
                 },
-                null
+                {
+                    "honba": 0,
+                    "kyotaku": 0,
+                    "hai": [
+                        "2m",
+                        "2m",
+                        "4m",
+                        "0m",
+                        "6m",
+                        "6p",
+                        "7p",
+                        "8p",
+                        "3s",
+                        "4s",
+                        "0s",
+                        "6s",
+                        "7s",
+                        "8s"
+                    ],
+                    "naki": null,
+                    "machi": "3s",
+                    "han": 5,
+                    "hu": 30,
+                    "score": 8000,
+                    "yaku": [
+                        7,
+                        8,
+                        52,
+                        54,
+                        54
+                    ],
+                    "dora_marker": [
+                        "7p"
+                    ],
+                    "ura_marker": null,
+                    "actor": 2,
+                    "fromwho": 1,
+                    "paowho": null,
+                    "type": "agari"
+                }
             ]
         },
         {
@@ -5629,7 +5916,48 @@
                     "pai": "6m",
                     "type": "tsumo"
                 },
-                null
+                {
+                    "honba": 0,
+                    "kyotaku": 1,
+                    "hai": [
+                        "4m",
+                        "4m",
+                        "4m",
+                        "5m",
+                        "5m",
+                        "6m",
+                        "6m",
+                        "6m",
+                        "2p",
+                        "3p",
+                        "4p",
+                        "4s",
+                        "5s",
+                        "6s"
+                    ],
+                    "naki": null,
+                    "machi": "6m",
+                    "han": 5,
+                    "hu": 30,
+                    "score": 12000,
+                    "yaku": [
+                        1,
+                        2,
+                        0,
+                        8,
+                        52
+                    ],
+                    "dora_marker": [
+                        "3s"
+                    ],
+                    "ura_marker": [
+                        "4p"
+                    ],
+                    "actor": 1,
+                    "fromwho": 1,
+                    "paowho": null,
+                    "type": "agari"
+                }
             ]
         },
         {
@@ -5926,7 +6254,47 @@
                     "pai": "6m",
                     "type": "tsumo"
                 },
-                null
+                {
+                    "honba": 1,
+                    "kyotaku": 1,
+                    "hai": [
+                        "6m",
+                        "7m",
+                        "8m",
+                        "4p",
+                        "4p",
+                        "7p",
+                        "8p",
+                        "9p",
+                        "3s",
+                        "4s",
+                        "5s",
+                        "7s",
+                        "8s",
+                        "9s"
+                    ],
+                    "naki": null,
+                    "machi": "6m",
+                    "han": 4,
+                    "hu": 20,
+                    "score": 5200,
+                    "yaku": [
+                        1,
+                        0,
+                        7,
+                        52
+                    ],
+                    "dora_marker": [
+                        "6p"
+                    ],
+                    "ura_marker": [
+                        "3m"
+                    ],
+                    "actor": 3,
+                    "fromwho": 3,
+                    "paowho": null,
+                    "type": "agari"
+                }
             ]
         },
         {
@@ -6250,7 +6618,49 @@
                     "pai": "2s",
                     "type": "tsumo"
                 },
-                null
+                {
+                    "honba": 0,
+                    "kyotaku": 1,
+                    "hai": [
+                        "2m",
+                        "2m",
+                        "4m",
+                        "5m",
+                        "6m",
+                        "6p",
+                        "7p",
+                        "8p",
+                        "2s",
+                        "2s",
+                        "3s",
+                        "3s",
+                        "4s",
+                        "4s"
+                    ],
+                    "naki": null,
+                    "machi": "2s",
+                    "han": 6,
+                    "hu": 20,
+                    "score": 18000,
+                    "yaku": [
+                        1,
+                        0,
+                        7,
+                        9,
+                        8,
+                        52
+                    ],
+                    "dora_marker": [
+                        "4m"
+                    ],
+                    "ura_marker": [
+                        "7z"
+                    ],
+                    "actor": 2,
+                    "fromwho": 2,
+                    "paowho": null,
+                    "type": "agari"
+                }
             ]
         },
         {
@@ -6988,7 +7398,57 @@
                     "pai": "1m",
                     "type": "tsumo"
                 },
-                null
+                {
+                    "honba": 1,
+                    "kyotaku": 0,
+                    "hai": [
+                        "1m",
+                        "1m",
+                        "6p",
+                        "7p",
+                        "8p",
+                        "4s",
+                        "4s",
+                        "4s"
+                    ],
+                    "naki": [
+                        {
+                            "consumed": [
+                                "7s",
+                                "8s"
+                            ],
+                            "pai": "9s",
+                            "target": 3,
+                            "type": "chii"
+                        },
+                        {
+                            "consumed": [
+                                "2z",
+                                "2z"
+                            ],
+                            "pai": "2z",
+                            "target": 3,
+                            "type": "pon"
+                        }
+                    ],
+                    "machi": "1m",
+                    "han": 3,
+                    "hu": 40,
+                    "score": 5200,
+                    "yaku": [
+                        15,
+                        52,
+                        52
+                    ],
+                    "dora_marker": [
+                        "9m"
+                    ],
+                    "ura_marker": null,
+                    "actor": 0,
+                    "fromwho": 0,
+                    "paowho": null,
+                    "type": "agari"
+                }
             ]
         },
         {

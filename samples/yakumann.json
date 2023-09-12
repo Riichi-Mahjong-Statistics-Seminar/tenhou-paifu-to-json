@@ -345,7 +345,42 @@
                     "type": "dahai",
                     "tsumogiri": true
                 },
-                null
+                {
+                    "honba": 0,
+                    "kyotaku": 0,
+                    "hai": [
+                        "1m",
+                        "9m",
+                        "1p",
+                        "9p",
+                        "1s",
+                        "9s",
+                        "1z",
+                        "2z",
+                        "3z",
+                        "4z",
+                        "5z",
+                        "5z",
+                        "6z",
+                        "7z"
+                    ],
+                    "naki": null,
+                    "machi": "1p",
+                    "han": 13,
+                    "hu": 0,
+                    "score": 32000,
+                    "yaku": [
+                        47
+                    ],
+                    "dora_marker": [
+                        "3m"
+                    ],
+                    "ura_marker": null,
+                    "actor": 3,
+                    "fromwho": 2,
+                    "paowho": null,
+                    "type": "agari"
+                }
             ]
         }
     ],
