@@ -1,6 +1,7 @@
 import xml.etree.ElementTree as ET
 import os
 import json
+import sys
 
 def numToCol(num : int):
     r = num // 4
@@ -79,7 +80,7 @@ def actRyuukyoku(dat):
     return ret
 
 def actDora(dat):
-    hai = numToHai(dat["hai"])
+    hai = numToHai(int(dat["hai"]))
     ret = {
         "dora_marker" : hai,
         "type"        : "dora"
@@ -232,7 +233,7 @@ def actAgari(dat):
     else:
         yaku = conv(dat["yakuman"])
         for i in range(len(yaku)):
-            val += 13
+            han += 13
             jyaku.append(yaku[i])
     hai = listmap(numToHai, conv(dat["hai"]))
     honba = ba[0]
@@ -315,22 +316,43 @@ def round(dat):
     # return actInit(dat[0][1])
     # return actRyuukyoku(dat[-1][1])
 
-
-data = (parse("./samples/test.xml"))
-f = open("./temp.json","w", encoding="utf-8")
+if len(sys.argv) == 3:
+    inputfile = sys.argv[1]
+    outputfile = sys.argv[2]
+else:
+    print("usage: py main.py <inputfile> <outputfile>")
+    exit()
+print(inputfile)
+os.system("pause") 
+data = (parse(inputfile))
+f = open(outputfile,"w", encoding="utf-8")
 nowRound = []
+rounds = []
+print(data)
 for i in data:
     tag = i[0]
     dict = i[1]
-    # f.write(str(i) + "\n")
-    f.write(tag + ":")
-    f.write(str(dict) + "\n")
     if(tag == "INIT"):
         nowRound = [i]
     else:
         nowRound += [i]
         if (tag in ("AGARI", "RYUUKYOKU")):
-            # f.write(str(nowRound))
-            # f.write(str(round(nowRound)) + "\n")
-            f.write(json.dumps((round(nowRound)), sort_keys=True, indent=4))
-
+            rounds.append(round(nowRound))
+type = int(data[2][1]["type"])
+if "lobby" in data[2][1]:
+    lobby = int(data[2][1]["lobby"])
+else:
+    lobby = None
+dan = conv(data[3][1]["dan"])
+rate = listmap(float, list(data[3][1]["rate"].split(",")))
+owariData = list(nowRound[-1][1]["owari"].split(","))
+owari = listmap(int,[owariData[0], owariData[2], owariData[4], owariData[6]])
+ans = {
+    "type"     : type,
+    "lobby"    : lobby,
+    "dan"      : dan,
+    "rate"     : rate,
+    "games"    : rounds,
+    "owari"    : owari
+}
+f.write(json.dumps(ans, indent=4))
