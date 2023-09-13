@@ -118,31 +118,155 @@ def actTsumo(letter, dat):
     }
     return (ret, hai)
 
+def actChii(actor, nakiRaw):
+    tileDetail = [(nakiRaw >> 3) & 3, (nakiRaw >> 5) & 3, (nakiRaw >> 7) & 3]
+    block1 = nakiRaw >> 10
+    called = block1 % 3
+    base = (block1 // 21) * 8 + (block1 // 3) * 4
+    target = (actor + 3) % 4
+    consumedHai = tileDetail[called] + 4 * called + base
+    hai = numToHai(consumedHai)
+    consumedNum = []
+    for i in range(3):
+        if(i != called):
+            consumedNum.append(tileDetail[i] + 4 * i + base)
+    consumed = listmap(numToHai, consumedNum)
+    ret = {
+        "actor"    : actor,
+        "consumed" : consumed,
+        "pai"      : hai,
+        "target"   : target,
+        "type"     : "chii"
+    }
+    return ret
+
+def actPon(actor, nakiRaw):
+    tile4th = (nakiRaw >> 5) & 3
+    targetR = nakiRaw & 3
+    block1 = nakiRaw >> 9
+    called = block1 % 3
+    base    = 4 * (block1 // 3)
+    target = (actor + targetR) % 4
+    type = "pon" if ((nakiRaw >> 3) & 1) != 0 else "kakan"
+    ponTile = []
+    for i in range(4):
+        if(i != tile4th):
+            ponTile.append(i + base)
+    if type == "pon":
+        consumedHai = ponTile[called]
+        consumedNum = []
+        for i in range(3):
+            if(i != called):
+                consumedNum.append(ponTile[i])
+    else:
+        consumedHai = tile4th + base
+        consumedNum = ponTile
+    consumed = listmap(numToHai, consumedNum)
+    hai = numToHai(consumedHai)
+    ret = {
+        "actor"    : actor,
+        "consumed" : consumed,
+        "pai"      : hai,
+        "target"   : target,
+        "type"     : type
+    }
+    return ret
+
+def actKan(actor, nakiRaw):
+    targetR = nakiRaw & 3
+    target = (actor + targetR) % 4
+    block1  = nakiRaw >> 8
+    called  = block1 % 4
+    base    = 4 * (block1 // 4)
+    consumedNum = []
+    for i in range(4):
+        if(i != called):
+            consumedNum.append(i + base)
+    consumedHai = called + base
+    hai = numToHai(consumedHai)
+    if target == actor:
+        type = "ankan"
+        consumed = listmap(numToHai, [base, base+1, base+2, base+3])
+        ret = {
+            "actor"    : actor,
+            "consumed" : consumed,
+            "type"     : type
+        }
+    else:
+        type = "daiminkan"
+        consumed = listmap(numToHai, consumedNum)
+        ret = {
+            "actor"    : actor,
+            "consumed" : consumed,
+            "pai"      : hai,
+            "target"   : target,
+            "type"     : type
+        }
+    return ret
+
+def actNaki(dat):
+    nakiRaw = int(dat["m"])
+    actor = int(dat["who"])
+    if (nakiRaw & 4) != 0:
+        return actChii(actor, nakiRaw)
+    if (nakiRaw & 24) != 0:
+        return actPon(actor, nakiRaw)
+    return actKan(actor, nakiRaw)
+
 def actAgari(dat):
+    han = 0
     ba = conv(dat["ba"])
     ten = conv(dat["ten"])
+    jyaku = []
     if "yaku" in dat:
         yaku = conv(dat["yaku"])
+        for i in range(0, len(yaku), 2):
+            nowyaku = yaku[i]
+            val = yaku[i + 1]
+            han += val
+            if(nowyaku in (52, 53, 54)):
+                for j in range(val):
+                    jyaku.append(nowyaku)
+            else:
+                jyaku.append(nowyaku)
     else:
-        yaku = listmap(lambda x:[x, 13], conv(dat["yakuman"]))
+        yaku = conv(dat["yakuman"])
+        for i in range(len(yaku)):
+            val += 13
+            jyaku.append(yaku[i])
     hai = listmap(numToHai, conv(dat["hai"]))
-    if "m" in dat:
-        naki = None # TODO 
-    else :
-        naki = None
     honba = ba[0]
     kyotaku = ba[1]
     machi = numToHai(int(dat["machi"]))
-    han = 0 # TODOc
     hu = ten[0]
     score = ten[1]
+    doraMarker = listmap(numToHai, conv(dat["doraHai"]))
+    if "doraHaiUra" in dat:
+        uraMarker = listmap(numToHai, conv(dat["doraHaiUra"]))
+    else:
+        uraMarker = None    
+    actor = int(dat["who"])
+    fromwho = int(dat["fromWho"])
+    if "paoWho" in dat:
+        paowho = int(dat["paoWho"])
+    else:
+        paowho = None
+    if "m" in dat:
+        nakiRawList = conv(dat["m"])
+        naki = []
+        for nakiRaw in nakiRawList:
+            nakidat = {"m" : nakiRaw, "who" : actor}
+            temp = actNaki(nakidat)
+            temp.pop("actor")
+            naki.append(temp)
 
-    
+    else :
+        naki = None
     ret = {
         "honba"       : honba,
         "kyotaku"     : kyotaku,
         "hai"         : hai,
-        "naki"        : jnaki,
+        "naki"        : naki,
         "machi"       : machi,
         "han"         : han,
         "hu"          : hu,
@@ -159,6 +283,35 @@ def actAgari(dat):
 def round(dat):
     assert(dat[0] [0] == "INIT")
     assert(dat[-1][0] in ("AGARI", "RYUUKYOKU"))
+    roundData = actInit(dat[0][1])
+    roundGame = []
+    for i in range(1, len(dat)):
+        tag = dat[i][0]
+        dict = dat[i][1]
+        if tag in ("D", "E", "F", "G"):
+            roundGame.append(actDahai(tag[0], dict, lst))
+            lst = 0
+        if tag in ("T", "U", "V", "W"):
+            roundGame.append(actTsumo(tag[0], dict)[0])
+            lst = actTsumo(tag[0], dict)[1]
+        if tag == "RYUUKYOKU":
+            roundGame.append(actRyuukyoku(dict))
+            lst = 0
+        if tag == "DORA":
+            roundGame.append(actDora(dict))
+        if tag == "REACH":
+            roundGame.append(actReach(dict))
+        if tag == "AGARI":
+            roundGame.append(actAgari(dict))
+            lst = 0
+        if tag == "N":
+            roundGame.append(actNaki(dict))
+            lst = 0
+    ret = {
+        "data" : roundData,
+        "game" : roundGame
+    }
+    return ret
     # return actInit(dat[0][1])
     # return actRyuukyoku(dat[-1][1])
 
