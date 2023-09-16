@@ -87,21 +87,23 @@ def actDora(dat):
     }
     return ret
 
-def actReach(dat):
+def actReach(dat, junme):
     actor = int(dat["who"])
     typenum = int(dat["step"])
-    type = "reach" if typenum == 1 else "reach_accepted"
+    type = "riichi" if typenum == 1 else "riichi_accepted"
     ret = {
+        "junme" : junme[actor],
         "actor" : actor,
         "type" : type
     }
     return ret
 
-def actDahai(letter, dat, lstdraw):
+def actDahai(letter, dat, lstdraw, junme):
     actor = getActor(letter)
     hai = numToHai(int(dat["hai"]))
     tsumogiri = (lstdraw == hai)
     ret = {
+        "junme"     : junme[actor],
         "actor"     : actor,
         "pai"       : hai,
         "type"      : "dahai",
@@ -109,17 +111,19 @@ def actDahai(letter, dat, lstdraw):
     }
     return ret
 
-def actTsumo(letter, dat):
+def actTsumo(letter, dat, junme):
     actor = getActor(letter)
+    junme[actor] += 1
     hai = numToHai(int(dat["hai"]))
     ret = {
+        "junme"     : junme[actor],
         "actor"     : actor,
         "pai"       : hai,
         "type"      : "tsumo",
     }
     return (ret, hai)
 
-def actChii(actor, nakiRaw):
+def actChii(actor, nakiRaw, junme):
     tileDetail = [(nakiRaw >> 3) & 3, (nakiRaw >> 5) & 3, (nakiRaw >> 7) & 3]
     block1 = nakiRaw >> 10
     called = block1 % 3
@@ -133,6 +137,7 @@ def actChii(actor, nakiRaw):
             consumedNum.append(tileDetail[i] + 4 * i + base)
     consumed = listmap(numToHai, consumedNum)
     ret = {
+        "junme"    : junme[actor],
         "actor"    : actor,
         "consumed" : consumed,
         "pai"      : hai,
@@ -141,7 +146,7 @@ def actChii(actor, nakiRaw):
     }
     return ret
 
-def actPon(actor, nakiRaw):
+def actPon(actor, nakiRaw, junme):
     tile4th = (nakiRaw >> 5) & 3
     targetR = nakiRaw & 3
     block1 = nakiRaw >> 9
@@ -165,6 +170,7 @@ def actPon(actor, nakiRaw):
     consumed = listmap(numToHai, consumedNum)
     hai = numToHai(consumedHai)
     ret = {
+        "junme"    : junme[actor],
         "actor"    : actor,
         "consumed" : consumed,
         "pai"      : hai,
@@ -173,7 +179,7 @@ def actPon(actor, nakiRaw):
     }
     return ret
 
-def actKan(actor, nakiRaw):
+def actKan(actor, nakiRaw, junme):
     targetR = nakiRaw & 3
     target = (actor + targetR) % 4
     block1  = nakiRaw >> 8
@@ -189,6 +195,7 @@ def actKan(actor, nakiRaw):
         type = "ankan"
         consumed = listmap(numToHai, [base, base+1, base+2, base+3])
         ret = {
+            "junme"    : junme[actor],
             "actor"    : actor,
             "consumed" : consumed,
             "type"     : type
@@ -197,6 +204,7 @@ def actKan(actor, nakiRaw):
         type = "daiminkan"
         consumed = listmap(numToHai, consumedNum)
         ret = {
+            "junme"    : junme[actor],
             "actor"    : actor,
             "consumed" : consumed,
             "pai"      : hai,
@@ -205,16 +213,17 @@ def actKan(actor, nakiRaw):
         }
     return ret
 
-def actNaki(dat):
+def actNaki(dat, junme, flag):
     nakiRaw = int(dat["m"])
     actor = int(dat["who"])
+    junme[actor] += flag
     if (nakiRaw & 4) != 0:
-        return actChii(actor, nakiRaw)
+        return actChii(actor, nakiRaw, junme)
     if (nakiRaw & 24) != 0:
-        return actPon(actor, nakiRaw)
-    return actKan(actor, nakiRaw)
+        return actPon(actor, nakiRaw, junme)
+    return actKan(actor, nakiRaw, junme)
 
-def actAgari(dat):
+def actAgari(dat, junme):
     han = 0
     ba = conv(dat["ba"])
     ten = conv(dat["ten"])
@@ -257,7 +266,7 @@ def actAgari(dat):
         naki = []
         for nakiRaw in nakiRawList:
             nakidat = {"m" : nakiRaw, "who" : actor}
-            temp = actNaki(nakidat)
+            temp = actNaki(nakidat, junme, 0)
             temp.pop("actor")
             naki.append(temp)
 
@@ -266,6 +275,7 @@ def actAgari(dat):
     ret = {
         "honba"       : honba,
         "kyotaku"     : kyotaku,
+        "junme"       : junme[actor],
         "hai"         : hai,
         "naki"        : naki,
         "machi"       : machi,
@@ -287,27 +297,29 @@ def round(dat):
     assert(dat[-1][0] in ("AGARI", "RYUUKYOKU"))
     roundData = actInit(dat[0][1])
     roundGame = []
+    junme = [0, 0, 0, 0]
     for i in range(1, len(dat)):
         tag = dat[i][0]
         dict = dat[i][1]
         if tag in ("D", "E", "F", "G"):
-            roundGame.append(actDahai(tag[0], dict, lst))
+            roundGame.append(actDahai(tag[0], dict, lst, junme))
             lst = 0
         if tag in ("T", "U", "V", "W"):
-            roundGame.append(actTsumo(tag[0], dict)[0])
-            lst = actTsumo(tag[0], dict)[1]
+            temp = actTsumo(tag[0], dict, junme)
+            roundGame.append(temp[0])
+            lst = temp[1]
         if tag == "RYUUKYOKU":
             roundGame.append(actRyuukyoku(dict))
             lst = 0
         if tag == "DORA":
             roundGame.append(actDora(dict))
         if tag == "REACH":
-            roundGame.append(actReach(dict))
+            roundGame.append(actReach(dict, junme))
         if tag == "AGARI":
-            roundGame.append(actAgari(dict))
+            roundGame.append(actAgari(dict, junme))
             lst = 0
         if tag == "N":
-            roundGame.append(actNaki(dict))
+            roundGame.append(actNaki(dict, junme, 1))
             lst = 0
     ret = {
         "data" : roundData,

@@ -93,506 +93,599 @@
             },
             "game": [
                 {
+                    "junme": 1,
                     "actor": 0,
                     "pai": "2m",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 1,
                     "actor": 0,
                     "pai": "9s",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 1,
                     "actor": 1,
                     "pai": "0p",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 1,
                     "actor": 1,
                     "pai": "4z",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 1,
                     "actor": 2,
                     "pai": "2s",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 1,
                     "actor": 2,
                     "pai": "9p",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 1,
                     "actor": 3,
                     "pai": "9m",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 1,
                     "actor": 3,
                     "pai": "3z",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 2,
                     "actor": 0,
                     "pai": "6p",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 2,
                     "actor": 0,
                     "pai": "4z",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 2,
                     "actor": 1,
                     "pai": "1s",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 2,
                     "actor": 1,
                     "pai": "8s",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 2,
                     "actor": 2,
                     "pai": "4p",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 2,
                     "actor": 2,
                     "pai": "3m",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 2,
                     "actor": 3,
                     "pai": "7z",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 2,
                     "actor": 3,
                     "pai": "2z",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 3,
                     "actor": 0,
                     "pai": "7p",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 3,
                     "actor": 0,
                     "pai": "2z",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 3,
                     "actor": 1,
                     "pai": "7p",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 3,
                     "actor": 1,
                     "pai": "3p",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 3,
                     "actor": 2,
                     "pai": "5m",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 3,
                     "actor": 2,
                     "pai": "5m",
                     "type": "dahai",
                     "tsumogiri": true
                 },
                 {
+                    "junme": 3,
                     "actor": 3,
                     "pai": "7z",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 3,
                     "actor": 3,
                     "pai": "8s",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 4,
                     "actor": 0,
                     "pai": "7m",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 4,
                     "actor": 0,
                     "pai": "5z",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 4,
                     "actor": 1,
                     "pai": "5z",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 4,
                     "actor": 1,
                     "pai": "5z",
                     "type": "dahai",
                     "tsumogiri": true
                 },
                 {
+                    "junme": 4,
                     "actor": 2,
                     "pai": "2z",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 4,
                     "actor": 2,
                     "pai": "2z",
                     "type": "dahai",
                     "tsumogiri": true
                 },
                 {
+                    "junme": 4,
                     "actor": 3,
                     "pai": "7s",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 4,
                     "actor": 3,
                     "pai": "7s",
                     "type": "dahai",
                     "tsumogiri": true
                 },
                 {
+                    "junme": 5,
                     "actor": 0,
                     "pai": "1p",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 5,
                     "actor": 0,
                     "pai": "2s",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 5,
                     "actor": 1,
                     "pai": "2s",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 5,
                     "actor": 1,
                     "pai": "5s",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 5,
                     "actor": 2,
                     "pai": "6p",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 5,
                     "actor": 2,
-                    "type": "reach"
+                    "type": "riichi"
                 },
                 {
+                    "junme": 5,
                     "actor": 2,
                     "pai": "8s",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 5,
                     "actor": 2,
-                    "type": "reach_accepted"
+                    "type": "riichi_accepted"
                 },
                 {
+                    "junme": 5,
                     "actor": 3,
                     "pai": "3m",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 5,
                     "actor": 3,
                     "pai": "3m",
                     "type": "dahai",
                     "tsumogiri": true
                 },
                 {
+                    "junme": 6,
                     "actor": 0,
                     "pai": "5s",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 6,
                     "actor": 0,
                     "pai": "2m",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 6,
                     "actor": 1,
                     "pai": "8p",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 6,
                     "actor": 1,
                     "pai": "8m",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 6,
                     "actor": 2,
                     "pai": "1p",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 6,
                     "actor": 2,
                     "pai": "1p",
                     "type": "dahai",
                     "tsumogiri": true
                 },
                 {
+                    "junme": 6,
                     "actor": 3,
                     "pai": "5p",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 6,
                     "actor": 3,
                     "pai": "1p",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 7,
                     "actor": 0,
                     "pai": "4p",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 7,
                     "actor": 0,
                     "pai": "1p",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 7,
                     "actor": 1,
                     "pai": "7s",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 7,
                     "actor": 1,
                     "pai": "1p",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 7,
                     "actor": 2,
                     "pai": "3m",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 7,
                     "actor": 2,
                     "pai": "3m",
                     "type": "dahai",
                     "tsumogiri": true
                 },
                 {
+                    "junme": 7,
                     "actor": 3,
                     "pai": "6s",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 7,
                     "actor": 3,
                     "pai": "7z",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 8,
                     "actor": 0,
                     "pai": "6z",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 8,
                     "actor": 0,
                     "pai": "1m",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 8,
                     "actor": 1,
                     "pai": "2m",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 8,
                     "actor": 1,
                     "pai": "2m",
                     "type": "dahai",
                     "tsumogiri": true
                 },
                 {
+                    "junme": 8,
                     "actor": 2,
                     "pai": "9s",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 8,
                     "actor": 2,
                     "pai": "9s",
                     "type": "dahai",
                     "tsumogiri": true
                 },
                 {
+                    "junme": 8,
                     "actor": 3,
                     "pai": "7m",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 8,
                     "actor": 3,
                     "pai": "7z",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 9,
                     "actor": 0,
                     "pai": "0m",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 9,
                     "actor": 0,
                     "pai": "6z",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 9,
                     "actor": 1,
                     "pai": "4m",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 9,
                     "actor": 1,
                     "pai": "8m",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 9,
                     "actor": 2,
                     "pai": "9m",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 9,
                     "actor": 2,
                     "pai": "9m",
                     "type": "dahai",
                     "tsumogiri": true
                 },
                 {
+                    "junme": 9,
                     "actor": 3,
                     "pai": "9s",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 9,
                     "actor": 3,
                     "pai": "9m",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 10,
                     "actor": 0,
                     "pai": "7m",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 10,
                     "actor": 0,
                     "pai": "4m",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 10,
                     "actor": 1,
                     "pai": "1s",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 10,
                     "actor": 1,
                     "pai": "9m",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 10,
                     "actor": 2,
                     "pai": "8s",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 10,
                     "actor": 2,
                     "pai": "8s",
                     "type": "dahai",
                     "tsumogiri": true
                 },
                 {
+                    "junme": 10,
                     "actor": 3,
                     "pai": "1m",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 10,
                     "actor": 3,
                     "pai": "9m",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 11,
                     "actor": 0,
                     "pai": "8p",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 11,
                     "actor": 0,
-                    "type": "reach"
+                    "type": "riichi"
                 },
                 {
+                    "junme": 11,
                     "actor": 0,
                     "pai": "5s",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 11,
                     "actor": 0,
-                    "type": "reach_accepted"
+                    "type": "riichi_accepted"
                 },
                 {
+                    "junme": 11,
                     "actor": 1,
                     "pai": "5z",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 11,
                     "actor": 1,
                     "pai": "5z",
                     "type": "dahai",
                     "tsumogiri": true
                 },
                 {
+                    "junme": 11,
                     "actor": 2,
                     "pai": "5m",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 11,
                     "actor": 2,
                     "pai": "5m",
                     "type": "dahai",
                     "tsumogiri": true
                 },
                 {
+                    "junme": 11,
                     "actor": 3,
                     "pai": "4s",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 11,
                     "actor": 3,
                     "pai": "1m",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 12,
                     "actor": 0,
                     "pai": "9p",
                     "type": "tsumo"
@@ -600,6 +693,7 @@
                 {
                     "honba": 0,
                     "kyotaku": 2,
+                    "junme": 12,
                     "hai": [
                         "0m",
                         "6m",
@@ -722,50 +816,59 @@
             },
             "game": [
                 {
+                    "junme": 1,
                     "actor": 0,
                     "pai": "5m",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 1,
                     "actor": 0,
                     "pai": "4z",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 1,
                     "actor": 1,
                     "pai": "4m",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 1,
                     "actor": 1,
                     "pai": "3z",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 1,
                     "actor": 2,
                     "pai": "3p",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 1,
                     "actor": 2,
                     "pai": "1z",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 1,
                     "actor": 3,
                     "pai": "7p",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 1,
                     "actor": 3,
                     "pai": "7p",
                     "type": "dahai",
                     "tsumogiri": true
                 },
                 {
+                    "junme": 2,
                     "actor": 0,
                     "consumed": [
                         "8p",
@@ -776,218 +879,258 @@
                     "type": "chii"
                 },
                 {
+                    "junme": 2,
                     "actor": 0,
                     "pai": "3z",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 2,
                     "actor": 1,
                     "pai": "5m",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 2,
                     "actor": 1,
                     "pai": "1z",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 2,
                     "actor": 2,
                     "pai": "3s",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 2,
                     "actor": 2,
                     "pai": "9p",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 2,
                     "actor": 3,
                     "pai": "7z",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 2,
                     "actor": 3,
                     "pai": "7z",
                     "type": "dahai",
                     "tsumogiri": true
                 },
                 {
+                    "junme": 3,
                     "actor": 0,
                     "pai": "6z",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 3,
                     "actor": 0,
                     "pai": "6z",
                     "type": "dahai",
                     "tsumogiri": true
                 },
                 {
+                    "junme": 3,
                     "actor": 1,
                     "pai": "8m",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 3,
                     "actor": 1,
                     "pai": "8m",
                     "type": "dahai",
                     "tsumogiri": true
                 },
                 {
+                    "junme": 3,
                     "actor": 2,
                     "pai": "9p",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 3,
                     "actor": 2,
                     "pai": "9p",
                     "type": "dahai",
                     "tsumogiri": true
                 },
                 {
+                    "junme": 3,
                     "actor": 3,
                     "pai": "1z",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 3,
                     "actor": 3,
                     "pai": "1z",
                     "type": "dahai",
                     "tsumogiri": true
                 },
                 {
+                    "junme": 4,
                     "actor": 0,
                     "pai": "3z",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 4,
                     "actor": 0,
                     "pai": "3z",
                     "type": "dahai",
                     "tsumogiri": true
                 },
                 {
+                    "junme": 4,
                     "actor": 1,
                     "pai": "9m",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 4,
                     "actor": 1,
                     "pai": "9m",
                     "type": "dahai",
                     "tsumogiri": true
                 },
                 {
+                    "junme": 4,
                     "actor": 2,
                     "pai": "5s",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 4,
                     "actor": 2,
                     "pai": "1m",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 4,
                     "actor": 3,
                     "pai": "1z",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 4,
                     "actor": 3,
                     "pai": "1z",
                     "type": "dahai",
                     "tsumogiri": true
                 },
                 {
+                    "junme": 5,
                     "actor": 0,
                     "pai": "5p",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 5,
                     "actor": 0,
                     "pai": "5p",
                     "type": "dahai",
                     "tsumogiri": true
                 },
                 {
+                    "junme": 5,
                     "actor": 1,
                     "pai": "7m",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 5,
                     "actor": 1,
                     "pai": "7m",
                     "type": "dahai",
                     "tsumogiri": true
                 },
                 {
+                    "junme": 5,
                     "actor": 2,
                     "pai": "6m",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 5,
                     "actor": 2,
                     "pai": "2m",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 5,
                     "actor": 3,
                     "pai": "5s",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 5,
                     "actor": 3,
-                    "type": "reach"
+                    "type": "riichi"
                 },
                 {
+                    "junme": 5,
                     "actor": 3,
                     "pai": "0m",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 5,
                     "actor": 3,
-                    "type": "reach_accepted"
+                    "type": "riichi_accepted"
                 },
                 {
+                    "junme": 6,
                     "actor": 0,
                     "pai": "1p",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 6,
                     "actor": 0,
                     "pai": "7z",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 6,
                     "actor": 1,
                     "pai": "6p",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 6,
                     "actor": 1,
                     "pai": "2z",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 6,
                     "actor": 2,
                     "pai": "4m",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 6,
                     "actor": 2,
                     "pai": "9s",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 6,
                     "actor": 3,
                     "pai": "6p",
                     "type": "tsumo"
@@ -995,6 +1138,7 @@
                 {
                     "honba": 1,
                     "kyotaku": 1,
+                    "junme": 6,
                     "hai": [
                         "1m",
                         "1m",
@@ -1117,360 +1261,426 @@
             },
             "game": [
                 {
+                    "junme": 1,
                     "actor": 1,
                     "pai": "8s",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 1,
                     "actor": 1,
                     "pai": "4z",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 1,
                     "actor": 2,
                     "pai": "1p",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 1,
                     "actor": 2,
                     "pai": "1p",
                     "type": "dahai",
                     "tsumogiri": true
                 },
                 {
+                    "junme": 1,
                     "actor": 3,
                     "pai": "7m",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 1,
                     "actor": 3,
                     "pai": "9s",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 1,
                     "actor": 0,
                     "pai": "6p",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 1,
                     "actor": 0,
                     "pai": "2z",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 2,
                     "actor": 1,
                     "pai": "0m",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 2,
                     "actor": 1,
                     "pai": "1m",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 2,
                     "actor": 2,
                     "pai": "2p",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 2,
                     "actor": 2,
                     "pai": "2z",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 2,
                     "actor": 3,
                     "pai": "8s",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 2,
                     "actor": 3,
                     "pai": "8s",
                     "type": "dahai",
                     "tsumogiri": true
                 },
                 {
+                    "junme": 2,
                     "actor": 0,
                     "pai": "5s",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 2,
                     "actor": 0,
                     "pai": "1z",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 3,
                     "actor": 1,
                     "pai": "7p",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 3,
                     "actor": 1,
                     "pai": "3m",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 3,
                     "actor": 2,
                     "pai": "2z",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 3,
                     "actor": 2,
                     "pai": "2z",
                     "type": "dahai",
                     "tsumogiri": true
                 },
                 {
+                    "junme": 3,
                     "actor": 3,
                     "pai": "2z",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 3,
                     "actor": 3,
                     "pai": "2z",
                     "type": "dahai",
                     "tsumogiri": true
                 },
                 {
+                    "junme": 3,
                     "actor": 0,
                     "pai": "7s",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 3,
                     "actor": 0,
                     "pai": "6z",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 4,
                     "actor": 1,
                     "pai": "8p",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 4,
                     "actor": 1,
                     "pai": "0s",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 4,
                     "actor": 2,
                     "pai": "2m",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 4,
                     "actor": 2,
                     "pai": "2p",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 4,
                     "actor": 3,
                     "pai": "3p",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 4,
                     "actor": 3,
                     "pai": "4z",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 4,
                     "actor": 0,
                     "pai": "4s",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 4,
                     "actor": 0,
                     "pai": "7m",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 5,
                     "actor": 1,
                     "pai": "5m",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 5,
                     "actor": 1,
                     "pai": "3p",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 5,
                     "actor": 2,
                     "pai": "4p",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 5,
                     "actor": 2,
                     "pai": "6z",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 5,
                     "actor": 3,
                     "pai": "3p",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 5,
                     "actor": 3,
                     "pai": "1z",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 5,
                     "actor": 0,
                     "pai": "5z",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 5,
                     "actor": 0,
                     "pai": "7z",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 6,
                     "actor": 1,
                     "pai": "6s",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 6,
                     "actor": 1,
-                    "type": "reach"
+                    "type": "riichi"
                 },
                 {
+                    "junme": 6,
                     "actor": 1,
                     "pai": "7p",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 6,
                     "actor": 1,
-                    "type": "reach_accepted"
+                    "type": "riichi_accepted"
                 },
                 {
+                    "junme": 6,
                     "actor": 2,
                     "pai": "6s",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 6,
                     "actor": 2,
                     "pai": "3m",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 6,
                     "actor": 3,
                     "pai": "1m",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 6,
                     "actor": 3,
                     "pai": "1m",
                     "type": "dahai",
                     "tsumogiri": true
                 },
                 {
+                    "junme": 6,
                     "actor": 0,
                     "pai": "0p",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 6,
                     "actor": 0,
                     "pai": "5z",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 7,
                     "actor": 1,
                     "pai": "2s",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 7,
                     "actor": 1,
                     "pai": "2s",
                     "type": "dahai",
                     "tsumogiri": true
                 },
                 {
+                    "junme": 7,
                     "actor": 2,
                     "pai": "1s",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 7,
                     "actor": 2,
                     "pai": "3m",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 7,
                     "actor": 3,
                     "pai": "5z",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 7,
                     "actor": 3,
                     "pai": "3p",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 7,
                     "actor": 0,
                     "pai": "7s",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 7,
                     "actor": 0,
                     "pai": "1s",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 8,
                     "actor": 1,
                     "pai": "2p",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 8,
                     "actor": 1,
                     "pai": "2p",
                     "type": "dahai",
                     "tsumogiri": true
                 },
                 {
+                    "junme": 8,
                     "actor": 2,
                     "pai": "4s",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 8,
                     "actor": 2,
                     "pai": "1s",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 8,
                     "actor": 3,
                     "pai": "5z",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 8,
                     "actor": 3,
                     "pai": "2s",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 8,
                     "actor": 0,
                     "pai": "6m",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 8,
                     "actor": 0,
                     "pai": "6m",
                     "type": "dahai",
@@ -1479,6 +1689,7 @@
                 {
                     "honba": 0,
                     "kyotaku": 1,
+                    "junme": 8,
                     "hai": [
                         "0m",
                         "5m",
@@ -1597,17 +1808,20 @@
             },
             "game": [
                 {
+                    "junme": 1,
                     "actor": 1,
                     "pai": "9m",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 1,
                     "actor": 1,
                     "pai": "4z",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 1,
                     "actor": 0,
                     "consumed": [
                         "4z",
@@ -1618,56 +1832,66 @@
                     "type": "pon"
                 },
                 {
+                    "junme": 1,
                     "actor": 0,
                     "pai": "2z",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 2,
                     "actor": 1,
                     "pai": "1s",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 2,
                     "actor": 1,
                     "pai": "1m",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 1,
                     "actor": 2,
                     "pai": "3s",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 1,
                     "actor": 2,
                     "pai": "9s",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 1,
                     "actor": 3,
                     "pai": "9s",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 1,
                     "actor": 3,
                     "pai": "1s",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 2,
                     "actor": 0,
                     "pai": "1p",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 2,
                     "actor": 0,
                     "pai": "5z",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 2,
                     "actor": 2,
                     "consumed": [
                         "5z",
@@ -1678,23 +1902,27 @@
                     "type": "pon"
                 },
                 {
+                    "junme": 2,
                     "actor": 2,
                     "pai": "2m",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 2,
                     "actor": 3,
                     "pai": "3m",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 2,
                     "actor": 3,
                     "pai": "6z",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 3,
                     "actor": 2,
                     "consumed": [
                         "6z",
@@ -1705,67 +1933,79 @@
                     "type": "pon"
                 },
                 {
+                    "junme": 3,
                     "actor": 2,
                     "pai": "1s",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 3,
                     "actor": 3,
                     "pai": "8s",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 3,
                     "actor": 3,
                     "pai": "1z",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 3,
                     "actor": 0,
                     "pai": "2m",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 3,
                     "actor": 0,
                     "pai": "6p",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 3,
                     "actor": 1,
                     "pai": "1p",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 3,
                     "actor": 1,
                     "pai": "8s",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 4,
                     "actor": 2,
                     "pai": "4m",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 4,
                     "actor": 2,
                     "pai": "4m",
                     "type": "dahai",
                     "tsumogiri": true
                 },
                 {
+                    "junme": 4,
                     "actor": 3,
                     "pai": "7s",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 4,
                     "actor": 3,
                     "pai": "8s",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 4,
                     "actor": 0,
                     "consumed": [
                         "6s",
@@ -1776,45 +2016,53 @@
                     "type": "chii"
                 },
                 {
+                    "junme": 4,
                     "actor": 0,
                     "pai": "2m",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 4,
                     "actor": 1,
                     "pai": "3z",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 4,
                     "actor": 1,
                     "pai": "3z",
                     "type": "dahai",
                     "tsumogiri": true
                 },
                 {
+                    "junme": 5,
                     "actor": 2,
                     "pai": "2z",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 5,
                     "actor": 2,
                     "pai": "2z",
                     "type": "dahai",
                     "tsumogiri": true
                 },
                 {
+                    "junme": 5,
                     "actor": 3,
                     "pai": "8m",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 5,
                     "actor": 3,
                     "pai": "4p",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 5,
                     "actor": 0,
                     "consumed": [
                         "2p",
@@ -1825,320 +2073,378 @@
                     "type": "chii"
                 },
                 {
+                    "junme": 5,
                     "actor": 0,
                     "pai": "3z",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 5,
                     "actor": 1,
                     "pai": "3z",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 5,
                     "actor": 1,
                     "pai": "3z",
                     "type": "dahai",
                     "tsumogiri": true
                 },
                 {
+                    "junme": 6,
                     "actor": 2,
                     "pai": "3m",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 6,
                     "actor": 2,
                     "pai": "3m",
                     "type": "dahai",
                     "tsumogiri": true
                 },
                 {
+                    "junme": 6,
                     "actor": 3,
                     "pai": "7m",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 6,
                     "actor": 3,
                     "pai": "7m",
                     "type": "dahai",
                     "tsumogiri": true
                 },
                 {
+                    "junme": 6,
                     "actor": 0,
                     "pai": "1z",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 6,
                     "actor": 0,
                     "pai": "1z",
                     "type": "dahai",
                     "tsumogiri": true
                 },
                 {
+                    "junme": 6,
                     "actor": 1,
                     "pai": "3s",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 6,
                     "actor": 1,
                     "pai": "5z",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 7,
                     "actor": 2,
                     "pai": "6p",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 7,
                     "actor": 2,
                     "pai": "8p",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 7,
                     "actor": 3,
                     "pai": "5p",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 7,
                     "actor": 3,
                     "pai": "8p",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 7,
                     "actor": 0,
                     "pai": "4s",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 7,
                     "actor": 0,
                     "pai": "4s",
                     "type": "dahai",
                     "tsumogiri": true
                 },
                 {
+                    "junme": 7,
                     "actor": 1,
                     "pai": "7p",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 7,
                     "actor": 1,
                     "pai": "8p",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 8,
                     "actor": 2,
                     "pai": "1p",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 8,
                     "actor": 2,
                     "pai": "1p",
                     "type": "dahai",
                     "tsumogiri": true
                 },
                 {
+                    "junme": 8,
                     "actor": 3,
                     "pai": "5s",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 8,
                     "actor": 3,
                     "pai": "3m",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 8,
                     "actor": 0,
                     "pai": "6s",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 8,
                     "actor": 0,
                     "pai": "6s",
                     "type": "dahai",
                     "tsumogiri": true
                 },
                 {
+                    "junme": 8,
                     "actor": 1,
                     "pai": "3p",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 8,
                     "actor": 1,
                     "pai": "1s",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 9,
                     "actor": 2,
                     "pai": "2s",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 9,
                     "actor": 2,
                     "pai": "2s",
                     "type": "dahai",
                     "tsumogiri": true
                 },
                 {
+                    "junme": 9,
                     "actor": 3,
                     "pai": "4m",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 9,
                     "actor": 3,
                     "pai": "3m",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 9,
                     "actor": 0,
                     "pai": "3m",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 9,
                     "actor": 0,
                     "pai": "3m",
                     "type": "dahai",
                     "tsumogiri": true
                 },
                 {
+                    "junme": 9,
                     "actor": 1,
                     "pai": "4p",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 9,
                     "actor": 1,
                     "pai": "1p",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 10,
                     "actor": 2,
                     "pai": "2s",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 10,
                     "actor": 2,
                     "pai": "2s",
                     "type": "dahai",
                     "tsumogiri": true
                 },
                 {
+                    "junme": 10,
                     "actor": 3,
                     "pai": "4s",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 10,
                     "actor": 3,
                     "pai": "4m",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 10,
                     "actor": 0,
                     "pai": "7m",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 10,
                     "actor": 0,
                     "pai": "7m",
                     "type": "dahai",
                     "tsumogiri": true
                 },
                 {
+                    "junme": 10,
                     "actor": 1,
                     "pai": "7p",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 10,
                     "actor": 1,
                     "pai": "1s",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 11,
                     "actor": 2,
                     "pai": "6z",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 11,
                     "actor": 2,
                     "pai": "6z",
                     "type": "dahai",
                     "tsumogiri": true
                 },
                 {
+                    "junme": 11,
                     "actor": 3,
                     "pai": "4s",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 11,
                     "actor": 3,
                     "pai": "9s",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 11,
                     "actor": 0,
                     "pai": "2z",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 11,
                     "actor": 0,
                     "pai": "2z",
                     "type": "dahai",
                     "tsumogiri": true
                 },
                 {
+                    "junme": 11,
                     "actor": 1,
                     "pai": "6p",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 11,
                     "actor": 1,
                     "pai": "9m",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 12,
                     "actor": 2,
                     "pai": "7z",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 12,
                     "actor": 2,
                     "pai": "6p",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 12,
                     "actor": 3,
                     "pai": "4m",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 12,
                     "actor": 3,
                     "pai": "4m",
                     "type": "dahai",
                     "tsumogiri": true
                 },
                 {
+                    "junme": 12,
                     "actor": 0,
                     "pai": "7z",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 12,
                     "actor": 0,
                     "pai": "7z",
                     "type": "dahai",
                     "tsumogiri": true
                 },
                 {
+                    "junme": 13,
                     "actor": 2,
                     "consumed": [
                         "7z",
@@ -2149,45 +2455,53 @@
                     "type": "pon"
                 },
                 {
+                    "junme": 13,
                     "actor": 2,
                     "pai": "6p",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 13,
                     "actor": 3,
                     "pai": "8p",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 13,
                     "actor": 3,
                     "pai": "8p",
                     "type": "dahai",
                     "tsumogiri": true
                 },
                 {
+                    "junme": 13,
                     "actor": 0,
                     "pai": "7s",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 13,
                     "actor": 0,
                     "pai": "7s",
                     "type": "dahai",
                     "tsumogiri": true
                 },
                 {
+                    "junme": 12,
                     "actor": 1,
                     "pai": "7s",
                     "type": "tsumo"
                 },
                 {
+                    "junme": 12,
                     "actor": 1,
                     "pai": "6p",
                     "type": "dahai",
                     "tsumogiri": false
                 },
                 {
+                    "junme": 14,
                     "actor": 2,
                     "pai": "5m",
                     "type": "tsumo"
@@ -2195,6 +2509,7 @@
                 {
                     "honba": 1,
                     "kyotaku": 0,
+                    "junme": 14,
                     "hai": [
                         "0m",
                         "5m",
@@ -2204,6 +2519,7 @@
                     ],
                     "naki": [
                         {
+                            "junme": 14,
                             "consumed": [
                                 "7z",
                                 "7z"
@@ -2213,6 +2529,7 @@
                             "type": "pon"
                         },
                         {
+                            "junme": 14,
                             "consumed": [
                                 "6z",
                                 "6z"
@@ -2222,6 +2539,7 @@
                             "type": "pon"
                         },
                         {
+                            "junme": 14,
                             "consumed": [
                                 "5z",
                                 "5z"
