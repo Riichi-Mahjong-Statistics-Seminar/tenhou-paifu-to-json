@@ -2,24 +2,10 @@
 
 Converting tenhou paifu (XML) to readable json.
 
-## Install
-
-This project uses Haskell.
-
-The haskell version need Regex.pcre library. You can install it by
-
-```sh
-$ cabal install regex-pcre-builtin
-```
-
-Then just
-
-```sh
-$ ghc -O2 --make main.hs
-```
-
 ## Usage
 
+This project uses Python.
+
 ```sh
-$ ./main <[Input File] >[Output File]
+$ py ./main.py <Input File> <Output File>
 ```
