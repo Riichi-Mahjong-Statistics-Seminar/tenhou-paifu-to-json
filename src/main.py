@@ -335,13 +335,13 @@ if len(sys.argv) == 3:
 else:
     print("usage: py main.py <inputfile> <outputfile>")
     exit()
-print(inputfile)
+# print(inputfile)
 os.system("pause") 
 data = (parse(inputfile))
 f = open(outputfile,"w", encoding="utf-8")
 nowRound = []
 rounds = []
-print(data)
+# print(data)
 for i in data:
     tag = i[0]
     dict = i[1]
@@ -351,13 +351,12 @@ for i in data:
         nowRound += [i]
         if (tag in ("AGARI", "RYUUKYOKU")):
             rounds.append(round(nowRound))
-type = int(data[2][1]["type"])
-if "lobby" in data[2][1]:
-    lobby = int(data[2][1]["lobby"])
-else:
-    lobby = None
-dan = conv(data[3][1]["dan"])
-rate = listmap(float, list(data[3][1]["rate"].split(",")))
+dataGO = data[1][1] if data[1][0] == "GO" else data[2][1]
+dataUN = data[2][1] if data[2][0] == "UN" else data[3][1]
+type = int(dataGO["type"])
+lobby = int(dataGO["lobby"]) if("lobby" in dataGO) else None
+dan = conv(dataUN["dan"])
+rate = listmap(float, list(dataUN["rate"].split(",")))
 owariData = list(nowRound[-1][1]["owari"].split(","))
 owari = listmap(int,[owariData[0], owariData[2], owariData[4], owariData[6]])
 ans = {
