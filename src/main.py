@@ -100,8 +100,9 @@ def actReach(dat, junme):
 
 def actDahai(letter, dat, lstdraw, junme):
     actor = getActor(letter)
-    hai = numToHai(int(dat["hai"]))
-    tsumogiri = (lstdraw == hai)
+    hainum = int(dat["hai"])
+    hai = numToHai(hainum)
+    tsumogiri = (lstdraw == hainum)
     ret = {
         "junme"     : junme[actor],
         "actor"     : actor,
@@ -114,14 +115,15 @@ def actDahai(letter, dat, lstdraw, junme):
 def actTsumo(letter, dat, junme):
     actor = getActor(letter)
     junme[actor] += 1
-    hai = numToHai(int(dat["hai"]))
+    hainum = int(dat["hai"])
+    hai = numToHai(hainum)
     ret = {
         "junme"     : junme[actor],
         "actor"     : actor,
         "pai"       : hai,
         "type"      : "tsumo",
     }
-    return (ret, hai)
+    return (ret, hainum)
 
 def actChii(actor, nakiRaw, junme):
     tileDetail = [(nakiRaw >> 3) & 3, (nakiRaw >> 5) & 3, (nakiRaw >> 7) & 3]
