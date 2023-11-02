@@ -3225,7 +3225,7 @@
                     "actor": 2,
                     "pai": "3s",
                     "type": "dahai",
-                    "tsumogiri": true
+                    "tsumogiri": false
                 },
                 {
                     "honba": 1,

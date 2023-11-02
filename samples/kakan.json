@@ -4499,7 +4499,7 @@
                     "actor": 1,
                     "pai": "4s",
                     "type": "dahai",
-                    "tsumogiri": true
+                    "tsumogiri": false
                 },
                 {
                     "junme": 14,
@@ -4956,7 +4956,7 @@
                     "actor": 0,
                     "pai": "3p",
                     "type": "dahai",
-                    "tsumogiri": true
+                    "tsumogiri": false
                 },
                 {
                     "junme": 7,
@@ -5008,7 +5008,7 @@
                     "actor": 0,
                     "pai": "3p",
                     "type": "dahai",
-                    "tsumogiri": true
+                    "tsumogiri": false
                 },
                 {
                     "junme": 8,
@@ -5833,7 +5833,7 @@
                     "actor": 1,
                     "pai": "3s",
                     "type": "dahai",
-                    "tsumogiri": true
+                    "tsumogiri": false
                 },
                 {
                     "honba": 0,
@@ -8454,7 +8454,7 @@
                     "actor": 2,
                     "pai": "2s",
                     "type": "dahai",
-                    "tsumogiri": true
+                    "tsumogiri": false
                 },
                 {
                     "junme": 14,

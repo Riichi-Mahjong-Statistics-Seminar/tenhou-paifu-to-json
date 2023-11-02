@@ -2123,7 +2123,7 @@
                     "actor": 2,
                     "pai": "3p",
                     "type": "dahai",
-                    "tsumogiri": true
+                    "tsumogiri": false
                 },
                 {
                     "junme": 10,
@@ -5583,7 +5583,7 @@
                     "actor": 0,
                     "pai": "3s",
                     "type": "dahai",
-                    "tsumogiri": true
+                    "tsumogiri": false
                 },
                 {
                     "junme": 17,
@@ -7401,7 +7401,7 @@
                     "actor": 2,
                     "pai": "9s",
                     "type": "dahai",
-                    "tsumogiri": true
+                    "tsumogiri": false
                 },
                 {
                     "junme": 9,
@@ -9212,7 +9212,7 @@
                     "actor": 1,
                     "pai": "1m",
                     "type": "dahai",
-                    "tsumogiri": false
+                    "tsumogiri": true
                 },
                 {
                     "junme": 3,
