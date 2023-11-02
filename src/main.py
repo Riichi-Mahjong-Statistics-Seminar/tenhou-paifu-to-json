@@ -358,14 +358,18 @@ dataUN = data[2][1] if data[2][0] == "UN" else data[3][1]
 type = int(dataGO["type"])
 lobby = int(dataGO["lobby"]) if("lobby" in dataGO) else None
 dan = conv(dataUN["dan"])
+id = [dataUN["n0"], dataUN["n1"], dataUN["n2"], dataUN["n3"]]
+sex = list(dataUN["sx"].split(","))
 rate = listmap(float, list(dataUN["rate"].split(",")))
 owariData = list(nowRound[-1][1]["owari"].split(","))
 owari = listmap(int,[owariData[0], owariData[2], owariData[4], owariData[6]])
 ans = {
     "type"     : type,
     "lobby"    : lobby,
+    "id"       : id,
     "dan"      : dan,
     "rate"     : rate,
+    "sex"      : sex,
     "games"    : rounds,
     "owari"    : owari
 }
