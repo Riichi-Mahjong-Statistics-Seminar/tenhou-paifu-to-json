@@ -338,7 +338,6 @@ else:
     print("usage: py main.py <inputfile> <outputfile>")
     exit()
 # print(inputfile)
-os.system("pause") 
 data = (parse(inputfile))
 f = open(outputfile,"w", encoding="utf-8")
 nowRound = []

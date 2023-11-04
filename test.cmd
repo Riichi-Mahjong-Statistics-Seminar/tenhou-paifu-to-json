@@ -1,4 +1,3 @@
-
 python ./src/main.py ./samples/test.xml     ./samples/test.json
 python ./src/main.py ./samples/yakumann.xml ./samples/yakumann.json
 python ./src/main.py ./samples/pao.xml      ./samples/pao.json
